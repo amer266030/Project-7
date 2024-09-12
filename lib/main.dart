@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/screens/auth_screen.dart';
+import 'package:tuwaiq_project_pulse/services/di_container.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await DIContainer.setup();
   runApp(const MainApp());
 }
 
