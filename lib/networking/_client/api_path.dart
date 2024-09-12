@@ -1,6 +1,6 @@
 import 'network_mgr.dart';
 
-class ApiPath extends NetworkMgr {
+class ApiPath {
   static var auth = _AuthPaths();
   static var user = _UserPaths();
   static var admin = _AdminPaths();
@@ -18,9 +18,13 @@ class _AuthPaths extends NetworkMgr {
 
 class _UserPaths {
   static String prefix = '${NetworkMgr.baseUrl}/${EndPoint.user.name}';
-
+  // Profile
   final String getProfile = '$prefix/profile';
   final String editProfile = '$prefix/update/profile';
+  // User
+  String createRating({required String projectId}) =>
+      '$prefix/rating/project/$projectId';
+
   String editProjectLogo({required String projectId}) =>
       '$prefix/edit/project/logo/$projectId';
 
