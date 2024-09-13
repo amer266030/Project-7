@@ -11,12 +11,11 @@ class OtpView extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<AuthCubit>();
     final defaultPinTheme = PinTheme(
-      width: double.infinity,
       textStyle: const TextStyle(
-          fontSize: 20, color: Colors.blue, fontWeight: FW.w600),
+          fontSize: 24, color: Colors.blue, fontWeight: FW.w600),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.white60),
-        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.black54),
+        borderRadius: BorderRadius.circular(8),
       ),
     );
 
@@ -27,23 +26,38 @@ class OtpView extends StatelessWidget {
 
     final submittedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration?.copyWith(
-        color: Colors.purple,
+        color: Colors.white38,
       ),
     );
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Pinput(
-          defaultPinTheme: defaultPinTheme,
-          focusedPinTheme: focusedPinTheme,
-          submittedPinTheme: submittedPinTheme,
-          showCursor: true,
-          onCompleted: (pin) {
-            cubit.otp = int.tryParse(pin) ?? -1;
-            cubit.verifyOtp();
-          },
-        )
+        const Padding(
+            padding: EdgeInsets.symmetric(vertical: 16),
+            child:
+                Text('Please enter the verification code sent to your email')),
+        Row(
+          children: [
+            Expanded(
+              child: AspectRatio(
+                aspectRatio: 7,
+                child: Pinput(
+                  defaultPinTheme: defaultPinTheme,
+                  focusedPinTheme: focusedPinTheme,
+                  submittedPinTheme: submittedPinTheme,
+                  length: 6,
+                  showCursor: true,
+                  onCompleted: (pin) {
+                    cubit.otp = int.tryParse(pin) ?? -1;
+                    cubit.verifyOtp();
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }

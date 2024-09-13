@@ -34,7 +34,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   void showAlert(BuildContext context) {
     if (isAlertVisible) {
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
       isAlertVisible = false;
     }
     showDialog(
@@ -128,6 +128,8 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoadingState());
     try {
       await nwk.verifyOTP(email: email, otp: otp);
+      alertTitle = 'Status Code: ${nwk.response?.statusCode}';
+      alertMsg = 'Account verified. Loading home screen...';
       emit(AuthSuccessState());
     } catch (e) {
       if (e is DioException) {

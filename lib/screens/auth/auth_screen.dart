@@ -20,11 +20,15 @@ class AuthScreen extends StatelessWidget {
         final cubit = context.read<AuthCubit>();
         return BlocListener<AuthCubit, AuthState>(
           listener: (context, state) {
-            if (state is AuthLoadingState ||
-                state is AuthSuccessState ||
-                state is AuthErrorState ||
-                state is OTPState) {
+            if (state is AuthLoadingState || state is AuthErrorState) {
               cubit.showAlert(context);
+            } else if (state is AuthUpdateState) {
+              if (cubit.isAlertVisible) {
+                Navigator.of(context).pop();
+                cubit.isAlertVisible = false;
+              }
+            } else if (state is AuthSuccessState) {
+              cubit.navigateToHome(context);
             }
           },
           child: Scaffold(
