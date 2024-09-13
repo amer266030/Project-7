@@ -5,7 +5,7 @@ import '_client/network_mgr.dart';
 
 // NOT TESTED!
 
-mixin AuthApi on NetworkMgr {
+class AuthApi extends NetworkMgr {
   // POST
   Future<void> createUser({
     required String email,

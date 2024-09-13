@@ -6,7 +6,7 @@ import '_client/network_mgr.dart';
 
 // NOT TESTED!
 
-mixin SupervisorApi on NetworkMgr {
+class SupervisorApi extends NetworkMgr {
   // POST
   Future<void> createProject({
     required String userId,

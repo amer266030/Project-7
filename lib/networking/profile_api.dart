@@ -4,7 +4,7 @@ import '../model/user.dart';
 import '_client/api_path.dart';
 import '_client/network_mgr.dart';
 
-mixin ProfileApi on NetworkMgr {
+class ProfileApi extends NetworkMgr {
   Future<void> fetchProfile() async {
     var response = await dio.get(ApiPath.user.getProfile);
     if (kDebugMode) {

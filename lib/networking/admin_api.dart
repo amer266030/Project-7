@@ -5,7 +5,7 @@ import '_client/network_mgr.dart';
 
 // NOT TESTED!
 
-mixin AdminApi on NetworkMgr {
+class AdminApi extends NetworkMgr {
   // PUT
   Future<void> changeUserRole({
     required String userId,

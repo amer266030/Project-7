@@ -23,7 +23,8 @@ class CustomBtnView extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 40),
-          child: Text(title),
+          child: Text(title,
+              style: const TS(color: Colors.white, fontWeight: FW.bold)),
         ),
       ),
     );

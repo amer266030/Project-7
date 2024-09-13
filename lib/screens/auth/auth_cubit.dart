@@ -6,7 +6,7 @@ import 'package:tuwaiq_project_pulse/screens/bottom_nav_screen.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  final nwk = NetworkingApi();
+  final nwk = NetworkingApi.shared.authApi;
   AuthCubit() : super(AuthInitial());
   var isOtp = false;
   var isSignup = false;

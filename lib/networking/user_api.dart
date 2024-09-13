@@ -5,7 +5,7 @@ import 'package:tuwaiq_project_pulse/networking/_client/network_mgr.dart';
 import '../model/rating.dart';
 import '_client/api_path.dart';
 
-mixin UserApi on NetworkMgr {
+class UserApi extends NetworkMgr {
   //POST
   Future<void> createRating(
       {required String projectId, required Rating rating}) async {

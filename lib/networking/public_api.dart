@@ -6,7 +6,7 @@ import '_client/network_mgr.dart';
 // NOT TESTED!
 
 // GET
-mixin PublicApi on NetworkMgr {
+class PublicApi extends NetworkMgr {
   Future<void> getProject({
     required String projectId,
   }) async {
