@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/auth_screen.dart';
 
 import '../../managers/auth_mgr.dart';
-import '../bottom_nav_screen.dart';
+import '../bottom_nav/bottom_nav_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});

@@ -4,8 +4,8 @@ import 'package:pinput/pinput.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/auth_cubit.dart';
 import 'package:tuwaiq_project_pulse/utils/typedefs.dart';
 
-class OtpForm extends StatelessWidget {
-  const OtpForm({super.key});
+class OtpFormView extends StatelessWidget {
+  const OtpFormView({super.key});
 
   @override
   Widget build(BuildContext context) {

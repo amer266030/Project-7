@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/custom_btn_view.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/auth_cubit.dart';
-import 'package:tuwaiq_project_pulse/screens/auth/subViews/otp_form.dart';
+import 'package:tuwaiq_project_pulse/screens/auth/subViews/otp_form_view.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/subViews/sign_in_form_view.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/subViews/sign_up_form_view.dart';
 import 'package:tuwaiq_project_pulse/utils/typedefs.dart';
@@ -42,7 +42,7 @@ class AuthScreen extends StatelessWidget {
                         ),
                         Expanded(
                           child: cubit.isOtp
-                              ? const OtpForm()
+                              ? const OtpFormView()
                               : cubit.isSignup
                                   ? const SignUpFormView()
                                   : const SignInFormView(),

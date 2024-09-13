@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tuwaiq_project_pulse/managers/auth_mgr.dart';
 import 'package:tuwaiq_project_pulse/networking/_client/networking_api.dart';
-import 'package:tuwaiq_project_pulse/screens/bottom_nav_screen.dart';
+import 'package:tuwaiq_project_pulse/screens/bottom_nav/bottom_nav_screen.dart';
 
 import '../../model/auth.dart';
 import '../../reusable_components/custom_alert_dialog.dart';
