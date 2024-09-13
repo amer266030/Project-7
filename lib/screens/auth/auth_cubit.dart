@@ -36,10 +36,7 @@ class AuthCubit extends Cubit<AuthState> {
           : 'Sign In';
 
   void showAlert(BuildContext context) {
-    if (isAlertVisible) {
-      Navigator.of(context).pop();
-      isAlertVisible = false;
-    }
+    dismissPreviousAlert(context);
     showDialog(
       context: context,
       barrierDismissible: false, // Prevents dismissing by tapping outside
@@ -57,6 +54,13 @@ class AuthCubit extends Cubit<AuthState> {
     isAlertVisible = true;
   }
 
+  void dismissPreviousAlert(BuildContext context) {
+    if (isAlertVisible) {
+      Navigator.of(context).pop();
+      isAlertVisible = false;
+    }
+  }
+
   void navigateToHome(BuildContext context) =>
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const BottomNavScreen()));
@@ -71,7 +75,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthUpdateState());
   }
 
-  void clearAlert() {
+  void clearAlertFields() {
     alertTitle = '';
     alertMsg = '';
   }
@@ -80,7 +84,7 @@ class AuthCubit extends Cubit<AuthState> {
     var email = emailController.text;
     var fName = firstNameController.text;
     var lName = lastNameController.text;
-    clearAlert();
+    clearAlertFields();
     emit(AuthLoadingState());
     try {
       await nwk.createUser(email: email, firstName: fName, lastName: lName);
@@ -101,7 +105,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   void signIn() async {
     var email = emailController.text;
-    clearAlert();
+    clearAlertFields();
     emit(AuthLoadingState());
     try {
       await nwk.login(email: email);
@@ -127,7 +131,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   void verifyOtp() async {
     var email = emailController.text;
-    clearAlert();
+    clearAlertFields();
     emit(AuthLoadingState());
     try {
       await nwk.verifyOTP(email: email, otp: otp);
@@ -139,10 +143,11 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (e) {
       if (e is DioException) {
         alertTitle = 'Status Code: ${e.response?.statusCode}';
-        alertMsg = 'Error Message: ${e.message}';
+        alertMsg =
+            'There was an error verifying your PIN. Please make sure you entered it correctly';
         emit(AuthErrorState());
       } else {
-        alertTitle = '';
+        alertTitle = '!';
         alertMsg = 'Something wrong happened!, please try again later';
         emit(AuthErrorState());
       }

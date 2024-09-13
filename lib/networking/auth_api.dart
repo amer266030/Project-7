@@ -22,7 +22,6 @@ class AuthApi extends NetworkMgr {
     required String email,
   }) async {
     response = await dio.post(ApiPath.auth.login, data: {"email": email});
-    print('Status Code: ${response?.statusCode}');
   }
 
   // POST
