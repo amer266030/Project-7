@@ -12,6 +12,9 @@ mixin AuthApi on NetworkMgr {
     required String firstName,
     required String lastName,
   }) async {
+    if (kDebugMode) {
+      print(ApiPath.auth.createAccount);
+    }
     var response = await dio.post(ApiPath.auth.createAccount,
         data: {"email": email, "f_name": firstName, "l_name": lastName});
     if (kDebugMode) {
@@ -35,7 +38,7 @@ mixin AuthApi on NetworkMgr {
     required int otp, // 6 digit number
   }) async {
     var response = await dio
-        .post(ApiPath.auth.otpVerify, data: {"email": email, "otp": otp});
+        .post(ApiPath.auth.otpVerify, data: {"email": email, "otp": '$otp'});
     if (kDebugMode) {
       print(response);
     }
