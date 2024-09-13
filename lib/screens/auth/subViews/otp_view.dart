@@ -34,18 +34,15 @@ class OtpView extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        AspectRatio(
-          aspectRatio: 2,
-          child: Pinput(
-            defaultPinTheme: defaultPinTheme,
-            focusedPinTheme: focusedPinTheme,
-            submittedPinTheme: submittedPinTheme,
-            showCursor: true,
-            onCompleted: (pin) {
-              cubit.otp = int.tryParse(pin) ?? -1;
-              cubit.verifyOtp();
-            },
-          ),
+        Pinput(
+          defaultPinTheme: defaultPinTheme,
+          focusedPinTheme: focusedPinTheme,
+          submittedPinTheme: submittedPinTheme,
+          showCursor: true,
+          onCompleted: (pin) {
+            cubit.otp = int.tryParse(pin) ?? -1;
+            cubit.verifyOtp();
+          },
         )
       ],
     );

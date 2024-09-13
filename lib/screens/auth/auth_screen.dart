@@ -18,72 +18,82 @@ class AuthScreen extends StatelessWidget {
       create: (context) => AuthCubit(),
       child: Builder(builder: (context) {
         final cubit = context.read<AuthCubit>();
-        return Scaffold(
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                children: [
-                  BlocBuilder<AuthCubit, AuthState>(
-                    builder: (context, state) {
-                      return Text(
-                        cubit.headerTitle(),
-                        style: TS(
-                          fontWeight: FW.bold,
-                        ),
-                      );
-                    },
-                  ),
-                  Expanded(
-                    child: BlocBuilder<AuthCubit, AuthState>(
-                      builder: (context, state) {
-                        return cubit.isOtp
-                            ? const OtpView()
-                            : cubit.isSignup
-                                ? const SignUpFormView()
-                                : const SignInFormView();
-                      },
-                    ),
-                  ),
-                  BlocBuilder<AuthCubit, AuthState>(
-                    builder: (context, state) {
-                      return Column(children: [
-                        if (state is! OTPState)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Row(
-                              children: [
-                                Text(
-                                  cubit.isSignup
-                                      ? "Already have an account?"
-                                      : "Don't have an account?",
-                                ),
-                                const SizedBox(width: 4),
-                                CustomTextBtn(
-                                    title:
-                                        cubit.isSignup ? 'Sign In' : 'Sign Up',
-                                    callback: cubit.toggleIsSignup),
-                              ],
-                            ),
+        return BlocListener<AuthCubit, AuthState>(
+          listener: (context, state) {
+            if (state is AuthLoadingState ||
+                state is AuthSuccessState ||
+                state is AuthErrorState ||
+                state is OTPState) {
+              cubit.showAlert(context);
+            }
+          },
+          child: Scaffold(
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: BlocBuilder<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    return Column(
+                      children: [
+                        Text(
+                          cubit.headerTitle(),
+                          style: const TS(
+                            fontWeight: FW.bold,
                           ),
-                        Row(
+                        ),
+                        Expanded(
+                          child: cubit.isOtp
+                              ? const OtpView()
+                              : cubit.isSignup
+                                  ? const SignUpFormView()
+                                  : const SignInFormView(),
+                        ),
+                        Column(
                           children: [
-                            Expanded(
-                              child: CustomBtnView(
-                                title: 'SUBMIT',
-                                callBack: cubit.isOtp
-                                    ? cubit.verifyOtp
-                                    : cubit.isSignup
-                                        ? cubit.signUp
-                                        : cubit.signIn,
+                            if (state is! OTPState)
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      cubit.isSignup
+                                          ? "Already have an account?"
+                                          : "Don't have an account?",
+                                    ),
+                                    const SizedBox(width: 4),
+                                    CustomTextBtn(
+                                        title: cubit.isSignup
+                                            ? 'Sign In'
+                                            : 'Sign Up',
+                                        callback: cubit.toggleIsSignup),
+                                  ],
+                                ),
                               ),
-                            ),
+                            AbsorbPointer(
+                              absorbing:
+                                  (state is AuthLoadingState) ? true : false,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: CustomBtnView(
+                                      title: 'SUBMIT',
+                                      callBack: cubit.isOtp
+                                          ? cubit.verifyOtp
+                                          : cubit.isSignup
+                                              ? cubit.signUp
+                                              : cubit.signIn,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
                           ],
                         )
-                      ]);
-                    },
-                  )
-                ],
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
           ),
