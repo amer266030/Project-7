@@ -8,14 +8,15 @@ import '../bottom_nav_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});
-  final userMgr = GetIt.I.get<AuthMgr>();
+  final authMgr = GetIt.I.get<AuthMgr>();
 
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       splash: const Text('Splash Screen :)'),
-      nextScreen:
-          (userMgr.auth == null) ? const AuthScreen() : const BottomNavScreen(),
+      nextScreen: (authMgr.authData == null)
+          ? const AuthScreen()
+          : const BottomNavScreen(),
       splashTransition: SplashTransition.scaleTransition,
       backgroundColor: Colors.white60,
       duration: 2000,

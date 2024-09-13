@@ -3,21 +3,33 @@ import 'package:get_storage/get_storage.dart';
 import '../model/auth.dart';
 
 class AuthMgr {
-  AuthData? auth;
+  AuthData? authData;
   final box = GetStorage();
-  final key = 'auth';
+  final key = 'authData';
 
-  saveAuth({required AuthData auth}) {
-    auth = auth;
-    // box.write(key: auth.toJson());
+  AuthMgr() {
+    fetchData();
   }
 
-  loadAuthData() async {
-    var response = await box.read(key);
-    if (response != null) {
-      // auth = FromJson(response);
-    } else {
-      // No User Found!
+  fetchData() async {
+    authData = await loadAuthData();
+  }
+
+  Future<AuthData?> loadAuthData() async {
+    if (box.hasData(key)) {
+      return AuthData.fromJson(
+          Map.from(await box.read(key)).cast<String, dynamic>());
     }
+    return null;
+  }
+
+  Future<void> saveAuth({required AuthData authData}) async {
+    this.authData = authData;
+    await box.write(key, authData.toJson());
+  }
+
+  Future<void> logOut() async {
+    authData = null;
+    await box.remove(key);
   }
 }

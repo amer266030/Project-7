@@ -7,6 +7,6 @@ class DIContainer {
   static Future<void> setup() async {
     await GetStorage.init();
 
-    GetIt.I.registerSingleton<AuthMgr>(AuthMgr()..loadAuthData());
+    GetIt.I.registerSingleton<AuthMgr>(AuthMgr());
   }
 }
