@@ -7,6 +7,7 @@ import '_client/network_mgr.dart';
 
 class AuthApi extends NetworkMgr {
   Response? response;
+  String errorMsg = '';
   // POST
   Future<void> createUser({
     required String email,
@@ -21,7 +22,11 @@ class AuthApi extends NetworkMgr {
   Future<void> login({
     required String email,
   }) async {
-    response = await dio.post(ApiPath.auth.login, data: {"email": email});
+    try {
+      response = await dio.post(ApiPath.auth.login, data: {"email": email});
+    } catch (e) {
+      errorMsg = e.toString();
+    }
   }
 
   // POST
@@ -29,7 +34,11 @@ class AuthApi extends NetworkMgr {
     required String email,
     required int otp, // 6 digit number
   }) async {
-    response = await dio
-        .post(ApiPath.auth.otpVerify, data: {"email": email, "otp": '$otp'});
+    try {
+      response = await dio
+          .post(ApiPath.auth.otpVerify, data: {"email": email, "otp": '$otp'});
+    } catch (e) {
+      errorMsg = e.toString();
+    }
   }
 }

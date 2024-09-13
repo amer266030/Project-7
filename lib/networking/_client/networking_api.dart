@@ -7,7 +7,7 @@ import 'package:tuwaiq_project_pulse/networking/user_api.dart';
 import '../auth_api.dart';
 import 'network_mgr.dart';
 
-class NetworkingApi extends NetworkMgr {
+class NetworkingApi {
   // private constructor
   static final _shared = NetworkingApi._internal();
 

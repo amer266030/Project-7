@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 import '_client/api_path.dart';
@@ -7,10 +8,12 @@ import '_client/network_mgr.dart';
 
 // GET
 class PublicApi extends NetworkMgr {
+  Response? response;
+
   Future<void> getProject({
     required String projectId,
   }) async {
-    var response = await dio.get(ApiPath.public.project(projectId: projectId));
+    response = await dio.get(ApiPath.public.project(projectId: projectId));
     if (kDebugMode) {
       print(response);
     }
@@ -25,7 +28,7 @@ class PublicApi extends NetworkMgr {
     String? type,
     int? rating,
   }) async {
-    var response = await dio.get(
+    response = await dio.get(
       ApiPath.public.allProjects,
       queryParameters: {
         'name': name,

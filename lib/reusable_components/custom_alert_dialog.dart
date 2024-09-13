@@ -10,7 +10,7 @@ class CustomAlertDialog extends StatelessWidget {
   });
   final String title;
   final String msg;
-  final VoidCallback callback;
+  final VoidCallback? callback;
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +27,11 @@ class CustomAlertDialog extends StatelessWidget {
         child: Text(msg),
       ),
       actions: <Widget>[
-        CustomBtnView(
-          title: 'OK',
-          callBack: callback,
-        )
+        if (callback != null)
+          CustomBtnView(
+            title: 'OK',
+            callBack: callback!,
+          )
       ],
     );
   }

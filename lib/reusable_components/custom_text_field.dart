@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/typedefs.dart';
+
 class CustomTextField extends StatelessWidget {
   const CustomTextField(
       {super.key,
@@ -21,15 +23,17 @@ class CustomTextField extends StatelessWidget {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: controller,
         decoration: InputDecoration(
-          prefixIcon: prefixIcon,
-          suffixIcon: suffixIcon,
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-          ),
-          filled: true,
-          fillColor: Colors.white60,
-          hintText: hintText,
-        ),
+            prefixIcon: prefixIcon,
+            suffixIcon: suffixIcon,
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+            ),
+            filled: true,
+            fillColor: Colors.white60,
+            hintText: hintText,
+            hintStyle: const TS(
+              color: Colors.grey,
+            )),
         validator: (value) => validation(value ?? ''),
       ),
     );
