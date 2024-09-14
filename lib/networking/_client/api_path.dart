@@ -64,5 +64,5 @@ class _Public {
   static String prefix = NetworkMgr.baseUrl;
 
   String project({required String projectId}) => '$prefix/project/$projectId';
-  final String allProjects = '$prefix/search/projects';
+  final String allProjects = '$prefix/projects';
 }

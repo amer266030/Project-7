@@ -3,8 +3,6 @@ import 'package:tuwaiq_project_pulse/networking/_client/api_path.dart';
 
 import '_client/network_mgr.dart';
 
-// NOT TESTED!
-
 class AuthApi extends NetworkMgr {
   Response? response;
   String errorMsg = '';

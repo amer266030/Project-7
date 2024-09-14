@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/auth_cubit.dart';
 
 import '../../../reusable_components/custom_text_field.dart';
 import '../../../utils/validations.dart';
 
 class SignUpFormView extends StatelessWidget {
-  const SignUpFormView({super.key});
+  const SignUpFormView({super.key, required this.cubit});
+  final AuthCubit cubit;
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<AuthCubit>();
     return ListView(
       children: [
         Row(

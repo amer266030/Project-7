@@ -46,10 +46,10 @@ class AuthScreen extends StatelessWidget {
                         ),
                         Expanded(
                           child: cubit.isOtp
-                              ? const OtpFormView()
+                              ? OtpFormView(cubit: cubit)
                               : cubit.isSignup
-                                  ? const SignUpFormView()
-                                  : const SignInFormView(),
+                                  ? SignUpFormView(cubit: cubit)
+                                  : SignInFormView(cubit: cubit),
                         ),
                         Column(
                           children: [

@@ -16,11 +16,11 @@ class ProfileCubit extends Cubit<ProfileState> {
   // Input Fields
   var firstNameController = TextEditingController();
   var lastNameController = TextEditingController();
-
   // Alert Dialog
   bool isAlertVisible = false;
   var alertTitle = '';
   var alertMsg = '';
+  // User
   User user = User();
 
   ProfileCubit() : super(ProfileInitial());

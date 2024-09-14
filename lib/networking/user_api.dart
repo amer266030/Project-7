@@ -1,16 +1,22 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:tuwaiq_project_pulse/networking/_client/network_mgr.dart';
 
+import '../managers/auth_mgr.dart';
 import '../model/rating.dart';
 import '_client/api_path.dart';
 
 class UserApi extends NetworkMgr {
+  String token = GetIt.I.get<AuthMgr>().authData?.token ?? '';
+
   //POST
   Future<void> createRating(
       {required String projectId, required Rating rating}) async {
     var response = await dio.post(
       ApiPath.user.createRating(projectId: projectId),
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
       data: {
         "idea": rating.idea,
         "design": rating.design,

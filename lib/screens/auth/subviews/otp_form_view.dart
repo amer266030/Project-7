@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/auth_cubit.dart';
 import 'package:tuwaiq_project_pulse/utils/typedefs.dart';
 
 class OtpFormView extends StatelessWidget {
-  const OtpFormView({super.key});
+  const OtpFormView({super.key, required this.cubit});
+  final AuthCubit cubit;
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<AuthCubit>();
     final defaultPinTheme = PinTheme(
       textStyle: const TextStyle(
           fontSize: 24, color: Colors.blue, fontWeight: FW.w600),

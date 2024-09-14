@@ -16,6 +16,7 @@ class ProfileApi extends NetworkMgr {
   String token = GetIt.I.get<AuthMgr>().authData?.token ?? '';
   User? user;
 
+  // API Functions
   Future<void> fetchProfile() async {
     try {
       response = await dio.get(
@@ -45,6 +46,8 @@ class ProfileApi extends NetworkMgr {
     }
   }
 
+  // Function for setting the user variable.
+  /// used in API Functions
   Future<void> setUser(Response response) async {
     if (response.data == null) return;
     if (response.statusCode! > 199 && response.statusCode! < 300) {
