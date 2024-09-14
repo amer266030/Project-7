@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:tuwaiq_project_pulse/managers/auth_mgr.dart';
 
 import '../model/api_response.dart';
-import '../model/user.dart';
+import '../model/user/user.dart';
 import '_client/api_path.dart';
 import '_client/network_mgr.dart';
 

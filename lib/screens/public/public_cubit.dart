@@ -16,6 +16,7 @@ class PublicCubit extends Cubit<PublicState> {
   var alertMsg = '';
   // Projects
   List<Project> projects = [];
+  Project? selectedProject;
 
   void showAlert(BuildContext context, bool withDismiss) {
     AlertManager().showAlert(
@@ -29,14 +30,34 @@ class PublicCubit extends Cubit<PublicState> {
   void dismissAlert(BuildContext context) =>
       AlertManager().dismissPreviousAlert(context);
 
+  void clearAlertFields() {
+    alertTitle = '';
+    alertMsg = '';
+  }
+
   void getProjects() async {
+    clearAlertFields();
+    emit(PublicLoadingState());
     try {
       await nwk.getProjects(
-          name: 'hop', from: 1, to: 3, bootcamp: 'flutter', type: 'website');
-      if (nwk.response == null) throw Exception(nwk.errorMsg);
+          name: null, from: 1, to: 10, bootcamp: null, type: null);
       if (nwk.projects == null) throw Exception(nwk.errorMsg);
       projects = nwk.projects!;
-      print(projects.length);
+      emit(PublicUpdateUIState());
+    } catch (e) {
+      alertTitle = 'Oops';
+      alertMsg = '$e';
+      emit(PublicErrorState());
+    }
+  }
+
+  void getProjectById(String projectId) async {
+    clearAlertFields();
+    emit(PublicLoadingState());
+    try {
+      await nwk.getProjectById(projectId: projectId);
+      if (nwk.project == null) throw Exception(nwk.errorMsg);
+      selectedProject = nwk.project;
       emit(PublicUpdateUIState());
     } catch (e) {
       alertTitle = 'Oops';

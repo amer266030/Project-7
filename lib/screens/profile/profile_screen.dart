@@ -15,7 +15,6 @@ class ProfileScreen extends StatelessWidget {
       create: (context) => ProfileCubit(),
       child: Builder(builder: (context) {
         final cubit = context.read<ProfileCubit>();
-        cubit.loadProfile();
         return BlocListener<ProfileCubit, ProfileState>(
           listener: (context, state) {
             if (state is ProfileLoadingState || state is ProfileErrorState) {
@@ -30,6 +29,7 @@ class ProfileScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(24),
                 child: BlocBuilder<ProfileCubit, ProfileState>(
                   builder: (context, state) {
+                    if (state is ProfileInitial) cubit.loadProfile();
                     return Column(
                       children: [
                         _HeaderView(cubit: cubit),

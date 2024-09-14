@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tuwaiq_project_pulse/model/user.dart';
+import 'package:tuwaiq_project_pulse/model/user/user.dart';
 
 import '../../managers/alert_mgr.dart';
 import '../../networking/_client/networking_api.dart';
@@ -49,7 +49,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     alertMsg = '';
   }
 
-  Future<void> loadProfile() async {
+  void loadProfile() async {
     clearAlertFields();
     emit(ProfileLoadingState());
     try {

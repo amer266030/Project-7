@@ -27,7 +27,7 @@ class CustomAlertDialog extends StatelessWidget {
         child: Text(msg),
       ),
       actions: <Widget>[
-        if (callback != null)
+        if (title.isNotEmpty)
           CustomBtnView(
             title: 'OK',
             callBack: () => callback!(),

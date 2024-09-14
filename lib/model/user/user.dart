@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:tuwaiq_project_pulse/model/project/project.dart';
 
-import 'link.dart';
+import 'account.dart';
 
 User userFromJson(String str) => User.fromJson(json.decode(str));
 

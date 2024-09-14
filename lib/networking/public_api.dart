@@ -13,26 +13,23 @@ import '_client/network_mgr.dart';
 
 // GET
 class PublicApi extends NetworkMgr {
-  Response? response;
   String errorMsg = '';
   String token = GetIt.I.get<AuthMgr>().authData?.token ?? '';
   List<Project>? projects;
+  Project? project;
 
-  Future<void> getProject({
+  Future<void> getProjectById({
     required String projectId,
   }) async {
+    print('path: ${ApiPath.public.project(projectId: projectId)}');
     try {
-      response = await dio.get(
+      var response = await dio.get(
         ApiPath.public.project(projectId: projectId),
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
-      if (kDebugMode) {
-        print(response);
-      }
+      setProject(response);
     } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+      errorMsg = '$e';
     }
   }
 
@@ -46,7 +43,7 @@ class PublicApi extends NetworkMgr {
     int? rating,
   }) async {
     try {
-      response = await dio.get(
+      var response = await dio.get(
         ApiPath.public.allProjects,
         options: Options(headers: {'Authorization': 'Bearer $token'}),
         queryParameters: {
@@ -58,10 +55,25 @@ class PublicApi extends NetworkMgr {
           'rating': rating
         },
       );
-      if (response == null) throw Exception('No Response!');
-      setProjects(response!);
+      setProjects(response);
     } catch (e) {
       errorMsg = '$e';
+    }
+  }
+
+  Future<void> setProject(Response response) async {
+    if (response.data == null) return;
+    if (response.statusCode! > 199 && response.statusCode! < 300) {
+      var jsonMap = response.data!;
+      try {
+        ApiResponse<Project> apiResponse = responseFromMap<Project>(
+          jsonMap,
+          (dataJson) => Project.fromJson(dataJson),
+        );
+        project = apiResponse.data;
+      } catch (e) {
+        errorMsg = e.toString();
+      }
     }
   }
 
