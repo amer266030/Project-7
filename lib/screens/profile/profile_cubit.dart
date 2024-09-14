@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/model/user.dart';
+
 import '../../managers/alert_mgr.dart';
 import '../../networking/_client/networking_api.dart';
-import 'package:flutter/material.dart';
 
 part 'profile_state.dart';
 
@@ -19,7 +21,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   bool isAlertVisible = false;
   var alertTitle = '';
   var alertMsg = '';
-  var user = User();
+  User user = User();
 
   ProfileCubit() : super(ProfileInitial());
 
@@ -30,11 +32,12 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(ProfileUpdateState());
   }
 
-  void showAlert(BuildContext context) {
+  void showAlert(BuildContext context, bool withDismiss) {
     AlertManager().showAlert(
       context: context,
       title: alertTitle,
       message: alertMsg,
+      withDismiss: withDismiss ? true : false,
     );
   }
 
@@ -46,25 +49,21 @@ class ProfileCubit extends Cubit<ProfileState> {
     alertMsg = '';
   }
 
-  void loadProfile() async {
+  Future<void> loadProfile() async {
     clearAlertFields();
     emit(ProfileLoadingState());
     try {
       await nwk.fetchProfile();
-      if (nwk.user == null) throw Exception('Could not load user profile');
+      if (nwk.user == null || nwk.response?.statusCode == null) {
+        throw Exception(nwk.errorMsg);
+      }
       user = nwk.user!;
       await _updateInputFields();
       emit(ProfileUpdateState());
     } catch (e) {
-      if (e is DioException) {
-        alertTitle = 'Status Code: ${e.response?.statusCode}';
-        alertMsg = 'Error Message: ${e.message}';
-        emit(ProfileErrorState());
-      } else {
-        alertTitle = '';
-        alertMsg = 'Something wrong happened!, please try again later';
-        emit(ProfileErrorState());
-      }
+      alertTitle = 'Oops';
+      alertMsg = '$e';
+      emit(ProfileErrorState());
     }
   }
 
@@ -74,6 +73,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       await _updateUserData();
       await nwk.updateProfile(user);
+
       toggleIsEdit();
     } catch (e) {
       if (e is DioException) {

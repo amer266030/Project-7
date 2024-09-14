@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tuwaiq_project_pulse/reusable_components/custom_text_btn.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/profile_cubit.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/subviews/edit_profile_view.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/subviews/show_profile_view.dart';
@@ -20,7 +19,7 @@ class ProfileScreen extends StatelessWidget {
         return BlocListener<ProfileCubit, ProfileState>(
           listener: (context, state) {
             if (state is ProfileLoadingState || state is ProfileErrorState) {
-              cubit.showAlert(context);
+              cubit.showAlert(context, false);
             } else {
               cubit.dismissAlert(context);
             }
@@ -33,33 +32,11 @@ class ProfileScreen extends StatelessWidget {
                   builder: (context, state) {
                     return Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              cubit.headerTitle(),
-                              style: const TS(
-                                fontWeight: FW.bold,
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                TextButton(
-                                    onPressed: cubit.toggleIsEdit,
-                                    child:
-                                        Text(cubit.isEdit ? 'cancel' : 'edit')),
-                                if (cubit.isEdit)
-                                  TextButton(
-                                      onPressed: cubit.updateProfile,
-                                      child: const Text('save')),
-                              ],
-                            ),
-                          ],
-                        ),
+                        _HeaderView(cubit: cubit),
                         Expanded(
                           child: cubit.isEdit
-                              ? const EditProfileView()
-                              : const ShowProfileView(),
+                              ? EditProfileView(cubit: cubit)
+                              : ShowProfileView(cubit: cubit),
                         )
                       ],
                     );
@@ -70,6 +47,36 @@ class ProfileScreen extends StatelessWidget {
           ),
         );
       }),
+    );
+  }
+}
+
+class _HeaderView extends StatelessWidget {
+  const _HeaderView({required this.cubit});
+  final ProfileCubit cubit;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          cubit.headerTitle(),
+          style: const TS(
+            fontWeight: FW.bold,
+          ),
+        ),
+        Row(
+          children: [
+            TextButton(
+                onPressed: cubit.toggleIsEdit,
+                child: Text(cubit.isEdit ? 'cancel' : 'edit')),
+            if (cubit.isEdit)
+              TextButton(
+                  onPressed: cubit.updateProfile, child: const Text('save')),
+          ],
+        ),
+      ],
     );
   }
 }

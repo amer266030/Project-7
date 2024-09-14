@@ -6,11 +6,11 @@ import '../../../utils/validations.dart';
 import '../profile_cubit.dart';
 
 class EditProfileView extends StatelessWidget {
-  const EditProfileView({super.key});
+  const EditProfileView({super.key, required this.cubit});
+  final ProfileCubit cubit;
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<ProfileCubit>();
     return ListView(
       children: [
         Row(

@@ -35,13 +35,18 @@ class AuthCubit extends Cubit<AuthState> {
           ? 'Sign Up'
           : 'Sign In';
 
-  void showAlert(BuildContext context) {
+  void showAlert(BuildContext context, bool withDismiss) {
+    dismissAlert(context);
     AlertManager().showAlert(
       context: context,
       title: alertTitle,
       message: alertMsg,
+      withDismiss: withDismiss ? true : false,
     );
   }
+
+  void dismissAlert(BuildContext context) =>
+      AlertManager().dismissPreviousAlert(context);
 
   void navigateToHome(BuildContext context) =>
       Navigator.of(context).pushReplacement(
@@ -67,47 +72,44 @@ class AuthCubit extends Cubit<AuthState> {
     var fName = firstNameController.text;
     var lName = lastNameController.text;
     clearAlertFields();
+    alertMsg = 'Creating Account';
     emit(AuthLoadingState());
     try {
       await nwk.createUser(email: email, firstName: fName, lastName: lName);
       toggleIsOTP();
       emit(OTPState());
-    } catch (e) {
-      if (e is DioException) {
-        alertTitle = 'Status Code: ${e.response?.statusCode}';
-        alertMsg = 'Error Message: ${e.message}';
-        emit(AuthErrorState());
+      if (nwk.response?.statusCode == null) throw Exception(nwk.errorMsg);
+      if (nwk.response!.statusCode! > 199 && nwk.response!.statusCode! < 300) {
+        toggleIsOTP();
+        emit(OTPState());
       } else {
-        alertTitle = '';
-        alertMsg = 'Something wrong happened!, please try again later';
-        emit(AuthErrorState());
+        throw Exception(nwk.errorMsg);
       }
+    } catch (e) {
+      alertTitle = 'Oops';
+      alertMsg = '$e';
+      emit(AuthErrorState());
     }
   }
 
   void signIn() async {
     var email = emailController.text;
     clearAlertFields();
+    alertMsg = 'Loading Profile';
     emit(AuthLoadingState());
     try {
       await nwk.login(email: email);
-      if (nwk.response?.statusCode != null) {
-        if (nwk.response!.statusCode! > 199 &&
-            nwk.response!.statusCode! < 300) {
-          toggleIsOTP();
-          emit(OTPState());
-        }
+      if (nwk.response?.statusCode == null) throw Exception(nwk.errorMsg);
+      if (nwk.response!.statusCode! > 199 && nwk.response!.statusCode! < 300) {
+        toggleIsOTP();
+        emit(OTPState());
+      } else {
+        throw Exception(nwk.errorMsg);
       }
     } catch (e) {
-      if (e is DioException) {
-        alertTitle = 'Status Code: ${e.response?.statusCode}';
-        alertMsg = 'Error Message: ${e.message}';
-        emit(AuthErrorState());
-      } else {
-        alertTitle = '';
-        alertMsg = 'Something wrong happened!, please try again later';
-        emit(AuthErrorState());
-      }
+      alertTitle = 'Oops';
+      alertMsg = '$e';
+      emit(AuthErrorState());
     }
   }
 
@@ -117,22 +119,18 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoadingState());
     try {
       await nwk.verifyOTP(email: email, otp: otp);
-      alertTitle = 'Status Code: ${nwk.response?.statusCode}';
-      alertMsg = 'Account verified. Loading home screen...';
-      var storageData = AuthData.fromJson(nwk.response?.data["data"]);
-      authMgr.saveAuth(authData: storageData);
-      emit(AuthSuccessState());
-    } catch (e) {
-      if (e is DioException) {
-        alertTitle = 'Status Code: ${e.response?.statusCode}';
-        alertMsg =
-            'There was an error verifying your PIN. Please make sure you entered it correctly';
-        emit(AuthErrorState());
+      if (nwk.response?.statusCode == null) throw Exception(nwk.errorMsg);
+      if (nwk.response!.statusCode! > 199 && nwk.response!.statusCode! < 300) {
+        var storageData = AuthData.fromJson(nwk.response?.data["data"]);
+        authMgr.saveAuth(authData: storageData);
+        emit(AuthSuccessState());
       } else {
-        alertTitle = '!';
-        alertMsg = 'Something wrong happened!, please try again later';
-        emit(AuthErrorState());
+        throw Exception(nwk.errorMsg);
       }
+    } catch (e) {
+      alertTitle = 'Oops';
+      alertMsg = '$e';
+      emit(AuthErrorState());
     }
   }
 }

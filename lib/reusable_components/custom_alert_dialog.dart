@@ -30,7 +30,7 @@ class CustomAlertDialog extends StatelessWidget {
         if (callback != null)
           CustomBtnView(
             title: 'OK',
-            callBack: callback!,
+            callBack: () => callback!(),
           )
       ],
     );

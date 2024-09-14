@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/profile_cubit.dart';
 
 class ShowProfileView extends StatelessWidget {
-  const ShowProfileView({super.key});
+  const ShowProfileView({super.key, required this.cubit});
+  final ProfileCubit cubit;
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<ProfileCubit>();
+    var cubit = context.read<ProfileCubit>();
     return ListView(
       children: [
         Text('First Name: ${cubit.user.firstName ?? 'None'}'),

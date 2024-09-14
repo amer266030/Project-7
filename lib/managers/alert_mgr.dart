@@ -15,16 +15,16 @@ class AlertManager {
     required BuildContext context,
     required String title,
     required String message,
-    VoidCallback? callBack,
+    required bool withDismiss,
   }) {
     dismissPreviousAlert(context);
 
     showDialog(
       context: context,
-      barrierDismissible: false, // Prevents dismissing by tapping outside
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return CustomAlertDialog(
-            title: title, msg: message, callback: callBack);
+            title: title, msg: message, callback: () => dismiss(context));
       },
     ).then((_) {
       _isAlertVisible = false;
@@ -33,10 +33,14 @@ class AlertManager {
     _isAlertVisible = true;
   }
 
+  void dismiss(BuildContext context) {
+    Navigator.of(context, rootNavigator: true).pop();
+    _isAlertVisible = false;
+  }
+
   void dismissPreviousAlert(BuildContext context) {
     if (_isAlertVisible) {
-      Navigator.of(context, rootNavigator: true).pop();
-      _isAlertVisible = false;
+      dismiss(context);
     }
   }
 }

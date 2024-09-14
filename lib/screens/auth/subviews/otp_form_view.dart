@@ -58,6 +58,13 @@ class OtpFormView extends StatelessWidget {
             ),
           ],
         ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: TextButton(
+            onPressed: cubit.toggleIsOTP,
+            child: const Text('Cancel', style: TS(color: Colors.blue)),
+          ),
+        ),
       ],
     );
   }
