@@ -73,7 +73,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       await _updateUserData();
       await nwk.updateProfile(user);
-
       toggleIsEdit();
     } catch (e) {
       if (e is DioException) {

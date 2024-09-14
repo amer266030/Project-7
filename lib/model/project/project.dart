@@ -4,6 +4,10 @@
 
 import 'dart:convert';
 
+import 'package:tuwaiq_project_pulse/model/project/project_links.dart';
+import 'package:tuwaiq_project_pulse/model/project/project_members.dart';
+import 'package:tuwaiq_project_pulse/model/project/project_images.dart';
+
 Project projectFromJson(String str) => Project.fromJson(json.decode(str));
 
 String projectToJson(Project data) => json.encode(data.toJson());
@@ -21,16 +25,14 @@ class Project {
   String? presentationUrl;
   String? userId;
   String? adminId;
-  DateTime? timeEndEdit;
+  String? timeEndEdit;
   bool? allowEdit;
-  bool? allowRating;
   bool? isPublic;
-  num? rating;
-  DateTime? createAt;
-  DateTime? updateAt;
-  List<dynamic>? imagesProject;
-  List<dynamic>? linksProject;
-  List<dynamic>? membersProject;
+  String? createAt;
+  String? updateAt;
+  List<ProjectImages>? imagesProject;
+  List<ProjectLinks>? linksProject;
+  List<ProjectMembers>? membersProject;
 
   Project({
     this.projectId,
@@ -47,9 +49,7 @@ class Project {
     this.adminId,
     this.timeEndEdit,
     this.allowEdit,
-    this.allowRating,
     this.isPublic,
-    this.rating,
     this.createAt,
     this.updateAt,
     this.imagesProject,
@@ -70,28 +70,23 @@ class Project {
         presentationUrl: json["presentation_url"],
         userId: json["user_id"],
         adminId: json["admin_id"],
-        timeEndEdit: json["time_end_edit"] == null
-            ? null
-            : DateTime.parse(json["time_end_edit"]),
+        timeEndEdit: json["time_end_edit"],
         allowEdit: json["allow_edit"],
-        allowRating: json["allow_rating"],
         isPublic: json["is_public"],
-        rating: json["rating"],
-        createAt: json["create_at"] == null
-            ? null
-            : DateTime.parse(json["create_at"]),
-        updateAt: json["update_at"] == null
-            ? null
-            : DateTime.parse(json["update_at"]),
+        createAt: json["create_at"],
+        updateAt: json["update_at"],
         imagesProject: json["images_project"] == null
             ? []
-            : List<dynamic>.from(json["images_project"]!.map((x) => x)),
+            : List<ProjectImages>.from(
+                json["images_project"]!.map((x) => ProjectImages.fromJson(x))),
         linksProject: json["links_project"] == null
             ? []
-            : List<dynamic>.from(json["links_project"]!.map((x) => x)),
+            : List<ProjectLinks>.from(
+                json["links_project"]!.map((x) => ProjectLinks.fromJson(x))),
         membersProject: json["members_project"] == null
             ? []
-            : List<dynamic>.from(json["members_project"]!.map((x) => x)),
+            : List<ProjectMembers>.from(json["members_project"]!
+                .map((x) => ProjectMembers.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -107,22 +102,19 @@ class Project {
         "presentation_url": presentationUrl,
         "user_id": userId,
         "admin_id": adminId,
-        "time_end_edit":
-            "${timeEndEdit!.year.toString().padLeft(4, '0')}-${timeEndEdit!.month.toString().padLeft(2, '0')}-${timeEndEdit!.day.toString().padLeft(2, '0')}",
+        "time_end_edit": timeEndEdit,
         "allow_edit": allowEdit,
-        "allow_rating": allowRating,
         "is_public": isPublic,
-        "rating": rating,
-        "create_at": createAt?.toIso8601String(),
-        "update_at": updateAt?.toIso8601String(),
+        "create_at": createAt,
+        "update_at": updateAt,
         "images_project": imagesProject == null
             ? []
-            : List<dynamic>.from(imagesProject!.map((x) => x)),
+            : List<dynamic>.from(imagesProject!.map((x) => x.toJson())),
         "links_project": linksProject == null
             ? []
-            : List<dynamic>.from(linksProject!.map((x) => x)),
+            : List<dynamic>.from(linksProject!.map((x) => x.toJson())),
         "members_project": membersProject == null
             ? []
-            : List<dynamic>.from(membersProject!.map((x) => x)),
+            : List<dynamic>.from(membersProject!.map((x) => x.toJson())),
       };
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/networking/_client/networking_api.dart';
 
 import '../../managers/alert_mgr.dart';
-import '../../model/project.dart';
+import '../../model/project/project.dart';
 
 part 'public_state.dart';
 
@@ -34,7 +34,9 @@ class PublicCubit extends Cubit<PublicState> {
       await nwk.getProjects(
           name: 'hop', from: 1, to: 3, bootcamp: 'flutter', type: 'website');
       if (nwk.response == null) throw Exception(nwk.errorMsg);
-      projects = nwk.projects ?? [];
+      if (nwk.projects == null) throw Exception(nwk.errorMsg);
+      projects = nwk.projects!;
+      print(projects.length);
       emit(PublicUpdateUIState());
     } catch (e) {
       alertTitle = 'Oops';

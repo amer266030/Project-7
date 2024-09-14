@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:tuwaiq_project_pulse/model/project/project.dart';
+
 import 'link.dart';
 
 User userFromJson(String str) => User.fromJson(json.decode(str));
@@ -11,9 +13,10 @@ class User {
   String? lastName;
   String? email;
   String? role;
-  dynamic imageUrl;
-  Link? link;
-  List<dynamic>? projects;
+  String? imageUrl;
+  String? resumeUrl;
+  Account? link;
+  List<Project>? projects;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -24,6 +27,7 @@ class User {
     this.email,
     this.role,
     this.imageUrl,
+    this.resumeUrl,
     this.link,
     this.projects,
     this.createdAt,
@@ -37,10 +41,12 @@ class User {
         email: json["email"],
         role: json["role"],
         imageUrl: json["image_url"],
-        link: json["link"] == null ? null : Link.fromJson(json["link"]),
+        resumeUrl: json["resume_url"],
+        link: json["link"] == null ? null : Account.fromJson(json["link"]),
         projects: json["projects"] == null
             ? []
-            : List<dynamic>.from(json["projects"]!.map((x) => x)),
+            : List<Project>.from(
+                json["projects"]!.map((x) => Project.fromJson(x))),
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -56,9 +62,11 @@ class User {
         "email": email,
         "role": role,
         "image_url": imageUrl,
+        "resume_url": resumeUrl,
         "link": link?.toJson(),
-        "projects":
-            projects == null ? [] : List<dynamic>.from(projects!.map((x) => x)),
+        "projects": projects == null
+            ? []
+            : List<dynamic>.from(projects!.map((x) => x.toJson())),
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };

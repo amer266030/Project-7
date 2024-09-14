@@ -16,4 +16,24 @@ class Rating {
     required this.investment,
     required this.note,
   });
+
+  factory Rating.fromJson(Map<String, dynamic> json) => Rating(
+        idea: json["idea"],
+        design: json["design"],
+        tools: json["tools"],
+        practices: json["practices"],
+        presentation: json["presentation"],
+        investment: json["investment"],
+        note: json["note"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "idea": idea,
+        "design": design,
+        "tools": tools,
+        "practices": practices,
+        "presentation": presentation,
+        "investment": investment,
+        "note": note,
+      };
 }

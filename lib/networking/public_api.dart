@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:tuwaiq_project_pulse/model/api_response.dart';
+import 'package:tuwaiq_project_pulse/model/project/projects_response.dart';
 
 import '../managers/auth_mgr.dart';
-import '../model/project.dart';
+import '../model/project/project.dart';
 import '_client/api_path.dart';
 import '_client/network_mgr.dart';
 
@@ -56,16 +58,29 @@ class PublicApi extends NetworkMgr {
           'rating': rating
         },
       );
-      if (response == null) throw Exception('');
-      var jsonList = response!.data['data']['projects'];
-
-      List<Project> temp = [];
-      for (var p in jsonList) {
-        temp.add(Project.fromJson(p));
-      }
-      projects = temp;
+      if (response == null) throw Exception('No Response!');
+      setProjects(response!);
     } catch (e) {
       errorMsg = '$e';
+    }
+  }
+
+  Future<void> setProjects(Response response) async {
+    if (response.data == null) return;
+
+    if (response.statusCode! > 199 && response.statusCode! < 300) {
+      var jsonMap = response.data! as Map<String, dynamic>;
+
+      try {
+        var apiResponse = responseFromMap(
+          jsonMap,
+          (dataJson) => ProjectsResponse.fromJson(dataJson),
+        );
+        var projectsResponse = apiResponse.data;
+        projects = projectsResponse?.projects;
+      } catch (e) {
+        errorMsg = e.toString();
+      }
     }
   }
 }

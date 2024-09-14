@@ -1,11 +1,5 @@
 import 'dart:convert';
 
-ApiResponse<T> responseFromJson<T>(
-        String str, T Function(Map<String, dynamic>) fromJsonT) =>
-    ApiResponse<T>.fromJson(json.decode(str), fromJsonT);
-
-String responseToJson<T>(ApiResponse<T> data) => json.encode(data.toJson());
-
 ApiResponse<T> responseFromMap<T>(
         Map<String, dynamic> map, T Function(Map<String, dynamic>) fromJsonT) =>
     ApiResponse<T>.fromJson(map, fromJsonT);

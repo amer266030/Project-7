@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/screens/public/public_cubit.dart';
 
-import '../../model/project.dart';
+import '../../model/project/project.dart';
 
 class PublicScreen extends StatelessWidget {
   const PublicScreen({super.key});
@@ -15,7 +15,7 @@ class PublicScreen extends StatelessWidget {
         final cubit = context.read<PublicCubit>();
         return BlocListener<PublicCubit, PublicState>(
           listener: (context, state) {
-            // TODO: implement listener
+            cubit.showAlert(context, true);
           },
           child: Scaffold(
             body: SafeArea(
