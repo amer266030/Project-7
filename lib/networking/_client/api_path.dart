@@ -41,7 +41,7 @@ class _UserPaths {
       '$prefix/edit/project/link/$projectId';
 
   String editProjectMembers({required String projectId}) =>
-      '$prefix/project/members/$projectId';
+      '$prefix/edit/project/members/$projectId';
 }
 
 class _AdminPaths {

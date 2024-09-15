@@ -92,7 +92,6 @@ class UserApi extends NetworkMgr {
     } catch (e) {
       print(e);
     }
-
   }
 
   // TODO: - Project Presentation
@@ -125,27 +124,26 @@ class UserApi extends NetworkMgr {
 
   // TODO: - Create Links
   // PUT
-  Future<void> createLinks({required String projectId }) async {
-     try {
+  Future<void> createLinks({required String projectId}) async {
+    try {
       print(ApiPath.user.editProjectLink(projectId: projectId));
 
       var response = await dio.put(
-        ApiPath.user.editProjectLink(projectId: projectId),
-        options:
-            Options(headers: {'Authorization': 'Bearer ${AuthMgr.adminKey}'}),
-        data: {
-    "link": [
-        {"type": "github", "url": "https://github.com/example"},
-        {"type": "figma", "url": "https://figma.com/example"},
-        {"type": "video", "url": "https://youtube.com/example"},
-        {"type": "pinterest", "url": "https://appstore.com/example"},
-        {"type": "playstore", "url": "https://appstore.com/example"},
-        {"type": "applestore", "url": "https://appstore.com/example"},
-        {"type": "apk", "url": "https://appstore.com/example"},
-        {"type": "weblink", "url": "https://appstore.com/example"}
-      ]
-    }
-      );
+          ApiPath.user.editProjectLink(projectId: projectId),
+          options:
+              Options(headers: {'Authorization': 'Bearer ${AuthMgr.adminKey}'}),
+          data: {
+            "link": [
+              {"type": "github", "url": "https://github.com/example"},
+              {"type": "figma", "url": "https://figma.com/example"},
+              {"type": "video", "url": "https://youtube.com/example"},
+              {"type": "pinterest", "url": "https://appstore.com/example"},
+              {"type": "playstore", "url": "https://appstore.com/example"},
+              {"type": "applestore", "url": "https://appstore.com/example"},
+              {"type": "apk", "url": "https://appstore.com/example"},
+              {"type": "weblink", "url": "https://appstore.com/example"}
+            ]
+          });
       print(response);
     } catch (e) {
       print(e);
@@ -154,26 +152,33 @@ class UserApi extends NetworkMgr {
 
   // TODO: - Create Members
   // PUT
-  Future<void> createMembers() async {
-    /* Data
+  Future<void> createMembers({required String projectId}) async {
+    try {
+      print(ApiPath.user.editProjectMembers(projectId: projectId));
 
-    {
-      "members": [
-        {
-          "position": "ui",
-          "user_id": "6ca9bc46-217e-48ed-9fde-4b0ff57ad4b6"
-        },
-         {
-          "position": "Developer",
-          "user_id": "edc41350-526e-40af-97be-2e32a78d55bd"
-        },
-        {
-          "position": "Developer",
-          "user_id": "10545b55-4875-441d-88e8-f835acc72374"
-        }
-      ]
+      var response = await dio.put(
+          ApiPath.user.editProjectMembers(projectId: projectId),
+          options:
+              Options(headers: {'Authorization': 'Bearer ${AuthMgr.adminKey}'}),
+          data: {
+            "members": [
+              {
+                "position": "ui",
+                "user_id": "6ca9bc46-217e-48ed-9fde-4b0ff57ad4b6"
+              },
+              {
+                "position": "Developer",
+                "user_id": "edc41350-526e-40af-97be-2e32a78d55bd"
+              },
+              {
+                "position": "Developer",
+                "user_id": "10545b55-4875-441d-88e8-f835acc72374"
+              }
+            ]
+          });
+      print(response);
+    } catch (e) {
+      print(e);
     }
-
-     */
   }
 }
