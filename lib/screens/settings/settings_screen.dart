@@ -23,6 +23,12 @@ class SettingsScreen extends StatelessWidget {
                           img: AssetImage('assets/defaultImg.png')),
                       child: const Text('Create Logo'),
                     ),
+                    TextButton(
+                      onPressed: () => NetworkingApi.shared.userApi.createProjectBase(
+                          projectId: projectId,
+                          ),
+                      child: const Text('Create project base'),
+                    ),
                   ],
                 ),
               )

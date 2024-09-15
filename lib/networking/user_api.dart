@@ -69,7 +69,30 @@ class UserApi extends NetworkMgr {
 
   // TODO: - Create Project Base
   // PUT
-  Future<void> createProjectBase() async {
+  Future<void> createProjectBase({required String projectId}) async {
+    try {
+      print(ApiPath.user.editProjectBase(projectId: projectId));
+
+      var response = await dio.put(
+        ApiPath.user.editProjectBase(projectId: projectId),
+        options:
+            Options(headers: {'Authorization': 'Bearer ${AuthMgr.adminKey}'}),
+        data: {
+          "project_name": "Amazing Flutter App",
+          "bootcamp_name": "Flutter Bootcamp 2024",
+          "type": "website",
+          "start_date": "15/12/2024",
+          "end_date": "15/12/2024",
+          "presentation_date": "15/12/2024",
+          "project_description":
+              "An amazing Flutter app that revolutionizes user experience."
+        },
+      );
+      print(response);
+    } catch (e) {
+      print(e);
+    }
+
     /* Data
 
     {
