@@ -18,7 +18,8 @@ class UserApi extends NetworkMgr {
     try {
       var response = await dio.post(
         ApiPath.user.createRating(projectId: projectId),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
+        options:
+            Options(headers: {'Authorization': 'Bearer ${AuthMgr.adminKey}'}),
         data: {
           "idea": rating.idea,
           "design": rating.design,
@@ -42,22 +43,19 @@ class UserApi extends NetworkMgr {
   // TODO: - Create Logo
   // PUT
   Future<void> createLogo(
-      {required String projectId, required Image img}) async {
+      {required String projectId, required AssetImage img}) async {
+    var convertedImg = await ImgConverter.assetImgToBytes(img);
+    print(convertedImg);
     try {
       var response = await dio.put(
-        ApiPath.user.createRating(projectId: projectId),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-        data: {
-          "projectId": projectId,
-          "image": await ImgConverter.assetImgToBase64(
-              const AssetImage('assets/defaultImg.png')),
-        },
+        ApiPath.user.editProjectLogo(projectId: projectId),
+        options:
+            Options(headers: {'Authorization': 'Bearer ${AuthMgr.adminKey}'}),
+        queryParameters: {"logo": convertedImg},
       );
       print(response);
     } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+      print(e);
     }
   }
 

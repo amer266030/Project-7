@@ -133,4 +133,8 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthErrorState());
     }
   }
+
+  void signOut() async {
+    await authMgr.logOut();
+  }
 }

@@ -3,7 +3,7 @@ import 'package:tuwaiq_project_pulse/networking/_client/networking_api.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
-  final projectId = 'p-ujg6ra7RdH';
+  final projectId = 'p-JGqY6xjCAK';
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,8 @@ class SettingsScreen extends StatelessWidget {
                   children: [
                     TextButton(
                       onPressed: () => NetworkingApi.shared.userApi.createLogo(
-                          projectId: projectId, img: Image.network('')),
+                          projectId: projectId,
+                          img: AssetImage('assets/defaultImg.png')),
                       child: const Text('Create Logo'),
                     ),
                   ],
