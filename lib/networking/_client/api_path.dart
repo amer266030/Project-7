@@ -63,6 +63,7 @@ class _Supervisor {
 class _Public {
   static String prefix = NetworkMgr.baseUrl;
 
-  String project({required String projectId}) => '$prefix/project/$projectId';
+  String project({required String projectId}) =>
+      '$prefix/get/project/$projectId';
   final String allProjects = '$prefix/projects';
 }

@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tuwaiq_project_pulse/model/api_response.dart';
 import 'package:tuwaiq_project_pulse/model/project/projects_response.dart';
@@ -21,7 +20,6 @@ class PublicApi extends NetworkMgr {
   Future<void> getProjectById({
     required String projectId,
   }) async {
-    print('path: ${ApiPath.public.project(projectId: projectId)}');
     try {
       var response = await dio.get(
         ApiPath.public.project(projectId: projectId),
