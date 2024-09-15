@@ -29,6 +29,12 @@ class SettingsScreen extends StatelessWidget {
                           ),
                       child: const Text('Create project base'),
                     ),
+                    TextButton(
+                      onPressed: () => NetworkingApi.shared.userApi.createLinks(
+                          projectId: projectId,
+                          ),
+                      child: const Text('Create project Link'),
+                    ),
                   ],
                 ),
               )

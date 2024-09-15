@@ -93,19 +93,6 @@ class UserApi extends NetworkMgr {
       print(e);
     }
 
-    /* Data
-
-    {
-      "project_name": "Amazing Flutter App",
-      "bootcamp_name": "Flutter Bootcamp 2024",
-      "type": "website",
-      "start_date": "15/12/2024",
-      "end_date": "15/12/2024",
-      "presentation_date": "15/12/2024",
-      "project_description": "An amazing Flutter app that revolutionizes user experience."
-    }
-
-    */
   }
 
   // TODO: - Project Presentation
@@ -138,10 +125,15 @@ class UserApi extends NetworkMgr {
 
   // TODO: - Create Links
   // PUT
-  Future<void> createLinks() async {
-    /* Data
+  Future<void> createLinks({required String projectId }) async {
+     try {
+      print(ApiPath.user.editProjectLink(projectId: projectId));
 
-    {
+      var response = await dio.put(
+        ApiPath.user.editProjectLink(projectId: projectId),
+        options:
+            Options(headers: {'Authorization': 'Bearer ${AuthMgr.adminKey}'}),
+        data: {
     "link": [
         {"type": "github", "url": "https://github.com/example"},
         {"type": "figma", "url": "https://figma.com/example"},
@@ -153,8 +145,11 @@ class UserApi extends NetworkMgr {
         {"type": "weblink", "url": "https://appstore.com/example"}
       ]
     }
-
-     */
+      );
+      print(response);
+    } catch (e) {
+      print(e);
+    }
   }
 
   // TODO: - Create Members

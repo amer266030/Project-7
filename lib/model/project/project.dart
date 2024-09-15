@@ -27,6 +27,8 @@ class Project {
   String? adminId;
   String? timeEndEdit;
   bool? allowEdit;
+  bool? allowRating;
+  num? rating;
   bool? isPublic;
   String? createAt;
   String? updateAt;
@@ -49,7 +51,9 @@ class Project {
     this.adminId,
     this.timeEndEdit,
     this.allowEdit,
+    this.allowRating,
     this.isPublic,
+    this.rating,
     this.createAt,
     this.updateAt,
     this.imagesProject,
@@ -72,7 +76,9 @@ class Project {
         adminId: json["admin_id"],
         timeEndEdit: json["time_end_edit"],
         allowEdit: json["allow_edit"],
+        allowRating: json["allow_rating"],
         isPublic: json["is_public"],
+        rating: json["rating"],
         createAt: json["create_at"],
         updateAt: json["update_at"],
         imagesProject: json["images_project"] == null
@@ -104,6 +110,8 @@ class Project {
         "admin_id": adminId,
         "time_end_edit": timeEndEdit,
         "allow_edit": allowEdit,
+        "rating": rating,
+        "allow_rating": allowRating,
         "is_public": isPublic,
         "create_at": createAt,
         "update_at": updateAt,

@@ -94,6 +94,8 @@ class ProjectDetails extends StatelessWidget {
               Text('Project Name: ${project.projectName ?? 'None'}'),
               Text('Is public: ${project.isPublic ?? false}'),
               Text('User ID: ${project.allowEdit ?? false}'),
+              Text('Rating: ${project.rating ?? false}'),
+              Text('Allow Rating: ${project.allowRating ?? false}'),
               const Divider(),
               const Text(
                 'Images',
