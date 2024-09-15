@@ -16,19 +16,6 @@ class ImgConverter {
     return base64Decode(base64String);
   }
 
-  static Future<List<int>> convertAssetImageToIntArray(String assetPath) async {
-    // Load the image as bytes from the assets
-    ByteData byteData = await rootBundle.load(assetPath);
-
-    // Convert the ByteData to Uint8List
-    Uint8List uint8List = byteData.buffer.asUint8List();
-
-    // Convert the Uint8List to List<int>
-    List<int> intList = uint8List.toList();
-
-    return intList;
-  }
-
   static String base64String(Uint8List bytes) {
     return base64Encode(bytes);
   }
