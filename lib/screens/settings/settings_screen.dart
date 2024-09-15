@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tuwaiq_project_pulse/networking/_client/networking_api.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
+  final projectId = 'p-ujg6ra7RdH';
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +16,12 @@ class SettingsScreen extends StatelessWidget {
               const Text('Settings Screen'),
               Expanded(
                 child: ListView(
-                  children: const [
-                    Text('Settings List Item'),
+                  children: [
+                    TextButton(
+                      onPressed: () => NetworkingApi.shared.userApi.createLogo(
+                          projectId: projectId, img: Image.network('')),
+                      child: const Text('Create Logo'),
+                    ),
                   ],
                 ),
               )

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tuwaiq_project_pulse/networking/_client/network_mgr.dart';
+import 'package:tuwaiq_project_pulse/utils/img_converter.dart';
 
 import '../managers/auth_mgr.dart';
 import '../model/rating.dart';
@@ -14,28 +15,51 @@ class UserApi extends NetworkMgr {
   //POST
   Future<void> createRating(
       {required String projectId, required Rating rating}) async {
-    var response = await dio.post(
-      ApiPath.user.createRating(projectId: projectId),
-      options: Options(headers: {'Authorization': 'Bearer $token'}),
-      data: {
-        "idea": rating.idea,
-        "design": rating.design,
-        "tools": rating.tools,
-        "practices": rating.practices,
-        "presentation": rating.presentation,
-        "investment": rating.investment,
-        "note": rating.note
-      },
-    );
-    if (kDebugMode) {
-      print(response);
+    try {
+      var response = await dio.post(
+        ApiPath.user.createRating(projectId: projectId),
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+        data: {
+          "idea": rating.idea,
+          "design": rating.design,
+          "tools": rating.tools,
+          "practices": rating.practices,
+          "presentation": rating.presentation,
+          "investment": rating.investment,
+          "note": rating.note
+        },
+      );
+      if (kDebugMode) {
+        print(response);
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   // TODO: - Create Logo
   // PUT
   Future<void> createLogo(
-      {required String projectId, required Image img}) async {}
+      {required String projectId, required Image img}) async {
+    try {
+      var response = await dio.put(
+        ApiPath.user.createRating(projectId: projectId),
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+        data: {
+          "projectId": projectId,
+          "image": await ImgConverter.assetImgToBase64(
+              const AssetImage('assets/defaultImg.png')),
+        },
+      );
+      print(response);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
 
   // TODO: - Create Project Base
   // PUT
