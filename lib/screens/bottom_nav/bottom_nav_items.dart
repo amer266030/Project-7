@@ -3,12 +3,15 @@ import 'package:tuwaiq_project_pulse/screens/profile/profile_screen.dart';
 import 'package:tuwaiq_project_pulse/screens/settings/settings_screen.dart';
 
 import '../public/public_screen.dart';
+import '../user_projects/user_projects_screen.dart';
 
-enum BarItems { profile, settings, public }
+enum BarItems { supervisor, profile, settings, public }
 
 extension BottomNavItems on BarItems {
   Widget screen() {
     switch (this) {
+      case BarItems.supervisor:
+        return const UserProjectsScreen();
       case BarItems.profile:
         return const ProfileScreen();
       case BarItems.public:
@@ -20,6 +23,12 @@ extension BottomNavItems on BarItems {
 
   BottomNavigationBarItem navItem() {
     switch (this) {
+      case BarItems.supervisor:
+        return const BottomNavigationBarItem(
+          icon: Icon(Icons.person_4_sharp),
+          label: 'Supervisor',
+          backgroundColor: Colors.transparent,
+        );
       case BarItems.profile:
         return const BottomNavigationBarItem(
           icon: Icon(Icons.person_outline),

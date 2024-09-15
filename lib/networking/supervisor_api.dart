@@ -13,18 +13,21 @@ class SupervisorApi extends NetworkMgr {
     required DateTime endDate, // DD/MM/YYYY
     required bool edit,
   }) async {
-    var response = await dio.post(
-      ApiPath.supervisor.createProject,
-      options:
-          Options(headers: {'Authorization': 'Bearer ${AuthMgr.adminKey}'}),
-      data: {
-        "user_id": userId,
-        "time_end_edit": endDate.toFormattedString(),
-        "edit": edit
-      },
-    );
-    if (kDebugMode) {
-      print(response);
+    try {
+      var response = await dio.post(
+        ApiPath.supervisor.createProject,
+        options:
+            Options(headers: {'Authorization': 'Bearer ${AuthMgr.adminKey}'}),
+        data: {
+          "user_id": userId,
+          "time_end_edit": endDate.toFormattedString(),
+          "edit": edit
+        },
+      );
+    } on DioException catch (e) {
+      print(e.response);
+    } catch (e) {
+      print(e);
     }
   }
 

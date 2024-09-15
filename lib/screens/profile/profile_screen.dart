@@ -4,6 +4,7 @@ import 'package:tuwaiq_project_pulse/screens/profile/profile_cubit.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/subviews/edit_profile_view.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/subviews/show_profile_view.dart';
 
+import '../../networking/_client/networking_api.dart';
 import '../../utils/typedefs.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -32,6 +33,17 @@ class ProfileScreen extends StatelessWidget {
                     if (state is ProfileInitial) cubit.loadProfile();
                     return Column(
                       children: [
+                        const Text('Supervisor Function'),
+                        TextButton(
+                          onPressed: () =>
+                              NetworkingApi.shared.supervisorApi.createProject(
+                            userId: '87abb39f-28d7-416e-a88b-c7edd7483849',
+                            endDate: DateTime.now().add(Duration(days: 30)),
+                            edit: true,
+                          ),
+                          child: Text('Create Project'),
+                        ),
+                        const Divider(),
                         _HeaderView(cubit: cubit),
                         Expanded(
                           child: cubit.isEdit
