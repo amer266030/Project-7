@@ -1,10 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tuwaiq_project_pulse/extensions/date_ext.dart';
 
+import '../managers/auth_mgr.dart';
 import '_client/api_path.dart';
 import '_client/network_mgr.dart';
-
-// NOT TESTED!
 
 class SupervisorApi extends NetworkMgr {
   // POST
@@ -15,6 +15,8 @@ class SupervisorApi extends NetworkMgr {
   }) async {
     var response = await dio.post(
       ApiPath.supervisor.createProject,
+      options:
+          Options(headers: {'Authorization': 'Bearer ${AuthMgr.adminKey}'}),
       data: {
         "user_id": userId,
         "time_end_edit": endDate.toFormattedString(),
@@ -36,6 +38,8 @@ class SupervisorApi extends NetworkMgr {
   }) async {
     var response = await dio.put(
       ApiPath.supervisor.changeStatus(projectId: projectId),
+      options:
+          Options(headers: {'Authorization': 'Bearer ${AuthMgr.adminKey}'}),
       data: {
         {
           "time_end_edit": endDate.toFormattedString(),
@@ -59,6 +63,8 @@ class SupervisorApi extends NetworkMgr {
   }) async {
     var response = await dio.delete(
       ApiPath.supervisor.deleteProject(projectId: projectId),
+      options:
+          Options(headers: {'Authorization': 'Bearer ${AuthMgr.adminKey}'}),
       data: {
         {
           "time_end_edit": endDate.toFormattedString(),
