@@ -11,10 +11,12 @@ class ShowProfileView extends StatelessWidget {
     var cubit = context.read<ProfileCubit>();
     return ListView(
       children: [
+        Text('First Name: ${cubit.user.id ?? 'None'}'),
         Text('First Name: ${cubit.user.firstName ?? 'None'}'),
         Text('Last Name: ${cubit.user.lastName ?? 'None'}'),
         Text('Image: ${cubit.user.imageUrl == null ? 'NO' : 'YES'}'),
         Text('ROLE: ${cubit.user.role ?? 'None'}'),
+        TextButton(onPressed: () => (), child: Text('Change User Role'))
       ],
     );
   }

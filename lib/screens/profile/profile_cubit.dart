@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/model/user/user.dart';
@@ -11,6 +10,7 @@ part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   final nwk = NetworkingApi.shared.profileApi;
+  final adminNwk = NetworkingApi.shared.adminApi;
   // Changing Forms
   var isEdit = false;
   // Input Fields
@@ -54,9 +54,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(ProfileLoadingState());
     try {
       await nwk.fetchProfile();
-      if (nwk.user == null || nwk.response?.statusCode == null) {
-        throw Exception(nwk.errorMsg);
-      }
       user = nwk.user!;
       print(user.id);
       await _updateInputFields();

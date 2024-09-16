@@ -10,7 +10,6 @@ import '_client/api_path.dart';
 import '_client/network_mgr.dart';
 
 class ProfileApi extends NetworkMgr {
-  Response? response;
   String errorMsg = '';
   String token = GetIt.I.get<AuthMgr>().authData?.token ?? '';
   User? user;
@@ -18,12 +17,13 @@ class ProfileApi extends NetworkMgr {
   // API Functions
   Future<void> fetchProfile() async {
     try {
-      response = await dio.get(
+      var response = await dio.get(
         ApiPath.user.getProfile,
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
-      if (response == null) throw Exception('No Response');
       await setUser(response!);
+    } on DioException catch (e) {
+      errorMsg = e.response.toString();
     } catch (e) {
       errorMsg = e.toString();
     }
@@ -31,15 +31,16 @@ class ProfileApi extends NetworkMgr {
 
   Future<void> updateProfile(User user) async {
     try {
-      response = await dio.put(
+      var response = await dio.put(
         ApiPath.user.editProfile,
         data: user.toJson(),
         options: Options(
           headers: {'Authorization': 'Bearer $token'},
         ),
       );
-      if (response == null) throw Exception('No Response');
-      await setUser(response!);
+      await setUser(response);
+    } on DioException catch (e) {
+      errorMsg = e.response.toString();
     } catch (e) {
       errorMsg = e.toString();
     }

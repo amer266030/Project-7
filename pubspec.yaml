@@ -29,3 +29,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/Tuwaiq_mountain.png
+    - assets/logo.png

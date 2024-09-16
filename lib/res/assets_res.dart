@@ -8,4 +8,6 @@ class AssetsRes {
 
   static const String PLUGIN_NAME = 'tuwaiq_project_pulse';
   static const String PLUGIN_VERSION = '0.1.0';
+  static const String TUWAIQ_MOUNTAIN = 'assets/Tuwaiq_mountain.png';
+  static const String LOGO = 'assets/logo.png';
 }

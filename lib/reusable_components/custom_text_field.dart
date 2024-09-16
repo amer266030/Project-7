@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../extensions/color_ext.dart';
 import '../utils/typedefs.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -22,12 +23,15 @@ class CustomTextField extends StatelessWidget {
       child: TextFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: controller,
+        textCapitalization: TextCapitalization.none,
         decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(4),
             prefixIcon: prefixIcon,
+            prefixIconColor: C.primary,
             suffixIcon: suffixIcon,
             border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15)),
-            ),
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderSide: BorderSide.none),
             filled: true,
             fillColor: Colors.white60,
             hintText: hintText,

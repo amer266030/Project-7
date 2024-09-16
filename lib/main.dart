@@ -13,6 +13,30 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: SplashScreen());
+    return MaterialApp(
+      // theme: ThemeData(
+      //   colorScheme: const ColorScheme.light(
+      //     primary: Colors.deepPurple,
+      //     onPrimary: Colors.white,
+      //     secondary: Colors.deepPurpleAccent,
+      //     onSecondary: Color(0xFFFAFAFA),
+      //     surface: Color(0xFFFAFAFA),
+      //     onSurface: Colors.black,
+      //   ),
+      // ),
+      // darkTheme: ThemeData(
+      //   colorScheme: const ColorScheme.dark(
+      //     primary: Colors.deepPurple,
+      //     onPrimary: Colors.white,
+      //     secondary: Colors.deepPurpleAccent,
+      //     onSecondary: Color(0xFFFAFAFA),
+      //     surface: Color(0xFFFAFAFA),
+      //     onSurface: Colors.black,
+      //   ),
+      // ),
+      // themeMode: ThemeMode.system,
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen(),
+    );
   }
 }
