@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tuwaiq_project_pulse/reusable_components/custom_btn_view.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/buttons/elevated_btn_view.dart';
 
 class CustomAlertDialog extends StatelessWidget {
   const CustomAlertDialog({
@@ -28,7 +28,7 @@ class CustomAlertDialog extends StatelessWidget {
       ),
       actions: <Widget>[
         if (title.isNotEmpty)
-          CustomBtnView(
+          ElevatedBtnView(
             title: 'OK',
             callBack: () => callback!(),
           )

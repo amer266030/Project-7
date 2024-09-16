@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tuwaiq_project_pulse/reusable_components/custom_btn_view.dart';
+import 'package:tuwaiq_project_pulse/extensions/img_ext.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/buttons/bottom_btn_view.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/auth_cubit.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/subViews/otp_form_view.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/subViews/sign_in_form_view.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/subViews/sign_up_form_view.dart';
-import 'package:tuwaiq_project_pulse/utils/typedefs.dart';
 
-import '../../reusable_components/custom_text_btn.dart';
+import '../../extensions/color_ext.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
@@ -31,77 +31,126 @@ class AuthScreen extends StatelessWidget {
             }
           },
           child: Scaffold(
-            body: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: BlocBuilder<AuthCubit, AuthState>(
-                  builder: (context, state) {
-                    return Column(
-                      children: [
-                        Text(
-                          cubit.headerTitle(),
-                          style: const TS(
-                            fontWeight: FW.bold,
-                          ),
-                        ),
-                        Expanded(
-                          child: cubit.isOtp
-                              ? OtpFormView(cubit: cubit)
-                              : cubit.isSignup
-                                  ? SignUpFormView(cubit: cubit)
-                                  : SignInFormView(cubit: cubit),
-                        ),
-                        Column(
-                          children: [
-                            if (!cubit.isOtp)
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      cubit.isSignup
-                                          ? "Already have an account?"
-                                          : "Don't have an account?",
-                                    ),
-                                    const SizedBox(width: 4),
-                                    CustomTextBtn(
-                                        title: cubit.isSignup
-                                            ? 'Sign In'
-                                            : 'Sign Up',
-                                        callback: cubit.toggleIsSignup),
-                                  ],
-                                ),
-                              ),
-                            AbsorbPointer(
-                              absorbing:
-                                  (state is AuthLoadingState) ? true : false,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: CustomBtnView(
-                                      title: 'SUBMIT',
-                                      callBack: cubit.isOtp
-                                          ? cubit.verifyOtp
-                                          : cubit.isSignup
-                                              ? cubit.signUp
-                                              : cubit.signIn,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
+            body: Stack(children: [
+              const _BackgroundImg(),
+              BlocBuilder<AuthCubit, AuthState>(
+                builder: (context, state) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const LogoView(),
+                      _AnimatedBody(cubit: cubit),
+                      if (!cubit.isOtp)
+                        AbsorbPointer(
+                          absorbing: (state is AuthLoadingState) ? true : false,
+                          child: _BottomButtons(cubit: cubit),
                         )
-                      ],
-                    );
-                  },
-                ),
+                    ],
+                  );
+                },
               ),
-            ),
+            ]),
           ),
         );
       }),
+    );
+  }
+}
+
+class LogoView extends StatelessWidget {
+  const LogoView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const SafeArea(
+      child: AspectRatio(
+        aspectRatio: 4,
+        child: Card(
+          shape: CircleBorder(),
+          child: Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Image(
+              image: Img.logo,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _BackgroundImg extends StatelessWidget {
+  const _BackgroundImg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Align(
+      alignment: Alignment.bottomCenter,
+      child: AspectRatio(
+        aspectRatio: 0.6,
+        child: Image(image: Img.mountain, fit: BoxFit.cover),
+      ),
+    );
+  }
+}
+
+class _AnimatedBody extends StatelessWidget {
+  const _AnimatedBody({required this.cubit});
+  final AuthCubit cubit;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(1, 0),
+            end: const Offset(0, 0),
+          ).animate(animation),
+          child: FadeTransition(
+            opacity: animation,
+            child: child,
+          ),
+        );
+      },
+      child: cubit.isOtp
+          ? OtpFormView(key: const ValueKey('OtpFormView'), cubit: cubit)
+          : cubit.isSignup
+              ? SignUpFormView(
+                  key: const ValueKey('SignUpFormView'), cubit: cubit)
+              : SignInFormView(
+                  key: const ValueKey('SignInFormView'), cubit: cubit),
+    );
+  }
+}
+
+class _BottomButtons extends StatelessWidget {
+  const _BottomButtons({super.key, required this.cubit});
+  final AuthCubit cubit;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: BottomBtnView(
+            title: 'Sign Up',
+            btnColor: cubit.isSignup ? C.primary : C.bg1,
+            textColor: cubit.isSignup ? C.bg1 : C.primary,
+            callBack: cubit.isSignup ? () => () : cubit.toggleIsSignup,
+          ),
+        ),
+        Expanded(
+          child: BottomBtnView(
+            title: 'Sign In',
+            btnColor: !cubit.isSignup ? C.primary : C.bg1,
+            textColor: !cubit.isSignup ? C.bg1 : C.primary,
+            callBack: !cubit.isSignup ? () => () : cubit.toggleIsSignup,
+          ),
+        ),
+      ],
     );
   }
 }

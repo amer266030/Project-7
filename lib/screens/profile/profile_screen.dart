@@ -37,11 +37,11 @@ class ProfileScreen extends StatelessWidget {
                         TextButton(
                           onPressed: () =>
                               NetworkingApi.shared.supervisorApi.createProject(
-                            userId: '87abb39f-28d7-416e-a88b-c7edd7483849',
+                            userId: '8c534564-cf6e-42eb-9377-6c08a81debd2',
                             endDate: DateTime.now().add(Duration(days: 30)),
                             edit: true,
                           ),
-                          child: Text('Create Project'),
+                          child: const Text('Create Project'),
                         ),
                         const Divider(),
                         _HeaderView(cubit: cubit),

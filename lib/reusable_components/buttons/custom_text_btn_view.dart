@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../utils/typedefs.dart';
+import '../../utils/typedefs.dart';
 
 class CustomTextBtn extends StatelessWidget {
   const CustomTextBtn({
