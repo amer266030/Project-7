@@ -73,26 +73,27 @@ class UserApi extends NetworkMgr {
 
   // TODO: - Create Project Base
   // PUT
-  Future<void> createProjectBase({required String projectId}) async {
+  Future<void> createProjectBase({required Project project}) async {
     try {
-      print(ApiPath.user.editProjectBase(projectId: projectId));
+      print(ApiPath.user.editProjectBase(projectId: project.projectId ?? ''));
 
       var response = await dio.put(
-        ApiPath.user.editProjectBase(projectId: projectId),
-        options:
-            Options(headers: {'Authorization': 'Bearer ${AuthMgr.adminKey}'}),
+        ApiPath.user.editProjectBase(projectId: project.projectId ?? ''),
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
         data: {
-          "project_name": "Amazing Flutter App",
-          "bootcamp_name": "Flutter Bootcamp 2024",
+          "project_name": "Snow Fantasy",
+          "bootcamp_name": "Disney Land",
           "type": "website",
           "start_date": "15/12/2024",
-          "end_date": "15/12/2024",
-          "presentation_date": "15/12/2024",
-          "project_description":
-              "An amazing Flutter app that revolutionizes user experience."
+          "end_date": "15/02/2025",
+          "presentation_date": "15/02/2025",
+          "project_description": "An amazing Snow Man"
         },
       );
       setProject(response);
+      print('Project Updated');
+    } on DioException catch (e) {
+      print(e);
     } catch (e) {
       print(e);
     }

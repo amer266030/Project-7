@@ -21,7 +21,7 @@ class ProfileApi extends NetworkMgr {
         ApiPath.user.getProfile,
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
-      await setUser(response!);
+      await setUser(response);
     } on DioException catch (e) {
       errorMsg = e.response.toString();
     } catch (e) {

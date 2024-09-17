@@ -6,7 +6,6 @@ import 'package:tuwaiq_project_pulse/networking/_client/networking_api.dart';
 import 'package:tuwaiq_project_pulse/screens/bottom_nav/bottom_nav_screen.dart';
 
 import '../../managers/alert_mgr.dart';
-import '../../model/auth.dart';
 
 part 'auth_state.dart';
 
@@ -77,13 +76,6 @@ class AuthCubit extends Cubit<AuthState> {
       await nwk.createUser(email: email, firstName: fName, lastName: lName);
       toggleIsOTP();
       emit(OTPState());
-      if (nwk.response?.statusCode == null) throw Exception(nwk.errorMsg);
-      if (nwk.response!.statusCode! > 199 && nwk.response!.statusCode! < 300) {
-        toggleIsOTP();
-        emit(OTPState());
-      } else {
-        throw Exception(nwk.errorMsg);
-      }
     } catch (e) {
       alertTitle = 'Oops';
       alertMsg = '$e';
@@ -98,13 +90,8 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoadingState());
     try {
       await nwk.login(email: email);
-      if (nwk.response?.statusCode == null) throw Exception(nwk.errorMsg);
-      if (nwk.response!.statusCode! > 199 && nwk.response!.statusCode! < 300) {
-        toggleIsOTP();
-        emit(OTPState());
-      } else {
-        throw Exception(nwk.errorMsg);
-      }
+      toggleIsOTP();
+      emit(OTPState());
     } catch (e) {
       alertTitle = 'Oops';
       alertMsg = '$e';
@@ -118,14 +105,8 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoadingState());
     try {
       await nwk.verifyOTP(email: email, otp: otp);
-      if (nwk.response?.statusCode == null) throw Exception(nwk.errorMsg);
-      if (nwk.response!.statusCode! > 199 && nwk.response!.statusCode! < 300) {
-        var storageData = AuthData.fromJson(nwk.response?.data["data"]);
-        authMgr.saveAuth(authData: storageData);
-        emit(AuthSuccessState());
-      } else {
-        throw Exception(nwk.errorMsg);
-      }
+      if (authMgr.authData == null) throw Exception(nwk.errorMsg);
+      emit(AuthSuccessState());
     } catch (e) {
       alertTitle = 'Oops';
       alertMsg = '$e';

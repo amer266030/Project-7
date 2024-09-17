@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:tuwaiq_project_pulse/extensions/date_ext.dart';
 import 'package:tuwaiq_project_pulse/model/project/project_links.dart';
 import 'package:tuwaiq_project_pulse/model/project/project_members.dart';
 import 'package:tuwaiq_project_pulse/model/project/project_images.dart';
@@ -100,9 +101,9 @@ class Project {
         "type": type,
         "project_name": projectName,
         "bootcamp_name": bootcampName,
-        "start_date": startDate,
-        "end_date": endDate,
-        "presentation_date": presentationDate,
+        "start_date": startDate?.toDateTime().toFormattedString(),
+        "end_date": endDate?.toDateTime().toFormattedString(),
+        "presentation_date": presentationDate?.toDateTime().toFormattedString(),
         "project_description": projectDescription,
         "logo_url": logoUrl,
         "presentation_url": presentationUrl,

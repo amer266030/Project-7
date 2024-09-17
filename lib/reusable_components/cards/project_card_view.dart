@@ -4,10 +4,9 @@ import '../../model/project/project.dart';
 import '../../utils/typedefs.dart';
 
 class ProjectCardView extends StatelessWidget {
-  const ProjectCardView(
-      {super.key, required this.project, required this.cubit});
+  const ProjectCardView({super.key, required this.project, this.cubit});
   final Project project;
-  final ProjectDetailsCubit cubit;
+  final ProjectDetailsCubit? cubit;
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +19,14 @@ class ProjectCardView extends StatelessWidget {
               child: AspectRatio(
                 aspectRatio: 1,
                 child: InkWell(
-                  onTap: cubit.getImage,
-                  child: cubit.selectedImg == null
+                  onTap: cubit == null ? () => () : cubit!.getImage,
+                  child: cubit?.selectedImg == null
                       ? ClipRRect(
                           borderRadius: BR.circular(16),
                           child: const Placeholder())
                       : ClipRRect(
                           borderRadius: BR.circular(16),
-                          child: Image.file(cubit.selectedImg!)),
+                          child: Image.file(cubit!.selectedImg!)),
                 ),
               ),
             ),
@@ -40,7 +39,7 @@ class ProjectCardView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Admin ${project.adminId}',
+                    '${project.projectName ?? 'None!'}',
                     maxLines: 1,
                   ),
                   Text('Created: ${project.createAt ?? ''}'),

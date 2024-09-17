@@ -44,12 +44,10 @@ class SupervisorApi extends NetworkMgr {
       options:
           Options(headers: {'Authorization': 'Bearer ${AuthMgr.adminKey}'}),
       data: {
-        {
-          "time_end_edit": endDate.toFormattedString(),
-          "edit": canEdit,
-          "rating": canRate,
-          "public": isPublic
-        }
+        "time_end_edit": "11/12/2024",
+        "edit": canEdit,
+        "rating": canRate,
+        "public": isPublic
       },
     );
     if (kDebugMode) {

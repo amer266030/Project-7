@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/profile_screen.dart';
 import 'package:tuwaiq_project_pulse/screens/settings/settings_screen.dart';
 
-import '../public/public_screen.dart';
+import '../public/cubit/public_screen.dart';
 import '../user_projects/user_projects_screen.dart';
 
 enum BarItems { supervisor, profile, settings, public }

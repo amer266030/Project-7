@@ -45,6 +45,7 @@ class UserProjectsCubit extends Cubit<UserProjectsState> {
   void loadProfile() async {
     clearAlertFields();
     emit(UserProjectsLoadingState());
+    Future.delayed(const Duration(seconds: 2));
     try {
       await nwk.fetchProfile();
       if (nwk.user == null) throw Exception(nwk.errorMsg);
