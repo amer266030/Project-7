@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/extensions/screen_size.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
@@ -16,8 +17,7 @@ class ProjectCardView extends StatelessWidget {
   Widget build(BuildContext context) {
     final double rating = double.tryParse('${project.rating}') ?? 0;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      height: context.screenWidth * 0.60,
+      height: context.screenWidth * 0.50,
       width: context.screenWidth * 0.9,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -69,31 +69,15 @@ class ProjectCardView extends StatelessWidget {
                       Text('${project.bootcampName ?? ''} Bootcamp')
                           .styled(size: 18, weight: FontWeight.w600),
                       Text('${project.projectDescription}'),
+                      Text(
+                        DateTime.tryParse(project.createAt!) != null
+                            ? DateFormat('y MMM')
+                                .format(DateTime.tryParse(project.createAt!)!)
+                            : '',
+                      ).styled(size: 16, weight: FontWeight.w500),
+                      RatingStars(rating: rating),
                     ],
                   ),
-                ),
-              )
-            ],
-          ),
-          const Divider(
-            thickness: 1,
-            indent: 1,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              RatingStars(rating: rating),
-              Container(
-                height: context.screenWidth * 0.1,
-                width: context.screenWidth * 0.1,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: C.bg1,
-                ),
-                child: Icon(
-                  Icons.arrow_outward_sharp,
-                  color: C.primary,
-                  size: context.screenWidth * 0.06,
                 ),
               )
             ],
