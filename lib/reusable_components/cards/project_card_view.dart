@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
+import 'package:tuwaiq_project_pulse/extensions/screen_size.dart';
 import 'package:tuwaiq_project_pulse/screens/project_details/project_details_cubit.dart';
 import '../../model/project/project.dart';
 import '../../utils/typedefs.dart';
@@ -12,19 +13,21 @@ class ProjectCardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 220,
-      width: 375,
+      height: context.screenWidth * 0.45,
+      width: context.screenWidth * 0.9,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: C.secondary,
-        boxShadow: [
-          BoxShadow(
-            color: C.primary, 
-            spreadRadius: 0, 
-            blurRadius: 0, 
-            offset: Offset(6, 6), 
+        border: const Border(
+          right: BorderSide(
+            width: 7,
+            color: C.primary,
           ),
-        ],
+          bottom: BorderSide(
+            width: 7,
+            color: C.primary,
+          ),
+        ),
+        color: C.secondaryWOpacity,
       ),
       child: Row(
         children: [
