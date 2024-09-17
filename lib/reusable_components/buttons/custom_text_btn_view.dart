@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../extensions/color_ext.dart';
 import '../../utils/typedefs.dart';
 
 class CustomTextBtn extends StatelessWidget {
@@ -22,7 +23,7 @@ class CustomTextBtn extends StatelessWidget {
         minimumSize: WidgetStateProperty.all(Size.zero), // Adjust if needed
         tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Shrinks the tap area
       ),
-      child: Text(title, style: const TS(color: Colors.blue)),
+      child: Text(title, style: const TS(color: C.primary)),
     );
   }
 }

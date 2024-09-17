@@ -25,6 +25,10 @@ class ImgConverter {
     return bytes.buffer.asUint8List();
   }
 
+  static Future<List<int>> bytesImageToList(Uint8List img) async {
+    return img.toList();
+  }
+
   static Future<String> assetImgToBase64(AssetImage img) async {
     final Uint8List data = await assetImgToBytes(img);
     final String base64Image = base64Encode(data);

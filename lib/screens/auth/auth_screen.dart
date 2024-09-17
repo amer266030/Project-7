@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/extensions/img_ext.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/buttons/bottom_btn_view.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/cards/blurred_card.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/auth_cubit.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/subViews/otp_form_view.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/subViews/sign_in_form_view.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/subViews/sign_up_form_view.dart';
 
 import '../../extensions/color_ext.dart';
+import '../../reusable_components/logo_view.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
@@ -31,6 +33,7 @@ class AuthScreen extends StatelessWidget {
             }
           },
           child: Scaffold(
+            resizeToAvoidBottomInset: false,
             body: Stack(children: [
               const _BackgroundImg(),
               BlocBuilder<AuthCubit, AuthState>(
@@ -38,8 +41,18 @@ class AuthScreen extends StatelessWidget {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const LogoView(),
-                      _AnimatedBody(cubit: cubit),
+                      const SafeArea(
+                          child: Text('')), // To Center the list View
+                      Expanded(
+                        child: ListView(
+                          children: [
+                            if (state is AuthInitial)
+                              const LogoView()
+                            else
+                              BlurredCard(child: _AnimatedBody(cubit: cubit))
+                          ],
+                        ),
+                      ),
                       if (!cubit.isOtp)
                         AbsorbPointer(
                           absorbing: (state is AuthLoadingState) ? true : false,
@@ -53,29 +66,6 @@ class AuthScreen extends StatelessWidget {
           ),
         );
       }),
-    );
-  }
-}
-
-class LogoView extends StatelessWidget {
-  const LogoView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const SafeArea(
-      child: AspectRatio(
-        aspectRatio: 4,
-        child: Card(
-          shape: CircleBorder(),
-          child: Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Image(
-              image: Img.logo,
-              fit: BoxFit.contain,
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
@@ -101,27 +91,31 @@ class _AnimatedBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedSwitcher(
+    return AnimatedSize(
       duration: const Duration(milliseconds: 300),
-      transitionBuilder: (Widget child, Animation<double> animation) {
-        return SlideTransition(
-          position: Tween<Offset>(
-            begin: const Offset(1, 0),
-            end: const Offset(0, 0),
-          ).animate(animation),
-          child: FadeTransition(
-            opacity: animation,
-            child: child,
-          ),
-        );
-      },
-      child: cubit.isOtp
-          ? OtpFormView(key: const ValueKey('OtpFormView'), cubit: cubit)
-          : cubit.isSignup
-              ? SignUpFormView(
-                  key: const ValueKey('SignUpFormView'), cubit: cubit)
-              : SignInFormView(
-                  key: const ValueKey('SignInFormView'), cubit: cubit),
+      curve: Curves.easeInOut,
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        transitionBuilder: (Widget child, Animation<double> animation) {
+          return SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(1, 0),
+              end: const Offset(0, 0),
+            ).animate(animation),
+            child: FadeTransition(
+              opacity: animation,
+              child: child,
+            ),
+          );
+        },
+        child: cubit.isOtp
+            ? OtpFormView(key: const ValueKey('OtpFormView'), cubit: cubit)
+            : cubit.isSignup
+                ? SignUpFormView(
+                    key: const ValueKey('SignUpFormView'), cubit: cubit)
+                : SignInFormView(
+                    key: const ValueKey('SignInFormView'), cubit: cubit),
+      ),
     );
   }
 }
