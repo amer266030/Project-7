@@ -19,7 +19,7 @@ class AuthApi extends NetworkMgr {
       await dio.post(ApiPath.auth.createAccount,
           data: {"email": email, "f_name": firstName, "l_name": lastName});
     } on DioException catch (e) {
-      errorMsg = '$e';
+      errorMsg = '${e.response.toString()}';
     } catch (e) {
       errorMsg = '$e';
     }
@@ -32,7 +32,7 @@ class AuthApi extends NetworkMgr {
     try {
       await dio.post(ApiPath.auth.login, data: {"email": email});
     } on DioException catch (e) {
-      errorMsg = '$e';
+      errorMsg = '${e.response.toString()}';
     } catch (e) {
       errorMsg = '$e';
     }
@@ -50,7 +50,7 @@ class AuthApi extends NetworkMgr {
       var storageData = AuthData.fromJson(response.data["data"]);
       authMgr.saveAuth(authData: storageData);
     } on DioException catch (e) {
-      errorMsg = '$e';
+      errorMsg = '${e.response.toString()}';
     } catch (e) {
       errorMsg = '$e';
     }

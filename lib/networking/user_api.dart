@@ -1,7 +1,8 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:tuwaiq_project_pulse/model/api_response.dart';
 import 'package:tuwaiq_project_pulse/model/project/project.dart';
 import 'package:get_it/get_it.dart';
@@ -49,24 +50,20 @@ class UserApi extends NetworkMgr {
   // PUT
   Future<void> createLogo(
       {required String projectId, required AssetImage img}) async {
-    var convertedImg = await ImgConverter.assetImgToBytes(img);
-    print(convertedImg);
+    var convertedImg = await ImgConverter.assetImgToIntList(img);
     try {
       print(ApiPath.user.editProjectLogo(projectId: projectId));
-      print(
-          " https://tuwaiq-gallery.onrender.com/v1/user/edit/project/logo/p-JGqY6xjCAK");
-      final img = await ImgConverter.assetImgToBase64(
-          const AssetImage('assets/defaultImg.png'));
-      var response = await dio.put(
+      await dio.put(
         ApiPath.user.editProjectLogo(projectId: projectId),
         options: Options(headers: {'Authorization': 'Bearer $token'}),
-        queryParameters: {"logo": convertedImg},
-        data: {
-          "logo": [1, 2, 3, 4]
-        },
+        data: jsonEncode({"logo": convertedImg}),
       );
-      setProject(response);
+      print('Logo Updated!');
+    } on DioException catch (e) {
+      errorMsg = '${e.response.toString()}';
+      print('${e.response.toString()}');
     } catch (e) {
+      errorMsg = '$e';
       print(e);
     }
   }
@@ -81,19 +78,19 @@ class UserApi extends NetworkMgr {
         ApiPath.user.editProjectBase(projectId: project.projectId ?? ''),
         options: Options(headers: {'Authorization': 'Bearer $token'}),
         data: {
-          "project_name": "Snow Fantasy",
+          "project_name": "Donald Duck",
           "bootcamp_name": "Disney Land",
           "type": "website",
-          "start_date": "15/12/2024",
-          "end_date": "15/02/2025",
-          "presentation_date": "15/02/2025",
-          "project_description": "An amazing Snow Man"
+          "start_date": "15/09/2024",
+          "end_date": "15/04/2025",
+          "presentation_date": "15/04/2025",
+          "project_description": "A movie about a sailor duck"
         },
       );
       setProject(response);
       print('Project Updated');
     } on DioException catch (e) {
-      print(e);
+      errorMsg = '${e.response.toString()}';
     } catch (e) {
       print(e);
     }

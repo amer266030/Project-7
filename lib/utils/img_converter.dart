@@ -20,6 +20,11 @@ class ImgConverter {
     return base64Encode(bytes);
   }
 
+  static Future<List<int>> assetImgToIntList(AssetImage img) async {
+    final ByteData bytes = await rootBundle.load(img.assetName);
+    return bytes.buffer.asUint8List().toList();
+  }
+
   static Future<Uint8List> assetImgToBytes(AssetImage img) async {
     final ByteData bytes = await rootBundle.load(img.assetName);
     return bytes.buffer.asUint8List();

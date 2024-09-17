@@ -19,7 +19,7 @@ class ProjectCardView extends StatelessWidget {
               child: AspectRatio(
                 aspectRatio: 1,
                 child: InkWell(
-                  onTap: cubit == null ? () => () : cubit!.getImage,
+                  onTap: cubit == null ? () => () : cubit?.updateImage,
                   child: cubit?.selectedImg == null
                       ? ClipRRect(
                           borderRadius: BR.circular(16),

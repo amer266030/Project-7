@@ -32,6 +32,9 @@ class ProjectDetailsScreen extends StatelessWidget {
                     child:
                         BlocBuilder<ProjectDetailsCubit, ProjectDetailsState>(
                       builder: (context, state) {
+                        if (state is ProjectDetailsInitial) {
+                          cubit.project = project;
+                        }
                         return ProjectCardView(project: project, cubit: cubit);
                       },
                     ),
@@ -42,10 +45,10 @@ class ProjectDetailsScreen extends StatelessWidget {
                   ),
                   TextButton(
                       onPressed: () => cubit.updateProjectBase(project),
-                      child: Text('Update Proj Base')),
+                      child: const Text('Update Proj Base')),
                   TextButton(
                       onPressed: () => cubit.makePublic(project),
-                      child: Text('Make Public'))
+                      child: const Text('Make Public'))
                 ],
               ),
             ),

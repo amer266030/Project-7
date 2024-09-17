@@ -8,6 +8,8 @@ import 'package:tuwaiq_project_pulse/networking/_client/networking_api.dart';
 import 'package:tuwaiq_project_pulse/screens/public/cubit/public_screen.dart';
 import 'package:tuwaiq_project_pulse/screens/user_projects/user_projects_cubit.dart';
 
+import '../../extensions/img_ext.dart';
+
 part 'project_details_state.dart';
 
 class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
@@ -22,6 +24,15 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
     final img = await ImagePicker().pickImage(source: ImageSource.gallery);
     selectedImg = File(img?.path ?? '');
     emit(UpdateUIState());
+  }
+
+  void updateImage() async {
+    try {
+      await userApi.createLogo(
+          projectId: project.projectId ?? '', img: Img.smallLogo);
+    } catch (_) {
+      print('${userApi.errorMsg}');
+    }
   }
 
   Future<void> updateProjectBase(Project project) async {

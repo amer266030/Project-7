@@ -7,6 +7,7 @@ import '_client/api_path.dart';
 import '_client/network_mgr.dart';
 
 class SupervisorApi extends NetworkMgr {
+  var errorMsg = '';
   // POST
   Future<void> createProject({
     required String userId,
@@ -25,7 +26,7 @@ class SupervisorApi extends NetworkMgr {
         },
       );
     } on DioException catch (e) {
-      print(e.response);
+      errorMsg = '${e.response.toString()}';
     } catch (e) {
       print(e);
     }
