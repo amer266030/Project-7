@@ -16,17 +16,20 @@ class PublicCubit extends Cubit<PublicState> {
   var alertMsg = '';
   // Projects
   List<Project> allProjects = [];
+  List<Project> topRated = [];
+  Map<String, List<Project>> groupedProjects = {};
   Project? selectedProject;
 
-  List<Project> topRatedProjects() {
+  void fetchTopRatedProjects() {
     List<Project> sortedProjects =
         List.from(allProjects); // Create a copy of the list
     sortedProjects.sort((a, b) =>
         b.rating!.compareTo(a.rating!)); // Sort by rating in descending order
-    return sortedProjects.take(3).toList(); // Return only the top 3 projects
+    topRated =
+        sortedProjects.take(3).toList(); // Return only the top 3 projects
   }
 
-  Map<String, List<Project>> groupProjectsByBootcamp() {
+  void groupProjectsByBootcamp() {
     Map<String, List<Project>> bootcampProjects = {};
 
     for (var project in allProjects) {
@@ -36,8 +39,7 @@ class PublicCubit extends Cubit<PublicState> {
         bootcampProjects[project.bootcampName!]!.add(project);
       }
     }
-
-    return bootcampProjects;
+    groupedProjects = bootcampProjects;
   }
 
   void showAlert(BuildContext context, bool withDismiss) {
@@ -65,6 +67,8 @@ class PublicCubit extends Cubit<PublicState> {
           name: null, from: 1, to: 10, bootcamp: null, type: null);
       if (nwk.projects == null) throw Exception(nwk.errorMsg);
       allProjects = nwk.projects!;
+      fetchTopRatedProjects();
+      groupProjectsByBootcamp();
       emit(PublicUpdateUIState());
     } catch (e) {
       alertTitle = 'Oops';

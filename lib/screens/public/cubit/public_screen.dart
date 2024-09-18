@@ -43,10 +43,8 @@ class PublicScreen extends StatelessWidget {
                         return Expanded(
                           child: ListView(
                             children: [
-                              _TopRated(cubit.topRatedProjects(), cubit),
-                              ...cubit
-                                  .groupProjectsByBootcamp()
-                                  .entries
+                              _TopRated(cubit.topRated, cubit),
+                              ...cubit.groupedProjects.entries
                                   .map((entry) => _BootCampProjects(
                                       projects: entry.value,
                                       cubit: cubit,
@@ -85,7 +83,9 @@ class _TopRated extends StatelessWidget {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
-        ProjectCardView(project: projects.first)
+        projects.firstOrNull == null
+            ? const CircularProgressIndicator()
+            : ProjectCardView(project: projects.first)
       ],
     );
   }
