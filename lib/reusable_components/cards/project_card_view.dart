@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/extensions/screen_size.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
@@ -16,8 +17,11 @@ class ProjectCardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double rating = double.tryParse('${project.rating}') ?? 0;
+    final controller = PageController(viewportFraction: 0.8, keepPage: true);
+
     return Container(
-      height: context.screenWidth * 0.50,
+      padding: EdgeInsets.only(top: 8),
+      height: context.screenWidth * 0.60,
       width: context.screenWidth * 0.9,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -35,6 +39,10 @@ class ProjectCardView extends StatelessWidget {
       ),
       child: Column(
         children: [
+          DotIndicator(
+            count: 5,
+            currentIndex: 2,
+          ),
           Row(
             children: [
               Expanded(
@@ -84,6 +92,32 @@ class ProjectCardView extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class DotIndicator extends StatelessWidget {
+  final int count;
+  final int currentIndex;
+
+  const DotIndicator({super.key, required this.count, required this.currentIndex});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(count, (index) {
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 4.0),
+          width: 50.0,
+          height: 8.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            shape: BoxShape.rectangle,
+            color: index == currentIndex ? C.primary : C.bg1,
+          ),
+        );
+      }),
     );
   }
 }
