@@ -5,8 +5,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 import 'package:tuwaiq_project_pulse/model/project/project.dart';
 import 'package:tuwaiq_project_pulse/networking/_client/networking_api.dart';
-import 'package:tuwaiq_project_pulse/screens/public/cubit/public_screen.dart';
-import 'package:tuwaiq_project_pulse/screens/user_projects/user_projects_cubit.dart';
 
 import '../../extensions/img_ext.dart';
 

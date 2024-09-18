@@ -39,7 +39,7 @@ class ProjectCardView extends StatelessWidget {
           children: [
             const DotIndicator(
               count: 5,
-              currentIndex: 1,
+              currentIndex: 0,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 16.0, bottom: 8),

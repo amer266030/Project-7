@@ -8,7 +8,7 @@ part 'bottom_nav_state.dart';
 class BottomNavCubit extends Cubit<BottomNavState> {
   BottomNavCubit() : super(BottomNavInitial());
 
-  int currentIndex = 0;
+  int currentIndex = 1;
   final List<Widget> screens =
       BarItems.values.map((item) => item.screen()).toList();
 

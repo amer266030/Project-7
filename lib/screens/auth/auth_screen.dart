@@ -9,6 +9,7 @@ import 'package:tuwaiq_project_pulse/screens/auth/subViews/sign_in_form_view.dar
 import 'package:tuwaiq_project_pulse/screens/auth/subViews/sign_up_form_view.dart';
 
 import '../../extensions/color_ext.dart';
+import '../../reusable_components/background_img.dart';
 import '../../reusable_components/logo_view.dart';
 
 class AuthScreen extends StatelessWidget {
@@ -35,7 +36,7 @@ class AuthScreen extends StatelessWidget {
           child: Scaffold(
             resizeToAvoidBottomInset: false,
             body: Stack(children: [
-              const _BackgroundImg(),
+              const BackgroundImg(),
               BlocBuilder<AuthCubit, AuthState>(
                 builder: (context, state) {
                   return Column(
@@ -66,21 +67,6 @@ class AuthScreen extends StatelessWidget {
           ),
         );
       }),
-    );
-  }
-}
-
-class _BackgroundImg extends StatelessWidget {
-  const _BackgroundImg({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Align(
-      alignment: Alignment.bottomCenter,
-      child: AspectRatio(
-        aspectRatio: 0.6,
-        child: Image(image: Img.mountain, fit: BoxFit.cover),
-      ),
     );
   }
 }

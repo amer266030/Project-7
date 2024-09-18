@@ -5,11 +5,11 @@ import 'package:tuwaiq_project_pulse/networking/_client/networking_api.dart';
 import '../../../managers/alert_mgr.dart';
 import '../../../model/project/project.dart';
 
-part 'public_state.dart';
+part 'projects_state.dart';
 
-class PublicCubit extends Cubit<PublicState> {
+class ProjectsCubit extends Cubit<ProjectsState> {
   final nwk = NetworkingApi.shared.publicApi;
-  PublicCubit() : super(PublicInitial());
+  ProjectsCubit() : super(ProjectsInitial());
   // Alert Dialog
   bool isAlertVisible = false;
   var alertTitle = '';
@@ -19,6 +19,7 @@ class PublicCubit extends Cubit<PublicState> {
   List<Project> topRated = [];
   Map<String, List<Project>> groupedProjects = {};
   Project? selectedProject;
+  var topRatedIdx = 0;
 
   void fetchTopRatedProjects() {
     List<Project> sortedProjects =
@@ -26,7 +27,7 @@ class PublicCubit extends Cubit<PublicState> {
     sortedProjects.sort((a, b) =>
         b.rating!.compareTo(a.rating!)); // Sort by rating in descending order
     topRated =
-        sortedProjects.take(3).toList(); // Return only the top 3 projects
+        sortedProjects.take(5).toList(); // Return only the top 3 projects
   }
 
   void groupProjectsByBootcamp() {
@@ -61,7 +62,7 @@ class PublicCubit extends Cubit<PublicState> {
 
   void getProjects() async {
     clearAlertFields();
-    emit(PublicLoadingState());
+    emit(ProjectsLoadingState());
     try {
       await nwk.getProjects(
           name: null, from: 1, to: 10, bootcamp: null, type: null);
@@ -69,26 +70,26 @@ class PublicCubit extends Cubit<PublicState> {
       allProjects = nwk.projects ?? [];
       fetchTopRatedProjects();
       groupProjectsByBootcamp();
-      emit(PublicUpdateUIState());
+      emit(ProjectsUpdateUIState());
     } catch (e) {
       alertTitle = 'Oops';
       alertMsg = '$e';
-      emit(PublicErrorState());
+      emit(ProjectsErrorState());
     }
   }
 
   void getProjectById(String projectId) async {
     clearAlertFields();
-    emit(PublicLoadingState());
+    emit(ProjectsLoadingState());
     try {
       await nwk.getProjectById(projectId: projectId);
       if (nwk.project == null) throw Exception(nwk.errorMsg);
       selectedProject = nwk.project;
-      emit(PublicUpdateUIState());
+      emit(ProjectsUpdateUIState());
     } catch (e) {
       alertTitle = 'Oops';
       alertMsg = '$e';
-      emit(PublicErrorState());
+      emit(ProjectsErrorState());
     }
   }
 }
