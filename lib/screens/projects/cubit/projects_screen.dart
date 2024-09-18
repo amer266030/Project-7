@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/cards/project_card_view.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/logo_view.dart';
 import 'package:tuwaiq_project_pulse/screens/projects/cubit/projects_cubit.dart';
+import 'package:tuwaiq_project_pulse/utils/typedefs.dart';
 
 import '../../../model/project/project.dart';
 
@@ -41,7 +43,7 @@ class ProjectsScreen extends StatelessWidget {
                           size: 20, weight: FontWeight.bold, color: C.primary),
                       IconButton(
                           onPressed: () => (),
-                          icon: Icon(CupertinoIcons.search))
+                          icon: const Icon(CupertinoIcons.search))
                     ],
                   ),
                   const Divider(),
@@ -52,12 +54,7 @@ class ProjectsScreen extends StatelessWidget {
                         child: ListView(
                           children: [
                             _TopRatedView(cubit.topRated, cubit),
-                            ...cubit.groupedProjects.entries
-                                .map((entry) => _BootCampsView(
-                                    projects: entry.value,
-                                    cubit: cubit,
-                                    bootcampTitle: entry.key))
-                                .toList(),
+                            _BootCampsView(cubit: cubit),
                           ],
                         ),
                       );
@@ -98,12 +95,7 @@ class _TopRatedView extends StatelessWidget {
 }
 
 class _BootCampsView extends StatelessWidget {
-  const _BootCampsView(
-      {required this.projects,
-      required this.cubit,
-      required this.bootcampTitle});
-  final List<Project> projects;
-  final String bootcampTitle;
+  const _BootCampsView({required this.cubit});
   final ProjectsCubit cubit;
 
   @override
@@ -111,29 +103,64 @@ class _BootCampsView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
           child: Text(
-            bootcampTitle, // Display Bootcamp name as header
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            'Tuwaiq Gallery', // Display Bootcamp name as header
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
-        // Display the list of projects under this bootcamp
-        ...projects.map((project) => ListTile(
-              title: Text(project.projectName ?? '?'),
-              subtitle: Text('Rating: ${project.rating}'),
-            ))
+        GridView(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              childAspectRatio: 1),
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          children: cubit.groupedProjects.entries
+              .map((entry) =>
+                  BootCampCardView(title: entry.key, projects: entry.value))
+              .toList(),
+        )
       ],
     );
   }
 }
 
 class BootCampCardView extends StatelessWidget {
-  const BootCampCardView({super.key, required this.projects});
+  const BootCampCardView(
+      {super.key, required this.projects, required this.title});
+  final String title;
   final List<Project> projects;
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: C.secondary
+              .withOpacity(0.7), // Keeps the semi-transparent background
+          borderRadius: BorderRadius.circular(16),
+          border: const Border(
+            right: BorderSide(
+                color: C.primary, width: 6), // Solid border on the right
+            bottom: BorderSide(
+                color: C.primary, width: 6), // Solid border at the bottom
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const LogoView(),
+              Text(title).styled(align: TextAlign.center, weight: FW.bold)
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
