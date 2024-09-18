@@ -53,15 +53,15 @@ class ProjectCardView extends StatelessWidget {
                         aspectRatio: 1,
                         child: InkWell(
                           onTap: cubit == null ? () => () : cubit!.getImage,
-                          child: cubit?.selectedImg == null
-                              ? ClipRRect(
-                                  borderRadius: BR.circular(16),
-                                  child: const Placeholder())
-                              : ClipRRect(
-                                  borderRadius: BR.circular(16),
-                                  child: project.logoUrl == null
-                                      ? const Placeholder()
-                                      : Image.network(project.logoUrl!)),
+                          child: ClipRRect(
+                            borderRadius: BR.circular(16),
+                            child: project.logoUrl == null
+                                ? const Placeholder()
+                                : Image.network(
+                                    project.logoUrl!,
+                                    fit: BoxFit.cover,
+                                  ),
+                          ),
                         ),
                       ),
                     ),
@@ -76,9 +76,9 @@ class ProjectCardView extends StatelessWidget {
                           project.projectName ?? 'None!',
                           maxLines: 1,
                         ).styled(size: 14, weight: FontWeight.bold),
-                        Text('${project.bootcampName ?? ''}')
+                        Text(project.bootcampName ?? '')
                             .styled(size: 12, weight: FontWeight.w400),
-                        Text('${project.projectDescription ?? ''}').styled(
+                        Text(project.projectDescription ?? '').styled(
                             color: Colors.black,
                             size: 10,
                             weight: FontWeight.w300),
