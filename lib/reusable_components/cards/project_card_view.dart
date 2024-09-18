@@ -100,7 +100,8 @@ class DotIndicator extends StatelessWidget {
   final int count;
   final int currentIndex;
 
-  const DotIndicator({super.key, required this.count, required this.currentIndex});
+  const DotIndicator(
+      {super.key, required this.count, required this.currentIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +110,7 @@ class DotIndicator extends StatelessWidget {
       children: List.generate(count, (index) {
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 4.0),
-          width: 50.0,
+          width: 60.0,
           height: 8.0,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
