@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
+import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/cards/project_card_view.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/profile_cubit.dart';
 import 'package:tuwaiq_project_pulse/screens/public/cubit/public_cubit.dart';
@@ -76,12 +78,11 @@ class _TopRated extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text(
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: const Text(
             'Top Rated', // Display Bootcamp name as header
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
+          ).styled(size: 20, weight: FontWeight.bold, color: C.primary),
         ),
         projects.firstOrNull == null
             ? const CircularProgressIndicator()
