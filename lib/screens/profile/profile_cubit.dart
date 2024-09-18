@@ -23,6 +23,9 @@ class ProfileCubit extends Cubit<ProfileState> {
   // User
   User user = User();
 
+  /* TO BE REMOVED */
+  static const amerUserId = '8c534564-cf6e-42eb-9377-6c08a81debd2';
+
   ProfileCubit() : super(ProfileInitial());
 
   String headerTitle() => isEdit ? 'Edit Profile' : 'Profile Overview';

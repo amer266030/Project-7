@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import '../../extensions/color_ext.dart';
 
 class BorderedCardView extends StatelessWidget {
-  const BorderedCardView({super.key, required this.child});
+  const BorderedCardView(
+      {super.key, required this.child, this.isSecondaryColor = true});
   final Widget child;
+  final bool isSecondaryColor;
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +14,10 @@ class BorderedCardView extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
-          color: C.secondary
-              .withOpacity(0.7), // Keeps the semi-transparent background
+          color: isSecondaryColor
+              ? C.secondary.withOpacity(0.7)
+              : Colors.white
+                  .withOpacity(0.8), // Keeps the semi-transparent background
           borderRadius: BorderRadius.circular(16),
           border: const Border(
             right: BorderSide(

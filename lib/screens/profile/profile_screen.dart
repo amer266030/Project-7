@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/background_img.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/profile_cubit.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/subviews/edit_profile_view.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/subviews/show_profile_view.dart';
 
-import '../../networking/_client/networking_api.dart';
 import '../../utils/typedefs.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -25,36 +26,35 @@ class ProfileScreen extends StatelessWidget {
             }
           },
           child: Scaffold(
-            body: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: BlocBuilder<ProfileCubit, ProfileState>(
-                  builder: (context, state) {
-                    if (state is ProfileInitial) cubit.loadProfile();
-                    return Column(
-                      children: [
-                        const Text('Supervisor Function'),
-                        TextButton(
-                          onPressed: () =>
-                              NetworkingApi.shared.supervisorApi.createProject(
-                            userId: '8c534564-cf6e-42eb-9377-6c08a81debd2',
-                            endDate: DateTime.now().add(Duration(days: 30)),
-                            edit: true,
-                          ),
-                          child: const Text('Create Project'),
-                        ),
-                        const Divider(),
-                        _HeaderView(cubit: cubit),
-                        Expanded(
-                          child: cubit.isEdit
-                              ? EditProfileView(cubit: cubit)
-                              : ShowProfileView(cubit: cubit),
-                        )
-                      ],
-                    );
-                  },
+            body: Stack(
+              children: [
+                const BackgroundImg(),
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: BlocBuilder<ProfileCubit, ProfileState>(
+                      builder: (context, state) {
+                        if (state is ProfileInitial) cubit.loadProfile();
+                        return Column(
+                          children: [
+                            Row(
+                              children: [
+                                const Text('Profile')
+                                    .styled(size: 18, weight: FW.bold),
+                              ],
+                            ),
+                            Expanded(
+                              child: cubit.isEdit
+                                  ? EditProfileView(cubit: cubit)
+                                  : ShowProfileView(cubit: cubit),
+                            )
+                          ],
+                        );
+                      },
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         );
@@ -63,32 +63,12 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-class _HeaderView extends StatelessWidget {
-  const _HeaderView({required this.cubit});
-  final ProfileCubit cubit;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          cubit.headerTitle(),
-          style: const TS(
-            fontWeight: FW.bold,
-          ),
-        ),
-        Row(
-          children: [
-            TextButton(
-                onPressed: cubit.toggleIsEdit,
-                child: Text(cubit.isEdit ? 'cancel' : 'edit')),
-            if (cubit.isEdit)
-              TextButton(
-                  onPressed: cubit.updateProfile, child: const Text('save')),
-          ],
-        ),
-      ],
-    );
-  }
-}
+// TextButton(
+// onPressed: () =>
+// NetworkingApi.shared.supervisorApi.createProject(
+// userId: '8c534564-cf6e-42eb-9377-6c08a81debd2',
+// endDate: DateTime.now().add(Duration(days: 30)),
+// edit: true,
+// ),
+// child: const Text('Create Project'),
+// ),
