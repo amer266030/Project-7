@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
-import 'package:tuwaiq_project_pulse/reusable_components/rating_stars.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/rating_stars_view.dart';
 import 'package:tuwaiq_project_pulse/screens/project_details/project_details_cubit.dart';
 import '../../model/project/project.dart';
 import '../../utils/typedefs.dart';
@@ -75,13 +75,15 @@ class ProjectCardView extends StatelessWidget {
                         Text(
                           project.projectName ?? 'None!',
                           maxLines: 1,
-                        ).styled(size: 14, weight: FontWeight.bold),
+                        ).styled(
+                            size: 14, weight: FontWeight.bold, lineLimit: 1),
                         Text(project.bootcampName ?? '')
                             .styled(size: 12, weight: FontWeight.w400),
                         Text(project.projectDescription ?? '').styled(
                             color: Colors.black,
                             size: 10,
-                            weight: FontWeight.w300),
+                            weight: FontWeight.w300,
+                            lineLimit: 2),
                       ],
                     ),
                   )
@@ -91,7 +93,7 @@ class ProjectCardView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                RatingStars(rating: rating),
+                RatingStarsView(rating: rating),
                 Text(
                   DateTime.tryParse(project.createAt ?? '') != null
                       ? DateFormat('y MMM')

@@ -1,9 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/networking/_client/networking_api.dart';
+import 'package:tuwaiq_project_pulse/screens/bootcamp_projects/bootcamp_projects_screen.dart';
 
-import '../../../managers/alert_mgr.dart';
-import '../../../model/project/project.dart';
+import '../../managers/alert_mgr.dart';
+import '../../model/project/project.dart';
 
 part 'projects_state.dart';
 
@@ -20,6 +21,16 @@ class ProjectsCubit extends Cubit<ProjectsState> {
   Map<String, List<Project>> groupedProjects = {};
   Project? selectedProject;
   var topRatedIdx = 0;
+
+  void navigateToBootCampProjects(
+          {required BuildContext context,
+          required String title,
+          required List<Project> projects}) =>
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => BootcampProjectsScreen(
+                title: title,
+                projects: projects,
+              )));
 
   void fetchTopRatedProjects() {
     List<Project> sortedProjects =

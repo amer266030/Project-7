@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 
-class RatingStars extends StatelessWidget {
+class RatingStarsView extends StatelessWidget {
   final double rating;
   final int totalStars;
 
-  const RatingStars({super.key, required this.rating, this.totalStars = 5});
+  const RatingStarsView({super.key, required this.rating, this.totalStars = 5});
 
   @override
   Widget build(BuildContext context) {
