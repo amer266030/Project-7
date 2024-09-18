@@ -66,7 +66,7 @@ class PublicCubit extends Cubit<PublicState> {
       await nwk.getProjects(
           name: null, from: 1, to: 10, bootcamp: null, type: null);
       if (nwk.projects == null) throw Exception(nwk.errorMsg);
-      allProjects = nwk.projects!;
+      allProjects = nwk.projects ?? [];
       fetchTopRatedProjects();
       groupProjectsByBootcamp();
       emit(PublicUpdateUIState());

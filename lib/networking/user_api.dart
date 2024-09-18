@@ -52,19 +52,16 @@ class UserApi extends NetworkMgr {
       {required String projectId, required AssetImage img}) async {
     var convertedImg = await ImgConverter.assetImgToIntList(img);
     try {
-      print(ApiPath.user.editProjectLogo(projectId: projectId));
-      await dio.put(
+      var response = await dio.put(
         ApiPath.user.editProjectLogo(projectId: projectId),
         options: Options(headers: {'Authorization': 'Bearer $token'}),
         data: jsonEncode({"logo": convertedImg}),
       );
-      print('Logo Updated!');
+      print(response);
     } on DioException catch (e) {
-      errorMsg = '${e.response.toString()}';
-      print('${e.response.toString()}');
+      errorMsg = '${e.response}';
     } catch (e) {
       errorMsg = '$e';
-      print(e);
     }
   }
 

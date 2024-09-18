@@ -43,6 +43,7 @@ class ProjectDetailsScreen extends StatelessWidget {
                     hintText: 'The amazing Spider man',
                     controller: TextEditingController(),
                   ),
+                  Text('${project.logoUrl}'),
                   TextButton(
                       onPressed: () => cubit.updateProjectBase(project),
                       child: const Text('Update Proj Base')),

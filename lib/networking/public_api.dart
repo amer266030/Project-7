@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:tuwaiq_project_pulse/managers/mock_data_mgr.dart';
 import 'package:tuwaiq_project_pulse/model/api_response.dart';
 import 'package:tuwaiq_project_pulse/model/project/projects_response.dart';
 
@@ -16,6 +17,7 @@ class PublicApi extends NetworkMgr {
   String token = GetIt.I.get<AuthMgr>().authData?.token ?? '';
   List<Project>? projects;
   Project? project;
+  var mockData = MockDataManager();
 
   Future<void> getProjectById({
     required String projectId,
@@ -40,22 +42,26 @@ class PublicApi extends NetworkMgr {
     String? type,
     int? rating,
   }) async {
-    try {
-      var response = await dio.get(
-        ApiPath.public.allProjects,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-        queryParameters: {
-          'name': name,
-          'to': to,
-          'from': from,
-          'bootcamp': bootcamp,
-          'type': type,
-          'rating': rating
-        },
-      );
-      setProjects(response);
-    } catch (e) {
-      errorMsg = '$e';
+    if (mockData.isPreview) {
+      projects = mockData.getMockProjects();
+    } else {
+      try {
+        var response = await dio.get(
+          ApiPath.public.allProjects,
+          options: Options(headers: {'Authorization': 'Bearer $token'}),
+          queryParameters: {
+            'name': name,
+            'to': to,
+            'from': from,
+            'bootcamp': bootcamp,
+            'type': type,
+            'rating': rating
+          },
+        );
+        setProjects(response);
+      } catch (e) {
+        errorMsg = '$e';
+      }
     }
   }
 

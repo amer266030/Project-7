@@ -23,6 +23,7 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
   void getImage() async {
     final img = await ImagePicker().pickImage(source: ImageSource.gallery);
     selectedImg = File(img?.path ?? '');
+    updateImage();
     emit(UpdateUIState());
   }
 
