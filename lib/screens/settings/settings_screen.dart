@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
-import 'package:tuwaiq_project_pulse/networking/_client/networking_api.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/list_item_view.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/list_item_view_settings.dart';
 
 import '../../reusable_components/background_img.dart';
 import '../../utils/typedefs.dart';
@@ -32,10 +32,15 @@ class SettingsScreen extends StatelessWidget {
                         const ListItemView(label: 'Item'),
                         const Text('More').styled(
                             size: 18, weight: FW.bold, color: Colors.black),
-                        const ListItemView(label: 'Item'),
-                        const ListItemView(label: 'Item'),
-                        const ListItemView(label: 'Item'),
-                        const ListItemView(label: 'Item'),
+                        const ListItemViewForSET(
+                          label: 'Item',
+                          label2: 'Item2',
+                          label3: 'Item3',
+                          label4: 'Item4',
+                          label5: 'Item5',
+                          label6: 'Item6',
+                          label7: 'Item7',
+                        ),
                       ],
                     ),
                   ),

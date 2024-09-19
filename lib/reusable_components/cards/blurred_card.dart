@@ -5,7 +5,6 @@ import 'package:tuwaiq_project_pulse/reusable_components/logo_view.dart';
 import 'package:tuwaiq_project_pulse/utils/typedefs.dart';
 
 import '../../extensions/color_ext.dart';
-import '../../extensions/img_ext.dart';
 
 class BlurredCard extends StatelessWidget {
   const BlurredCard({super.key, required this.child});
