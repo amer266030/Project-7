@@ -48,16 +48,10 @@ class SettingsScreen extends StatelessWidget {
                           label7: 'Item7',
                           destination7: null,
                         ),
+                        const SizedBox(height: 50),
+                        Image.asset('assets/bottom_settings.png'),
                       ],
                     ),
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(CupertinoIcons.rectangle_fill, color: Colors.white),
-                      Icon(CupertinoIcons.circle_fill, color: Colors.white),
-                      Icon(CupertinoIcons.rectangle_fill, color: Colors.white),
-                    ],
                   ),
                 ],
               ),
