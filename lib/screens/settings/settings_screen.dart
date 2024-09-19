@@ -28,25 +28,23 @@ class SettingsScreen extends StatelessWidget {
                   Expanded(
                     child: ListView(
                       children: [
-                        const ListItemView(label: 'Item'),
-                        const ListItemView(label: 'Item'),
+                        const ListItemView(label: 'Language'),
+                        const ListItemView(label: 'Dark Mode'),
                         const Text('More').styled(
                             size: 18, weight: FW.bold, color: Colors.black),
                         const ListItemViewForSET(
-                          label: 'Item',
+                          label: 'About Us',
                           destination: null,
-                          label2: 'Item2',
+                          label2: 'About App',
                           destination2: null,
-                          label3: 'Item3',
+                          label3: 'Help & Support',
                           destination3: null,
-                          label4: 'Item4',
+                          label4: 'Terms and Conditions',
                           destination4: null,
-                          label5: 'Item5',
+                          label5: 'Privacy',
                           destination5: null,
-                          label6: 'Item6',
+                          label6: 'Policy',
                           destination6: null,
-                          label7: 'Item7',
-                          destination7: null,
                         ),
                         const SizedBox(height: 50),
                         Image.asset('assets/bottom_settings.png'),

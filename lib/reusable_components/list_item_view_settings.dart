@@ -17,14 +17,17 @@ class ListItemViewForSET extends StatelessWidget {
       required this.label4,
       required this.label5,
       required this.label6,
-      required this.label7, this.destination2, this.destination3, this.destination4, this.destination5, this.destination6, this.destination7});
+      this.destination2,
+      this.destination3,
+      this.destination4,
+      this.destination5,
+      this.destination6});
   final String label;
   final String label2;
   final String label3;
   final String label4;
   final String label5;
   final String label6;
-  final String label7;
   final bool isAlert;
   final Widget? destination;
   final Widget? destination2;
@@ -32,7 +35,6 @@ class ListItemViewForSET extends StatelessWidget {
   final Widget? destination4;
   final Widget? destination5;
   final Widget? destination6;
-  final Widget? destination7;
 
   void _navigate(BuildContext context) => Navigator.of(context)
       .push(MaterialPageRoute(builder: (context) => destination!));
@@ -119,24 +121,11 @@ class ListItemViewForSET extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(label6).styled(weight: FW.bold),
-                    const Icon(CupertinoIcons.arrow_right_circle_fill,
-                        color: C.primary)
+                    Image.asset('assets/setting_logo.png'),
                   ],
                 ),
               ),
               const SizedBox(height: 10),
-              InkWell(
-                onTap:
-                    destination7 == null ? () => () : () => _navigate(context),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(label7).styled(weight: FW.bold),
-                    const Icon(CupertinoIcons.arrow_right_circle_fill,
-                        color: C.primary)
-                  ],
-                ),
-              ),
             ],
           ),
         ),
