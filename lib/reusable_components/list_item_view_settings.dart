@@ -8,7 +8,16 @@ import 'cards/bordered_card_view.dart';
 
 class ListItemViewForSET extends StatelessWidget {
   const ListItemViewForSET(
-      {super.key, required this.label, this.isAlert = false, this.destination, required this.label2, required this.label3, required this.label4, required this.label5, required this.label6, required this.label7});
+      {super.key,
+      required this.label,
+      this.isAlert = false,
+      this.destination,
+      required this.label2,
+      required this.label3,
+      required this.label4,
+      required this.label5,
+      required this.label6,
+      required this.label7, this.destination2, this.destination3, this.destination4, this.destination5, this.destination6, this.destination7});
   final String label;
   final String label2;
   final String label3;
@@ -18,6 +27,12 @@ class ListItemViewForSET extends StatelessWidget {
   final String label7;
   final bool isAlert;
   final Widget? destination;
+  final Widget? destination2;
+  final Widget? destination3;
+  final Widget? destination4;
+  final Widget? destination5;
+  final Widget? destination6;
+  final Widget? destination7;
 
   void _navigate(BuildContext context) => Navigator.of(context)
       .push(MaterialPageRoute(builder: (context) => destination!));
@@ -26,15 +41,16 @@ class ListItemViewForSET extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: InkWell(
-        onTap: destination == null ? () => () : () => _navigate(context),
-        child: BorderedCardView(
-          isSecondaryColor: false,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Row(
+      child: BorderedCardView(
+        isSecondaryColor: false,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              InkWell(
+                onTap:
+                    destination == null ? () => () : () => _navigate(context),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(label).styled(weight: FW.bold),
@@ -42,7 +58,12 @@ class ListItemViewForSET extends StatelessWidget {
                         color: C.primary)
                   ],
                 ),
-                Row(
+              ),
+              const SizedBox(height: 10),
+              InkWell(
+                onTap:
+                    destination2 == null ? () => () : () => _navigate(context),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(label2).styled(weight: FW.bold),
@@ -50,7 +71,12 @@ class ListItemViewForSET extends StatelessWidget {
                         color: C.primary)
                   ],
                 ),
-                Row(
+              ),
+              const SizedBox(height: 10),
+              InkWell(
+                onTap:
+                    destination3 == null ? () => () : () => _navigate(context),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(label3).styled(weight: FW.bold),
@@ -58,7 +84,12 @@ class ListItemViewForSET extends StatelessWidget {
                         color: C.primary)
                   ],
                 ),
-                Row(
+              ),
+              const SizedBox(height: 10),
+              InkWell(
+                onTap:
+                    destination4 == null ? () => () : () => _navigate(context),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(label4).styled(weight: FW.bold),
@@ -66,7 +97,12 @@ class ListItemViewForSET extends StatelessWidget {
                         color: C.primary)
                   ],
                 ),
-                Row(
+              ),
+              const SizedBox(height: 10),
+              InkWell(
+                onTap:
+                    destination5 == null ? () => () : () => _navigate(context),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(label5).styled(weight: FW.bold),
@@ -74,7 +110,12 @@ class ListItemViewForSET extends StatelessWidget {
                         color: C.primary)
                   ],
                 ),
-                Row(
+              ),
+              const SizedBox(height: 10),
+              InkWell(
+                onTap:
+                    destination6 == null ? () => () : () => _navigate(context),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(label6).styled(weight: FW.bold),
@@ -82,7 +123,12 @@ class ListItemViewForSET extends StatelessWidget {
                         color: C.primary)
                   ],
                 ),
-                Row(
+              ),
+              const SizedBox(height: 10),
+              InkWell(
+                onTap:
+                    destination7 == null ? () => () : () => _navigate(context),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(label7).styled(weight: FW.bold),
@@ -90,8 +136,8 @@ class ListItemViewForSET extends StatelessWidget {
                         color: C.primary)
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
