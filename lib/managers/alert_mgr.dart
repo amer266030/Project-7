@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tuwaiq_project_pulse/reusable_components/custom_alert_dialog.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/popups/custom_alert_dialog.dart';
 
 class AlertManager {
   static final AlertManager _instance = AlertManager._internal();

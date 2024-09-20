@@ -1,16 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:tuwaiq_project_pulse/model/user/user.dart';
+import 'package:tuwaiq_project_pulse/screens/auth/auth_screen.dart';
 
 import '../../managers/alert_mgr.dart';
+import '../../managers/auth_mgr.dart';
 import '../../networking/_client/networking_api.dart';
 
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   final nwk = NetworkingApi.shared.profileApi;
-  final adminNwk = NetworkingApi.shared.adminApi;
+  final adminApi = NetworkingApi.shared.adminApi;
+  final authMgr = GetIt.I.get<AuthMgr>();
   // Changing Forms
   var isEdit = false;
   // Input Fields
@@ -96,5 +100,11 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> _updateInputFields() async {
     firstNameController.text = user.firstName ?? '';
     lastNameController.text = user.lastName ?? '';
+  }
+
+  void logOut(BuildContext context) {
+    authMgr.logOut();
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const AuthScreen()));
   }
 }

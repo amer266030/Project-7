@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
-import 'package:tuwaiq_project_pulse/reusable_components/background_img.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/profile_cubit.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/subviews/edit_profile_view.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/subviews/show_profile_view.dart';
 
+import '../../reusable_components/images/background_img.dart';
 import '../../utils/typedefs.dart';
 
 class ProfileScreen extends StatelessWidget {

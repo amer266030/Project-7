@@ -3,7 +3,7 @@ import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 
 import '../../../model/project/project.dart';
 import '../../../reusable_components/cards/bordered_card_view.dart';
-import '../../../reusable_components/logo_view.dart';
+import '../../../reusable_components/images/logo_view.dart';
 import '../../../utils/typedefs.dart';
 import '../projects_cubit.dart';
 

@@ -24,10 +24,11 @@ class ShowProfileView extends StatelessWidget {
         ),
         Expanded(
           child: ListView(
-            children: const [
-              ListItemView(label: 'Resume'),
-              ListItemView(label: 'Projects'),
-              ListItemView(label: 'Logout'),
+            children: [
+              const ListItemView(label: 'Resume'),
+              const ListItemView(label: 'Projects'),
+              ListItemView(
+                  label: 'Logout', callback: () => cubit.logOut(context)),
             ],
           ),
         ),
