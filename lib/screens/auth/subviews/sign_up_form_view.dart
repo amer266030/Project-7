@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/auth_cubit.dart';
+import 'package:tuwaiq_project_pulse/utils/validations.dart';
 
 import '../../../extensions/color_ext.dart';
 import '../../../reusable_components/buttons/elevated_btn_view.dart';
@@ -33,20 +34,26 @@ class SignUpFormView extends StatelessWidget {
           Column(
             children: [
               FormFieldView(
-                  controller: cubit.firstNameController,
-                  title: 'First Name',
-                  hint: 'John',
-                  icon: CupertinoIcons.person_fill),
+                controller: cubit.firstNameController,
+                title: 'First Name',
+                hint: 'John',
+                icon: CupertinoIcons.person_fill,
+                validation: Validations.emptyFieldValidation,
+              ),
               FormFieldView(
-                  controller: cubit.lastNameController,
-                  title: 'LastName',
-                  hint: 'Doe',
-                  icon: CupertinoIcons.person_fill),
+                controller: cubit.lastNameController,
+                title: 'LastName',
+                hint: 'Doe',
+                icon: CupertinoIcons.person_fill,
+                validation: Validations.emptyFieldValidation,
+              ),
               FormFieldView(
-                  controller: cubit.emailController,
-                  title: 'Email',
-                  hint: 'abc@example.com',
-                  icon: CupertinoIcons.envelope_fill),
+                controller: cubit.emailController,
+                title: 'Email',
+                hint: 'abc@example.com',
+                icon: CupertinoIcons.envelope_fill,
+                validation: Validations.email,
+              ),
             ],
           ),
           Column(

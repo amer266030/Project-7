@@ -110,15 +110,12 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await nwk.verifyOTP(email: email, otp: otp);
       if (authMgr.authData == null) throw Exception(nwk.errorMsg);
+      await Future.delayed(const Duration(seconds: 1));
       emit(AuthSuccessState());
     } catch (e) {
       alertTitle = 'Oops';
       alertMsg = '$e';
       emit(AuthErrorState());
     }
-  }
-
-  void signOut() async {
-    await authMgr.logOut();
   }
 }

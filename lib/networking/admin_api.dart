@@ -7,16 +7,21 @@ import '_client/network_mgr.dart';
 // NOT TESTED!
 
 class AdminApi extends NetworkMgr {
-  Response? response;
+  String errorMsg = '';
   // PUT
   Future<void> changeUserRole({
     required String userId,
     required String role,
   }) async {
-    response = await dio.put(ApiPath.admin.changeUserRole,
-        data: {"id_user": userId, "role": role});
-    if (kDebugMode) {
-      print(response);
+    try {
+      var response = await dio.put(ApiPath.admin.changeUserRole,
+          data: {"id_user": userId, "role": role});
+      if (kDebugMode) {
+        print(response);
+      }
+    } on DioException catch (e) {
+      errorMsg = '${e.response}';
+      print(e.response);
     }
   }
 }
