@@ -43,12 +43,19 @@ class AuthMgr {
   }
 
   Future<void> fetchUsers() async {
-    allUsers = await BoxStorage.readItems<User>(
-        key: authKey, fromJson: (json) => User.fromJson(json));
+    try {
+      allUsers = await BoxStorage.readItems<User>(
+          key: authKey, fromJson: (json) => User.fromJson(json));
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   Future<void> saveUserData({required User user}) async {
-    if (!allUsers.contains(user)) {
+    bool userExists =
+        allUsers.any((existingUser) => existingUser.id == user.id);
+
+    if (!userExists) {
       allUsers.add(user);
       await BoxStorage.writeItems(
         items: allUsers,

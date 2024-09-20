@@ -84,16 +84,19 @@ class Project {
         updateAt: json["update_at"],
         imagesProject: json["images_project"] == null
             ? []
-            : List<ProjectImages>.from(
-                json["images_project"]!.map((x) => ProjectImages.fromJson(x))),
+            : (json["images_project"] as List<dynamic>)
+                .map((x) => ProjectImages.fromJson(x as Map<String, dynamic>))
+                .toList(),
         linksProject: json["links_project"] == null
             ? []
-            : List<ProjectLinks>.from(
-                json["links_project"]!.map((x) => ProjectLinks.fromJson(x))),
+            : (json["links_project"] as List<dynamic>)
+                .map((x) => ProjectLinks.fromJson(x as Map<String, dynamic>))
+                .toList(),
         membersProject: json["members_project"] == null
             ? []
-            : List<ProjectMembers>.from(json["members_project"]!
-                .map((x) => ProjectMembers.fromJson(x))),
+            : (json["members_project"] as List<dynamic>)
+                .map((x) => ProjectMembers.fromJson(x as Map<String, dynamic>))
+                .toList(),
       );
 
   Map<String, dynamic> toJson() => {
