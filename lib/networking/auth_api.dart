@@ -19,11 +19,9 @@ class AuthApi extends NetworkMgr {
       await dio.post(ApiPath.auth.createAccount,
           data: {"email": email, "f_name": firstName, "l_name": lastName});
     } on DioException catch (e) {
-      errorMsg = '${e.response.toString()}';
-      print('Error ${e.response?.data}');
+      errorMsg = 'Error: ${e.response?.data}';
     } catch (e) {
       errorMsg = '$e';
-      print('Error $e');
     }
   }
 
@@ -32,15 +30,10 @@ class AuthApi extends NetworkMgr {
     required String email,
   }) async {
     try {
-      print(ApiPath.auth.login);
-      print('Email: $email');
       await dio.post(ApiPath.auth.login, data: {"email": email});
-      print('Login Step');
     } on DioException catch (e) {
       errorMsg = 'Error: ${e.response?.data}';
-      print('Error: ${e.response?.data}');
     } catch (e) {
-      print('Error $e');
       errorMsg = '$e';
     }
   }
@@ -55,9 +48,9 @@ class AuthApi extends NetworkMgr {
           .post(ApiPath.auth.otpVerify, data: {"email": email, "otp": '$otp'});
       // Save Token
       var storageData = AuthData.fromJson(response.data["data"]);
-      authMgr.saveAuth(authData: storageData);
+      await authMgr.saveAuth(newAuth: storageData);
     } on DioException catch (e) {
-      errorMsg = '${e.response}';
+      errorMsg = 'Error: ${e.response?.data}';
     } catch (e) {
       errorMsg = '$e';
     }

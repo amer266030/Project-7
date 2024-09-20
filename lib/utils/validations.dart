@@ -18,4 +18,6 @@ class Validations {
       return 'Please enter a valid email address'; // Return an error message if invalid
     }
   }
+
+  static String? none(String value) => null;
 }

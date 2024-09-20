@@ -102,9 +102,14 @@ class ProfileCubit extends Cubit<ProfileState> {
     lastNameController.text = user.lastName ?? '';
   }
 
-  void logOut(BuildContext context) {
-    authMgr.logOut();
+  void logOut(BuildContext context) async {
+    await authMgr.logOut();
+    if (!context.mounted) return;
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const AuthScreen()));
+  }
+
+  void changeUserRole() {
+    // adminApi.changeUserRole(userId: '666c15c6-afe2-4f02-ad0b-233', role: 'admin');
   }
 }
