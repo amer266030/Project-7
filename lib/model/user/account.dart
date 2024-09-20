@@ -1,9 +1,3 @@
-import 'dart:convert';
-
-Account linkFromJson(String str) => Account.fromJson(json.decode(str));
-
-String linkToJson(Account data) => json.encode(data.toJson());
-
 class Account {
   String? github;
   String? linkedin;

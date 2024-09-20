@@ -21,7 +21,7 @@ class ListItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => toggleValue != null ? () : callback!(),
+      onTap: () => (toggleValue != null || callback == null) ? () : callback!(),
       child: BorderedCardView(
         isSecondaryColor: false,
         child: Padding(
