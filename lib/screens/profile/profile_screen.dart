@@ -25,37 +25,35 @@ class ProfileScreen extends StatelessWidget {
               cubit.dismissAlert(context);
             }
           },
-          child: Scaffold(
-            body: Stack(
-              children: [
-                const BackgroundImg(),
-                SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: BlocBuilder<ProfileCubit, ProfileState>(
-                      builder: (context, state) {
-                        if (state is ProfileInitial) cubit.loadProfile();
-                        return Column(
-                          children: [
-                            Row(
-                              children: [
-                                const Text('Profile')
-                                    .styled(size: 18, weight: FW.bold),
-                              ],
-                            ),
-                            Expanded(
-                              child: cubit.isEdit
-                                  ? EditProfileView(cubit: cubit)
-                                  : ShowProfileView(cubit: cubit),
-                            )
-                          ],
-                        );
-                      },
-                    ),
+          child: Stack(
+            children: [
+              const BackgroundImg(),
+              SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: BlocBuilder<ProfileCubit, ProfileState>(
+                    builder: (context, state) {
+                      if (state is ProfileInitial) cubit.loadProfile();
+                      return Column(
+                        children: [
+                          Row(
+                            children: [
+                              const Text('Profile')
+                                  .styled(size: 18, weight: FW.bold),
+                            ],
+                          ),
+                          Expanded(
+                            child: cubit.isEdit
+                                ? EditProfileView(cubit: cubit)
+                                : ShowProfileView(cubit: cubit),
+                          )
+                        ],
+                      );
+                    },
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       }),
