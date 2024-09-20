@@ -33,7 +33,7 @@ class AuthMgr {
 
   Future<void> saveAuth({required AuthData newAuth}) async {
     authData = newAuth;
-    await BoxStorage.writeItem(
+    await BoxStorage.writeItem<AuthData>(
         item: newAuth, key: authKey, toJson: (auth) => auth.toJson());
   }
 
@@ -57,7 +57,7 @@ class AuthMgr {
 
     if (!userExists) {
       allUsers.add(user);
-      await BoxStorage.writeItems(
+      await BoxStorage.writeItems<User>(
         items: allUsers,
         key: authKey,
         toJson: (user) => user.toJson(),
