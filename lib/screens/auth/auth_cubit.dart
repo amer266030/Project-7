@@ -26,6 +26,10 @@ class AuthCubit extends Cubit<AuthState> {
   var alertMsg = '';
 
   AuthCubit() : super(AuthInitial());
+  frist() {
+    print('kjhgggggghjhgffghgffghgfdfghgfdfghgfddfghgfdfghgfdfgh');
+    emit(AuthInitial());
+  }
 
   String headerTitle() => isOtp
       ? 'Verify OTP'
