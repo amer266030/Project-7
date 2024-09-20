@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/images/logo_view.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/popups/custom_popup_view.dart';
 import '../../../reusable_components/custom_text_field.dart';
 import '../../../utils/validations.dart';
 import '../profile_cubit.dart';
@@ -21,17 +24,20 @@ class EditProfileView extends StatelessWidget {
           child: AspectRatio(
             aspectRatio: 2,
             child: InkWell(
-              onTap: () {
-                
+              onTap: () async {
+                await cubit.updateLogo();
               },
               child: ClipOval(
-                child: cubit.user.imageUrl == null
-                    ? LogoView()
-                    : Image.network(
-                        cubit.user.imageUrl!,
-                        fit: BoxFit.cover,
-                      ),
-              ),
+                  child: cubit.user.imageUrl == null
+                      ? LogoView()
+                      //   : Image.network(
+                      //     cubit.user.imageUrl!,
+                      //     fit: BoxFit.cover,
+                      // )
+                      : Image.file(
+                          File(cubit.user.imageUrl!),
+                          fit: BoxFit.cover,
+                        )),
             ),
           ),
         )),
@@ -65,7 +71,20 @@ class EditProfileView extends StatelessWidget {
         Row(
           children: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return CustomPopupView(
+                        title: "LinkedIn Profile",
+                        child: Text("data"),
+                        callback: () {
+                          Navigator.of(context).pop(); // Close the popup
+                        },
+                      );
+                    },
+                  );
+                },
                 icon: const FaIcon(
                   FontAwesomeIcons.github,
                   color: C.bg2,
@@ -84,6 +103,12 @@ class EditProfileView extends StatelessWidget {
                 )),
           ],
         ),
+        ElevatedButton(
+          onPressed: () {
+            cubit.updateProfile();
+          },
+          child: const Text('Save Changes'),
+        )
       ],
     );
   }

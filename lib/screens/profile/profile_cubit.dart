@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tuwaiq_project_pulse/model/user/user.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/auth_screen.dart';
 
@@ -103,6 +106,15 @@ class ProfileCubit extends Cubit<ProfileState> {
     firstNameController.text = user.firstName ?? '';
     lastNameController.text = user.lastName ?? '';
     emailController.text = user.email ?? '';
+  }
+
+  Future<void> updateLogo() async {
+    final picker = ImagePicker();
+    final XFile? logo = await picker.pickImage(source: ImageSource.gallery);
+    if (logo != null) {
+      user.imageUrl = logo.path;
+      emit(ProfileUpdateState());
+    }
   }
 
   void logOut(BuildContext context) {
