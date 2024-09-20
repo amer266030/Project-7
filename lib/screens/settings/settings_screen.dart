@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/list_item_view.dart';
 import 'package:tuwaiq_project_pulse/screens/settings/settings_cubit.dart';
+import 'package:tuwaiq_project_pulse/screens/settings/settings_popup_items.dart';
 
 import '../../reusable_components/images/background_img.dart';
 import '../../utils/typedefs.dart';
@@ -41,23 +42,35 @@ class SettingsScreen extends StatelessWidget {
                                     ListItemView(
                                       label: 'Language',
                                       toggleValue: cubit.isEnglish,
+                                      toggleType: ToggleType.language,
+                                      callback: cubit.toggleLanguage,
                                     ),
                                     ListItemView(
-                                        label: 'Dark Mode',
-                                        toggleValue: cubit.isDarkMode),
+                                      label: 'Dark Mode',
+                                      toggleValue: cubit.isDarkMode,
+                                      toggleType: ToggleType.darkMode,
+                                      callback: cubit.toggleDarkMode,
+                                    ),
                                   ],
                                 );
                               },
                             ),
                             const Text('More').styled(
                                 size: 18, weight: FW.bold, color: Colors.black),
-                            const ListItemView(
-                                label: 'About Us', isPopup: true),
-                            const ListItemView(label: 'Help & Support'),
-                            const ListItemView(
-                                label: 'Terms and Conditions', isPopup: true),
-                            const ListItemView(
-                                label: 'Privacy Policy', isPopup: true),
+                            ...SettingsPopupItems.values.map(
+                              (item) => ListItemView(
+                                label: item.title,
+                                callback: () => cubit.showPopup(
+                                  context: context,
+                                  title: item.title,
+                                  child: Text(item.description),
+                                ),
+                              ),
+                            ),
+                            ListItemView(
+                                label: 'Help & Support',
+                                callback: () =>
+                                    cubit.navigateToHelpScreen(context)),
                           ],
                         ),
                       ),
