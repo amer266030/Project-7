@@ -11,6 +11,7 @@ class AssetsRes {
   static const String TUWAIQ_MOUNTAIN = 'assets/Tuwaiq_mountain.png';
   static const String BOTTOM_SETTINGS = 'assets/bottom_settings.png';
   static const String LOGO = 'assets/logo.png';
+  static const String LOGO_WHITE = 'assets/logo_white.png';
   static const String SETTING_LOGO = 'assets/setting_logo.png';
   static const String SMALL_LOGO = 'assets/small_logo.jpg';
 }
