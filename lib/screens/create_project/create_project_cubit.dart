@@ -30,6 +30,11 @@ class CreateProjectCubit extends Cubit<CreateProjectState> {
     emit(UpdateUIState());
   }
 
+  void setSelectedDate(DateTime date) {
+    selectedDate = date;
+    emit(UpdateUIState());
+  }
+
   void saveChanges() {
     if (selectedUser == null) emit(ErrorState(msg: 'No User Selected!'));
     if (selectedDate.isBefore(DateTime.now())) {

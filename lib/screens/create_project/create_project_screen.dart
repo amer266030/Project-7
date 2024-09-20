@@ -1,3 +1,5 @@
+import 'package:bottom_picker/bottom_picker.dart';
+import 'package:bottom_picker/resources/arrays.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -112,18 +114,52 @@ class CreateProjectScreen extends StatelessWidget {
                                         );
                                       },
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Text('End Date:').styled(
-                                            color: Colors.black,
-                                            weight: FW.bold),
-                                        Text(cubit.selectedDate
-                                            .toFormattedString()),
-                                        const Icon(CupertinoIcons.calendar,
-                                            color: C.primary),
-                                      ],
+                                    BlocBuilder<CreateProjectCubit,
+                                        CreateProjectState>(
+                                      builder: (context, state) {
+                                        return Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            const Text('End Date:').styled(
+                                                color: Colors.black,
+                                                weight: FW.bold),
+                                            Text(cubit.selectedDate
+                                                .toFormattedString()),
+                                            IconButton(
+                                              onPressed: () =>
+                                                  BottomPicker.date(
+                                                pickerTitle: const Text(
+                                                  'Select an End Date for the project',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16,
+                                                    color: C.primary,
+                                                  ),
+                                                ),
+                                                dateOrder:
+                                                    DatePickerDateOrder.dmy,
+                                                initialDateTime: DateTime.now(),
+                                                maxDateTime: DateTime.now().add(
+                                                    const Duration(days: 360)),
+                                                minDateTime: DateTime.now().add(
+                                                    const Duration(days: -1)),
+                                                pickerTextStyle:
+                                                    const TextStyle(
+                                                  // color: C.text1,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 14,
+                                                ),
+                                                onSubmit: (date) =>
+                                                    cubit.setSelectedDate(date),
+                                              ).show(context),
+                                              icon: const Icon(
+                                                  Icons.calendar_month,
+                                                  color: C.primary),
+                                            )
+                                          ],
+                                        );
+                                      },
                                     ),
                                   ],
                                 ),
