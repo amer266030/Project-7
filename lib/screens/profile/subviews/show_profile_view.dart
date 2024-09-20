@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/cards/bordered_card_view.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/profile_cubit.dart';
+import 'package:tuwaiq_project_pulse/screens/profile/subviews/edit_profile_view.dart';
 
 import '../../../extensions/color_ext.dart';
 import '../../../reusable_components/list_item_view.dart';
@@ -25,6 +26,8 @@ class ShowProfileView extends StatelessWidget {
         Expanded(
           child: ListView(
             children: [
+              // ignore: prefer_const_constructors
+              ListItemView(label: 'Account'),
               const ListItemView(label: 'Resume'),
               const ListItemView(label: 'Projects'),
               ListItemView(

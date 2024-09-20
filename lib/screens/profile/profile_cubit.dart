@@ -16,10 +16,11 @@ class ProfileCubit extends Cubit<ProfileState> {
   final adminApi = NetworkingApi.shared.adminApi;
   final authMgr = GetIt.I.get<AuthMgr>();
   // Changing Forms
-  var isEdit = false;
+  var isEdit = true;
   // Input Fields
   var firstNameController = TextEditingController();
   var lastNameController = TextEditingController();
+  var emailController = TextEditingController();
   // Alert Dialog
   bool isAlertVisible = false;
   var alertTitle = '';
@@ -95,11 +96,13 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> _updateUserData() async {
     user.firstName = firstNameController.text;
     user.lastName = lastNameController.text;
+    user.email = emailController.text;
   }
 
   Future<void> _updateInputFields() async {
     firstNameController.text = user.firstName ?? '';
     lastNameController.text = user.lastName ?? '';
+    emailController.text = user.email ?? '';
   }
 
   void logOut(BuildContext context) {
