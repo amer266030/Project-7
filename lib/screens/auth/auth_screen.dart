@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tuwaiq_project_pulse/extensions/img_ext.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/buttons/bottom_btn_view.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/cards/blurred_card.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/auth_cubit.dart';
@@ -9,8 +8,8 @@ import 'package:tuwaiq_project_pulse/screens/auth/subViews/sign_in_form_view.dar
 import 'package:tuwaiq_project_pulse/screens/auth/subViews/sign_up_form_view.dart';
 
 import '../../extensions/color_ext.dart';
-import '../../reusable_components/background_img.dart';
-import '../../reusable_components/logo_view.dart';
+import '../../reusable_components/images/background_img.dart';
+import '../../reusable_components/images/logo_view.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});

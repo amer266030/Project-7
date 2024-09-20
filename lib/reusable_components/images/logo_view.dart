@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/extensions/screen_size.dart';
 
-import '../extensions/img_ext.dart';
+import '../../extensions/img_ext.dart';
 
 class LogoView extends StatelessWidget {
   const LogoView({super.key});

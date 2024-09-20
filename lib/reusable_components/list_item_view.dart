@@ -8,20 +8,22 @@ import 'cards/bordered_card_view.dart';
 
 class ListItemView extends StatelessWidget {
   const ListItemView(
-      {super.key, required this.label, this.isAlert = false, this.destination});
+      {super.key,
+      required this.label,
+      this.toggleValue,
+      this.isPopup = false,
+      this.callback});
   final String label;
-  final bool isAlert;
-  final Widget? destination;
-
-  void _navigate(BuildContext context) => Navigator.of(context)
-      .push(MaterialPageRoute(builder: (context) => destination!));
+  final bool? toggleValue;
+  final bool isPopup;
+  final VoidCallback? callback;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: InkWell(
-        onTap: destination == null ? () => () : () => _navigate(context),
+        onTap: callback,
         child: BorderedCardView(
           isSecondaryColor: false,
           child: Padding(
@@ -30,13 +32,37 @@ class ListItemView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(label).styled(weight: FW.bold),
-                const Icon(CupertinoIcons.arrow_right_circle_fill,
-                    color: C.primary)
+                (toggleValue != null)
+                    ? ToggleButtons(
+                        isSelected: [
+                            toggleValue! ? toggleValue! : !toggleValue!,
+                            toggleValue! ? toggleValue! : !toggleValue!
+                          ],
+                        children:
+                            ToggleType.values.map((v) => Text(v.name)).toList())
+                    : const Icon(CupertinoIcons.arrow_right_circle_fill,
+                        color: C.primary)
               ],
             ),
           ),
         ),
       ),
     );
+  }
+}
+
+enum ToggleType { language, darkMode }
+
+extension ToggleValues on ToggleType {
+  List<Widget> widgetArr() {
+    switch (this) {
+      case ToggleType.language:
+        return [const Text('AR'), const Text('EN')];
+      case ToggleType.darkMode:
+        return [
+          const Icon(CupertinoIcons.sun_max),
+          const Icon(CupertinoIcons.moon)
+        ];
+    }
   }
 }

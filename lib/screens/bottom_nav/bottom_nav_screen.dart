@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/extensions/screen_size.dart';
-import 'package:tuwaiq_project_pulse/reusable_components/background_img.dart';
-import 'package:tuwaiq_project_pulse/reusable_components/logo_view.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/images/logo_view.dart';
 
 import '../../extensions/color_ext.dart';
+import '../../reusable_components/images/background_img.dart';
 import 'bottom_nav_cubit.dart';
 import 'bottom_nav_items.dart';
 
