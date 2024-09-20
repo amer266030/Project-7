@@ -1,44 +1,38 @@
+import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
+import 'package:tuwaiq_project_pulse/extensions/img_ext.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/profile_screen.dart';
 import 'package:tuwaiq_project_pulse/screens/settings/settings_screen.dart';
 
 import '../projects/projects_screen.dart';
-import '../user_projects/user_projects_screen.dart';
 
-enum BarItems { settings, public, profile }
+class BarItems {
+  static List<Widget> bottomBarPages = [
+    const SettingsScreen(),
+    const ProjectsScreen(),
+    const ProfileScreen(),
+  ];
 
-extension BottomNavItems on BarItems {
-  Widget screen() {
-    switch (this) {
-      case BarItems.settings:
-        return const SettingsScreen();
-      case BarItems.public:
-        return const ProjectsScreen();
-      case BarItems.profile:
-        return const ProfileScreen();
-    }
-  }
-
-  BottomNavigationBarItem navItem() {
-    switch (this) {
-      case BarItems.settings:
-        return const BottomNavigationBarItem(
-          icon: Icon(Icons.settings, size: 32),
-          label: '',
-          backgroundColor: Colors.transparent,
-        );
-      case BarItems.public:
-        return const BottomNavigationBarItem(
-          icon: Icon(Icons.cases_rounded, size: 32),
-          label: '',
-          backgroundColor: Colors.transparent,
-        );
-      case BarItems.profile:
-        return const BottomNavigationBarItem(
-          icon: Icon(Icons.person_outline, size: 32),
-          label: '',
-          backgroundColor: Colors.transparent,
-        );
-    }
-  }
+  static List<BottomBarItem> bottomBarItems = [
+    const BottomBarItem(
+      inActiveItem: Icon(
+        CupertinoIcons.settings,
+        color: C.bg1,
+      ),
+      activeItem: Icon(CupertinoIcons.settings, color: C.primary),
+    ),
+    const BottomBarItem(
+      inActiveItem: Image(image: Img.logoWhite, fit: BoxFit.contain),
+      activeItem: Image(image: Img.logo, fit: BoxFit.contain),
+    ),
+    const BottomBarItem(
+      inActiveItem: Icon(
+        CupertinoIcons.person_fill,
+        color: C.bg1,
+      ),
+      activeItem: Icon(CupertinoIcons.person_fill, color: C.primary),
+    ),
+  ];
 }
