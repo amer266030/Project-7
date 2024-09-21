@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/cards/project_card_view.dart';
 import 'package:tuwaiq_project_pulse/screens/user_projects/user_projects_cubit.dart';
+import 'package:tuwaiq_project_pulse/utils/typedefs.dart';
 
 import '../../model/project/project.dart';
 
@@ -22,13 +25,15 @@ class UserProjectsScreen extends StatelessWidget {
             }
           },
           child: Scaffold(
+            appBar: AppBar(
+                title: const Text('My Projects')
+                    .styled(size: 18, weight: FW.bold)),
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('User Projects'),
                     BlocBuilder<UserProjectsCubit, UserProjectsState>(
                       builder: (context, state) {
                         if (state is UserProjectsInitial) cubit.loadProfile();
@@ -42,7 +47,14 @@ class UserProjectsScreen extends StatelessWidget {
                                             onTap: () =>
                                                 cubit.navigateToDetails(
                                                     context, proj),
-                                            child: ProjectCard(proj: proj)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 4.0),
+                                              child: ProjectCardView(
+                                                  project: proj,
+                                                  withIndicator: false),
+                                            )),
                                       )
                                       .toList(),
                                 ),
@@ -56,30 +68,6 @@ class UserProjectsScreen extends StatelessWidget {
           ),
         );
       }),
-    );
-  }
-}
-
-class ProjectCard extends StatelessWidget {
-  const ProjectCard({super.key, required this.proj});
-
-  final Project proj;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Project Id: ${proj.projectId ?? ''}'),
-            Text('Project Name: ${proj.projectName ?? ''}'),
-            Text('Admin Id: ${proj.adminId ?? ''}'),
-          ],
-        ),
-      ),
     );
   }
 }

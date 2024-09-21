@@ -4,7 +4,7 @@ import '../../extensions/color_ext.dart';
 
 class BorderedCardView extends StatelessWidget {
   const BorderedCardView(
-      {super.key, required this.child, this.isSecondaryColor = true});
+      {super.key, this.isSecondaryColor = true, required this.child});
   final Widget child;
   final bool isSecondaryColor;
 

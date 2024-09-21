@@ -5,7 +5,6 @@ import 'package:tuwaiq_project_pulse/screens/profile/profile_cubit.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/subviews/edit_profile_view.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/subviews/show_profile_view.dart';
 
-import '../../reusable_components/images/background_img.dart';
 import '../../utils/typedefs.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -25,36 +24,29 @@ class ProfileScreen extends StatelessWidget {
               cubit.dismissAlert(context);
             }
           },
-          child: Scaffold(
-            body: Stack(
-              children: [
-                const BackgroundImg(),
-                SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: BlocBuilder<ProfileCubit, ProfileState>(
-                      builder: (context, state) {
-                        if (state is ProfileInitial) cubit.loadProfile();
-                        return Column(
-                          children: [
-                            Row(
-                              children: [
-                                const Text('Profile')
-                                    .styled(size: 18, weight: FW.bold),
-                              ],
-                            ),
-                            Expanded(
-                              child: cubit.isEdit
-                                  ? EditProfileView(cubit: cubit)
-                                  : ShowProfileView(cubit: cubit),
-                            )
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ],
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: BlocBuilder<ProfileCubit, ProfileState>(
+                builder: (context, state) {
+                  if (state is ProfileInitial) cubit.loadProfile();
+                  return Column(
+                    children: [
+                      Row(
+                        children: [
+                          const Text('Profile')
+                              .styled(size: 18, weight: FW.bold),
+                        ],
+                      ),
+                      Expanded(
+                        child: cubit.isEdit
+                            ? EditProfileView(cubit: cubit)
+                            : ShowProfileView(cubit: cubit),
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         );

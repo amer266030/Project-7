@@ -4,10 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tuwaiq_project_pulse/model/user/user.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/auth_screen.dart';
+import 'package:tuwaiq_project_pulse/screens/user_projects/user_projects_screen.dart';
 
 import '../../managers/alert_mgr.dart';
 import '../../managers/auth_mgr.dart';
 import '../../networking/_client/networking_api.dart';
+import '../admin/admin_screen.dart';
+import '../create_project/create_project_screen.dart';
 
 part 'profile_state.dart';
 
@@ -27,10 +30,9 @@ class ProfileCubit extends Cubit<ProfileState> {
   // User
   User user = User();
 
-  /* TO BE REMOVED */
-  static const amerUserId = '8c534564-cf6e-42eb-9377-6c08a81debd2';
-
   ProfileCubit() : super(ProfileInitial());
+
+  // UI
 
   String headerTitle() => isEdit ? 'Edit Profile' : 'Profile Overview';
 
@@ -55,6 +57,31 @@ class ProfileCubit extends Cubit<ProfileState> {
     alertTitle = '';
     alertMsg = '';
   }
+
+  Future<void> _updateUserData() async {
+    user.firstName = firstNameController.text;
+    user.lastName = lastNameController.text;
+  }
+
+  Future<void> _updateInputFields() async {
+    firstNameController.text = user.firstName ?? '';
+    lastNameController.text = user.lastName ?? '';
+  }
+
+  // Navigation
+
+  void navigateToUserProjects(BuildContext context) =>
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const UserProjectsScreen()));
+
+  void navigateToAdminScreen(BuildContext context) => Navigator.of(context)
+      .push(MaterialPageRoute(builder: (context) => const AdminScreen()));
+
+  void navigateToSupervisorScreen(BuildContext context) =>
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const CreateProjectScreen()));
+
+  // API & User Mgmt
 
   void loadProfile() async {
     clearAlertFields();
@@ -92,18 +119,9 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
-  Future<void> _updateUserData() async {
-    user.firstName = firstNameController.text;
-    user.lastName = lastNameController.text;
-  }
-
-  Future<void> _updateInputFields() async {
-    firstNameController.text = user.firstName ?? '';
-    lastNameController.text = user.lastName ?? '';
-  }
-
-  void logOut(BuildContext context) {
-    authMgr.logOut();
+  void logOut(BuildContext context) async {
+    await authMgr.logOut();
+    if (!context.mounted) return;
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const AuthScreen()));
   }

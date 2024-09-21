@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tuwaiq_project_pulse/managers/auth_mgr.dart';
@@ -11,15 +9,17 @@ import '_client/network_mgr.dart';
 
 class ProfileApi extends NetworkMgr {
   String errorMsg = '';
-  String token = GetIt.I.get<AuthMgr>().authData?.token ?? '';
+  var authMgr = GetIt.I.get<AuthMgr>();
   User? user;
 
   // API Functions
   Future<void> fetchProfile() async {
+    user = null;
     try {
       var response = await dio.get(
         ApiPath.user.getProfile,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
+        options: Options(
+            headers: {'Authorization': 'Bearer ${authMgr.authData?.token}'}),
       );
       await setUser(response);
     } on DioException catch (e) {
@@ -35,7 +35,7 @@ class ProfileApi extends NetworkMgr {
         ApiPath.user.editProfile,
         data: user.toJson(),
         options: Options(
-          headers: {'Authorization': 'Bearer $token'},
+          headers: {'Authorization': 'Bearer ${authMgr.authData?.token}'},
         ),
       );
       await setUser(response);
@@ -46,8 +46,6 @@ class ProfileApi extends NetworkMgr {
     }
   }
 
-  // Function for setting the user variable.
-  /// used in API Functions
   Future<void> setUser(Response response) async {
     if (response.data == null) return;
     if (response.statusCode! > 199 && response.statusCode! < 300) {
@@ -58,6 +56,9 @@ class ProfileApi extends NetworkMgr {
           (dataJson) => User.fromJson(dataJson),
         );
         user = apiResponse.data;
+        if (user != null) {
+          await authMgr.saveUserData(user: user!);
+        }
       } catch (e) {
         errorMsg = e.toString();
       }

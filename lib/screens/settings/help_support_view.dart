@@ -7,7 +7,7 @@ class HelpSupportView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: const SafeArea(child: Text('Settings')),
+      body: const SafeArea(child: Text('Help & Support')),
     );
   }
 }

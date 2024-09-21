@@ -10,7 +10,10 @@ class SettingsCubit extends Cubit<SettingsState> {
   bool isEnglish = true;
   bool isDarkMode = true;
 
-  void showPopup(BuildContext context, String title, Widget child) =>
+  void showPopup(
+          {required BuildContext context,
+          required String title,
+          required Widget child}) =>
       PopupMgr().showPopup(context: context, title: title, child: child);
 
   void toggleLanguage() {

@@ -29,7 +29,9 @@ class ProjectMembers {
         position: json["position"],
         imageUrl: json["image_url"],
         resumeUrl: json["resume_url"],
-        account: json["link"] == null ? null : Account.fromJson(json["link"]),
+        account: json["link"] == null
+            ? null
+            : Account.fromJson(json["link"] as Map<String, dynamic>),
       );
 
   Map<String, dynamic> toJson() => {

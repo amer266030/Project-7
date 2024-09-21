@@ -9,9 +9,14 @@ import '../../model/project/project.dart';
 import '../../utils/typedefs.dart';
 
 class ProjectCardView extends StatelessWidget {
-  const ProjectCardView({super.key, required this.project, this.cubit});
+  const ProjectCardView(
+      {super.key,
+      required this.project,
+      this.cubit,
+      this.withIndicator = true});
   final Project project;
   final ProjectDetailsCubit? cubit;
+  final bool withIndicator;
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +42,11 @@ class ProjectCardView extends StatelessWidget {
             const EdgeInsets.only(top: 16.0, bottom: 8, left: 16, right: 16),
         child: Column(
           children: [
-            const DotIndicator(
-              count: 5,
-              currentIndex: 0,
-            ),
+            if (withIndicator)
+              const DotIndicator(
+                count: 5,
+                currentIndex: 0,
+              ),
             Padding(
               padding: const EdgeInsets.only(top: 16.0, bottom: 8),
               child: Row(

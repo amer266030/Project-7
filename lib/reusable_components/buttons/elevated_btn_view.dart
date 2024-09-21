@@ -7,11 +7,13 @@ class ElevatedBtnView extends StatelessWidget {
     super.key,
     required this.title,
     this.icon,
+    this.hasBorder = false,
     required this.callBack,
   });
 
   final String title;
   final IconData? icon;
+  final bool hasBorder;
   final VoidCallback callBack;
 
   @override
@@ -21,7 +23,10 @@ class ElevatedBtnView extends StatelessWidget {
         elevation: 4,
         shadowColor: C.primary,
         backgroundColor: C.primary,
-        shape: RoundedRectangleBorder(borderRadius: BR.circular(8)),
+        shape: RoundedRectangleBorder(
+            borderRadius: BR.circular(8),
+            side: BorderSide(
+                color: hasBorder ? C.bg1 : Colors.transparent, width: 2)),
       ),
       onPressed: () => callBack(),
       child: Padding(

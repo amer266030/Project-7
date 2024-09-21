@@ -14,7 +14,7 @@ class FormFieldView extends StatelessWidget {
     required this.hint,
     required this.icon,
     this.isRequired = true,
-    this.validation = Validations.emptyFieldValidation,
+    this.validation = Validations.none,
   });
   final TextEditingController controller;
   final String title;

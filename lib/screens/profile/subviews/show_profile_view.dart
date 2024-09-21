@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/cards/bordered_card_view.dart';
+import 'package:tuwaiq_project_pulse/screens/admin/user_role.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/profile_cubit.dart';
 
 import '../../../extensions/color_ext.dart';
@@ -25,8 +26,18 @@ class ShowProfileView extends StatelessWidget {
         Expanded(
           child: ListView(
             children: [
+              if (cubit.user.role == UserRole.admin.name)
+                ListItemView(
+                    label: 'Change User Role',
+                    callback: () => cubit.navigateToAdminScreen(context)),
+              if (cubit.user.role != UserRole.user.name)
+                ListItemView(
+                    label: 'Create Project',
+                    callback: () => cubit.navigateToSupervisorScreen(context)),
               const ListItemView(label: 'Resume'),
-              const ListItemView(label: 'Projects'),
+              ListItemView(
+                  label: 'Projects',
+                  callback: () => cubit.navigateToUserProjects(context)),
               ListItemView(
                   label: 'Logout', callback: () => cubit.logOut(context)),
             ],

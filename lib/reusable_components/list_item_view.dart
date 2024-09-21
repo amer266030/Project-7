@@ -11,39 +11,40 @@ class ListItemView extends StatelessWidget {
       {super.key,
       required this.label,
       this.toggleValue,
-      this.isPopup = false,
+      this.toggleType,
       this.callback});
   final String label;
   final bool? toggleValue;
-  final bool isPopup;
+  final ToggleType? toggleType;
   final VoidCallback? callback;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: InkWell(
-        onTap: callback,
-        child: BorderedCardView(
-          isSecondaryColor: false,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(label).styled(weight: FW.bold),
-                (toggleValue != null)
-                    ? ToggleButtons(
-                        isSelected: [
-                            toggleValue! ? toggleValue! : !toggleValue!,
-                            toggleValue! ? toggleValue! : !toggleValue!
-                          ],
-                        children:
-                            ToggleType.values.map((v) => Text(v.name)).toList())
-                    : const Icon(CupertinoIcons.arrow_right_circle_fill,
-                        color: C.primary)
-              ],
-            ),
+    return InkWell(
+      onTap: () => (toggleValue != null || callback == null) ? () : callback!(),
+      child: BorderedCardView(
+        isSecondaryColor: false,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(label).styled(weight: FW.bold),
+              (toggleValue != null)
+                  ? ToggleButtons(
+                      isSelected: [toggleValue!, !toggleValue!],
+                      onPressed: (idx) => callback == null ? () : callback!(),
+                      selectedColor: Colors.white,
+                      color: Colors.black,
+                      fillColor: C.primary,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      borderRadius: BorderRadius.circular(8.0),
+                      constraints: const BoxConstraints(),
+                      children: toggleType!.widgetArr.map((v) => v).toList(),
+                    )
+                  : const Icon(CupertinoIcons.arrow_right_circle_fill,
+                      color: C.primary)
+            ],
           ),
         ),
       ),
@@ -54,14 +55,28 @@ class ListItemView extends StatelessWidget {
 enum ToggleType { language, darkMode }
 
 extension ToggleValues on ToggleType {
-  List<Widget> widgetArr() {
+  List<Widget> get widgetArr {
     switch (this) {
       case ToggleType.language:
-        return [const Text('AR'), const Text('EN')];
+        return [
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+            child: Text('AR'),
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+            child: Text('EN'),
+          )
+        ];
       case ToggleType.darkMode:
         return [
-          const Icon(CupertinoIcons.sun_max),
-          const Icon(CupertinoIcons.moon)
+          const Padding(
+              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              child: Icon(CupertinoIcons.sun_max, size: 20)),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+            child: Icon(CupertinoIcons.moon, size: 20),
+          )
         ];
     }
   }
