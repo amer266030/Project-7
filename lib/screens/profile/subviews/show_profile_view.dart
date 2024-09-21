@@ -100,10 +100,10 @@ class _ProfileCardView extends StatelessWidget {
                       children: [
                         Text('${cubit.user.firstName ?? '?'} ${cubit.user.lastName ?? '?'}')
                             .styled(weight: FW.bold),
-                        Text(cubit.user.id ?? '?').styled(
-                            size: 10, color: Colors.black, weight: FW.w300),
+                        Text(cubit.user.id ?? '?')
+                            .styled(size: 10, weight: FW.w400),
                         Text(cubit.user.email ?? '?')
-                            .styled(size: 10, weight: FW.w300),
+                            .styled(size: 10, weight: FW.w400),
                       ],
                     ),
                     IconButton(

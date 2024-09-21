@@ -77,6 +77,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       alertTitle = 'Oops';
       alertMsg = '$e';
       emit(ProfileErrorState());
+      
     }
   }
 
@@ -113,8 +114,8 @@ class ProfileCubit extends Cubit<ProfileState> {
     lastNameController.text = user.lastName ?? '';
     emailController.text = user.email ?? '';
     bindlinkController.text = user.link?.bindlink ?? '';
-    githubController.text =user.link?.github  ?? '';
-    linkedinController.text =  user.link?.linkedin ?? '';
+    githubController.text = user.link?.github ?? '';
+    linkedinController.text = user.link?.linkedin ?? '';
   }
 
   Future<void> updateLogo() async {
@@ -131,9 +132,10 @@ class ProfileCubit extends Cubit<ProfileState> {
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const AuthScreen()));
   }
+
   void copyIdToClipboard() {
     Clipboard.setData(ClipboardData(text: user.id ?? '')).then((_) {
-      emit(ProfileIdCopiedState()); 
+      emit(ProfileIdCopiedState());
     });
   }
 }

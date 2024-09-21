@@ -39,28 +39,31 @@ class ProfileScreen extends StatelessWidget {
                         if (state is ProfileInitial) cubit.loadProfile();
                         return Column(
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                IconButton(
-                                    onPressed: () =>
-                                        ShowProfileView(cubit: cubit),
-                                    icon: const Icon(
-                                      CupertinoIcons.arrow_left,
-                                      color: C.primary,
-                                    )),
-                                const Text('Profile')
+                            cubit.isEdit
+                                ? Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      IconButton(
+                                          onPressed: () =>
+                                              ShowProfileView(cubit: cubit),
+                                          icon: const Icon(
+                                            CupertinoIcons.arrow_left,
+                                            color: C.primary,
+                                          )),
+                                      const Text('Profile')
+                                          .styled(size: 18, weight: FW.bold),
+                                      TextButton(
+                                          onPressed: () {
+                                            cubit.updateProfile();
+                                          },
+                                          child: const Text("Save").styled(
+                                              size: 16,
+                                              weight: FontWeight.w600))
+                                    ],
+                                  )
+                                : const Text('Profile')
                                     .styled(size: 18, weight: FW.bold),
-                                cubit.isEdit
-                                    ? TextButton(
-                                        onPressed: () {
-                                          cubit.updateProfile();
-                                        },
-                                        child: const Text("Save").styled(
-                                            size: 16, weight: FontWeight.w600))
-                                    : const Text("")
-                              ],
-                            ),
                             Expanded(
                               child: cubit.isEdit
                                   ? EditProfileView(cubit: cubit)
