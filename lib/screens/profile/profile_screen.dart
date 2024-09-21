@@ -31,53 +31,50 @@ class ProfileScreen extends StatelessWidget {
               }
             }
           },
-          child: Scaffold(
-            body: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: BlocBuilder<ProfileCubit, ProfileState>(
-                  builder: (context, state) {
-                    if (state is ProfileInitial) cubit.loadProfile();
-                    return Column(
-                      children: [
-                        cubit.isEdit
-                            ? Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  IconButton(
-                                      onPressed: () {
-                                        cubit.isEdit;
-                                        cubit.toggleIsEdit();
-                                      },
-                                      icon: const Icon(
-                                        CupertinoIcons.arrow_left,
-                                        color: C.primary,
-                                      )),
-                                  const Text('Profile')
-                                      .styled(size: 18, weight: FW.bold),
-                                  CustomTextBtn(
-                                    title: "Save",
-                                    callback: () {
-                                      cubit.updateProfile();
-                                      animatedSnakbar(
-                                              msg: 'Updates saved successfully')
-                                          .show(context);
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: BlocBuilder<ProfileCubit, ProfileState>(
+                builder: (context, state) {
+                  if (state is ProfileInitial) cubit.loadProfile();
+                  return Column(
+                    children: [
+                      cubit.isEdit
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                IconButton(
+                                    onPressed: () {
+                                      cubit.isEdit;
+                                      cubit.toggleIsEdit();
                                     },
-                                  )
-                                ],
-                              )
-                            : const Text('Profile')
-                                .styled(size: 18, weight: FW.bold),
-                        Expanded(
-                          child: cubit.isEdit
-                              ? EditProfileView(cubit: cubit)
-                              : ShowProfileView(cubit: cubit),
-                        )
-                      ],
-                    );
-                  },
-                ),
+                                    icon: const Icon(
+                                      CupertinoIcons.arrow_left,
+                                      color: C.primary,
+                                    )),
+                                const Text('Profile')
+                                    .styled(size: 18, weight: FW.bold),
+                                CustomTextBtn(
+                                  title: "Save",
+                                  callback: () {
+                                    cubit.updateProfile();
+                                    animatedSnakbar(
+                                            msg: 'Updates saved successfully')
+                                        .show(context);
+                                  },
+                                )
+                              ],
+                            )
+                          : const Text('Profile')
+                              .styled(size: 18, weight: FW.bold),
+                      Expanded(
+                        child: cubit.isEdit
+                            ? EditProfileView(cubit: cubit)
+                            : ShowProfileView(cubit: cubit),
+                      )
+                    ],
+                  );
+                },
               ),
             ),
           ),
