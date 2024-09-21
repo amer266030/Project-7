@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/buttons/custom_text_btn_view.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/profile_cubit.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/subviews/edit_profile_view.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/subviews/show_profile_view.dart';
@@ -25,6 +26,9 @@ class ProfileScreen extends StatelessWidget {
               cubit.showAlert(context, false);
             } else {
               cubit.dismissAlert(context);
+            }
+            if (state is ProfileUpdateState) {
+              showSnackBar( context: context, msg: '');
             }
           },
           child: Scaffold(
@@ -53,13 +57,12 @@ class ProfileScreen extends StatelessWidget {
                                           )),
                                       const Text('Profile')
                                           .styled(size: 18, weight: FW.bold),
-                                      TextButton(
-                                          onPressed: () {
-                                            cubit.updateProfile();
-                                          },
-                                          child: const Text("Save").styled(
-                                              size: 16,
-                                              weight: FontWeight.w600))
+                                      CustomTextBtn(
+                                        title: "Save",
+                                        callback: () {
+                                          cubit.updateProfile();
+                                        },
+                                      )
                                     ],
                                   )
                                 : const Text('Profile')

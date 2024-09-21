@@ -20,7 +20,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   final adminApi = NetworkingApi.shared.adminApi;
   final authMgr = GetIt.I.get<AuthMgr>();
   // Changing Forms
-  var isEdit = true;
+  var isEdit = false;
   // Input Fields
   var firstNameController = TextEditingController();
   var lastNameController = TextEditingController();
@@ -77,7 +77,6 @@ class ProfileCubit extends Cubit<ProfileState> {
       alertTitle = 'Oops';
       alertMsg = '$e';
       emit(ProfileErrorState());
-      
     }
   }
 
@@ -107,6 +106,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     user.link?.bindlink = bindlinkController.text;
     user.link?.github = githubController.text;
     user.link?.linkedin = linkedinController.text;
+    
   }
 
   Future<void> _updateInputFields() async {
