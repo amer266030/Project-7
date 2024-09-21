@@ -11,6 +11,11 @@ class AppThemeCubit extends Cubit<AppThemeState> {
   changeTheme(ThemeState themeState) {
     switch (themeState) {
       case ThemeState.initial:
+        if (sharedPreferences!.getString('theme') != 'l') {
+          sharedPreferences!.getString('theme') == 'l'
+              ? emit(AppLightThemeState())
+              : emit(AppDarkThemeState());
+        }
         emit(AppThemeInitial());
         break;
       case ThemeState.light:
