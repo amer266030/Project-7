@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
@@ -129,5 +130,10 @@ class ProfileCubit extends Cubit<ProfileState> {
     authMgr.logOut();
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const AuthScreen()));
+  }
+  void copyIdToClipboard() {
+    Clipboard.setData(ClipboardData(text: user.id ?? '')).then((_) {
+      emit(ProfileIdCopiedState()); 
+    });
   }
 }

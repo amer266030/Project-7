@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/cards/bordered_card_view.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/profile_cubit.dart';
-import 'package:tuwaiq_project_pulse/screens/profile/subviews/edit_profile_view.dart';
 
 import '../../../extensions/color_ext.dart';
 import '../../../reusable_components/list_item_view.dart';
@@ -17,26 +16,50 @@ class ShowProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<ProfileCubit>();
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: _ProfileCardView(cubit),
-        ),
-        Expanded(
-          child: ListView(
-            children: [
-              // ignore: prefer_const_constructors
-              ListItemView(label: 'Account'),
-              const ListItemView(label: 'Resume'),
-              const ListItemView(label: 'Projects'),
-              ListItemView(
-                  label: 'Logout', callback: () => cubit.logOut(context)),
-            ],
-          ),
-        ),
-      ],
-    );
+    return BlocListener<ProfileCubit, ProfileState>(
+        listener: (context, state) {
+          if (state is ProfileIdCopiedState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                behavior: SnackBarBehavior.floating,
+                margin: const EdgeInsets.only(top: 50, left: 20, right: 20),
+                backgroundColor: C.secondary,
+                content: Row(
+                  children: [
+                    const Icon(CupertinoIcons.check_mark_circled_solid,
+                        color: C.primary),
+                    const SizedBox(width: 8),
+                    const Text('ID copied to clipboard').styled(),
+                  ],
+                ),
+              ),
+            );
+          }
+        },
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: _ProfileCardView(cubit),
+            ),
+            Expanded(
+              child: ListView(
+                children: [
+                  ListItemView(
+                    label: 'Account',
+                    callback: () {
+                      (cubit: cubit);
+                    },
+                  ),
+                  const ListItemView(label: 'Resume'),
+                  const ListItemView(label: 'Projects'),
+                  ListItemView(
+                      label: 'Logout', callback: () => cubit.logOut(context)),
+                ],
+              ),
+            ),
+          ],
+        ));
   }
 }
 
@@ -77,12 +100,21 @@ class _ProfileCardView extends StatelessWidget {
                       children: [
                         Text('${cubit.user.firstName ?? '?'} ${cubit.user.lastName ?? '?'}')
                             .styled(weight: FW.bold),
-                        Text(cubit.user.email ?? '?')
-                            .styled(size: 9, weight: FW.w300),
                         Text(cubit.user.id ?? '?').styled(
-                            size: 9, color: Colors.black, weight: FW.w300),
+                            size: 10, color: Colors.black, weight: FW.w300),
+                        Text(cubit.user.email ?? '?')
+                            .styled(size: 10, weight: FW.w300),
                       ],
                     ),
+                    IconButton(
+                      icon: const Icon(
+                        CupertinoIcons.doc_on_clipboard_fill,
+                        color: C.primary,
+                      ),
+                      onPressed: () {
+                        cubit.copyIdToClipboard();
+                      },
+                    )
                   ],
                 ),
               ),
@@ -92,10 +124,7 @@ class _ProfileCardView extends StatelessWidget {
         Card(
           shape: RoundedRectangleBorder(
             borderRadius: BR.circular(24),
-            side: const BorderSide(
-                color: C.primary, // Border color
-                width: 1 // Border width
-                ),
+            side: const BorderSide(color: C.primary, width: 1),
           ),
           borderOnForeground: true,
           child: Padding(
@@ -108,3 +137,20 @@ class _ProfileCardView extends StatelessWidget {
     );
   }
 }
+
+// void showSnackBar(context) {
+//   ScaffoldMessenger.of(context).showSnackBar(
+//     SnackBar(
+//       behavior: SnackBarBehavior.floating,
+//       margin: const EdgeInsets.only(top: 50, left: 20, right: 20),
+//       backgroundColor: C.secondary,
+//       content: Row(
+//         children: [
+//           const Icon(CupertinoIcons.check_mark_circled_solid, color: C.primary),
+//           const SizedBox(width: 8),
+//           const Text('ID copied to clipboard').styled(),
+//         ],
+//       ),
+//     ),
+//   );
+// }
