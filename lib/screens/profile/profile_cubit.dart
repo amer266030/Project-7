@@ -61,6 +61,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> _updateUserData() async {
     user.firstName = firstNameController.text;
     user.lastName = lastNameController.text;
+    user.imageUrl = 'https://picsum.photos/200/200';
   }
 
   Future<void> _updateInputFields() async {
