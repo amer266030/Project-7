@@ -23,20 +23,17 @@ class EditProfileView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 18),
           child: AspectRatio(
-            aspectRatio: 2,
-            child: ClipOval(
-                child: cubit.user.imageUrl == null
-                    // ignore: prefer_const_constructors
-                    ? LogoView()
-                    //   : Image.network(
-                    //     cubit.user.imageUrl!,
-                    //     fit: BoxFit.cover,
-                    // )
-                    : Image.file(
-                        File(cubit.user.imageUrl!),
-                        fit: BoxFit.cover,
-                      )),
-          ),
+              aspectRatio: 2,
+              child: ClipOval(
+                  child: cubit.user.imageUrl == null
+                      ? Image.network(
+                          'https://picsum.photos/200/200',
+                          fit: BoxFit.cover,
+                        )
+                      : Image.network(
+                          cubit.user.imageUrl!,
+                          fit: BoxFit.cover,
+                        ))),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 90),

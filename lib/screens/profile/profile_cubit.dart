@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:tuwaiq_project_pulse/model/user/user.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/auth_screen.dart';
 
@@ -106,7 +105,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     user.link?.bindlink = bindlinkController.text;
     user.link?.github = githubController.text;
     user.link?.linkedin = linkedinController.text;
-    
   }
 
   Future<void> _updateInputFields() async {
@@ -119,12 +117,9 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   Future<void> updateLogo() async {
-    final picker = ImagePicker();
-    final XFile? logo = await picker.pickImage(source: ImageSource.gallery);
-    if (logo != null) {
-      user.imageUrl = logo.path;
-      emit(ProfileUpdateState());
-    }
+    user.imageUrl =
+        'https://picsum.photos/200/200?random=${DateTime.now().millisecondsSinceEpoch}';
+    emit(ProfileUpdateState());
   }
 
   void logOut(BuildContext context) {
