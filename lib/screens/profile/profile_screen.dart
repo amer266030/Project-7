@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/profile_cubit.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/subviews/edit_profile_view.dart';
@@ -38,9 +40,25 @@ class ProfileScreen extends StatelessWidget {
                         return Column(
                           children: [
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
+                                IconButton(
+                                    onPressed: () =>
+                                        ShowProfileView(cubit: cubit),
+                                    icon: const Icon(
+                                      CupertinoIcons.arrow_left,
+                                      color: C.primary,
+                                    )),
                                 const Text('Profile')
                                     .styled(size: 18, weight: FW.bold),
+                                cubit.isEdit
+                                    ? TextButton(
+                                        onPressed: () {
+                                          cubit.updateProfile();
+                                        },
+                                        child: const Text("Save").styled(
+                                            size: 16, weight: FontWeight.w600))
+                                    : const Text("")
                               ],
                             ),
                             Expanded(

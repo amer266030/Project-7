@@ -24,6 +24,9 @@ class ProfileCubit extends Cubit<ProfileState> {
   var firstNameController = TextEditingController();
   var lastNameController = TextEditingController();
   var emailController = TextEditingController();
+  var githubController = TextEditingController();
+  var bindlinkController = TextEditingController();
+  var linkedinController = TextEditingController();
   // Alert Dialog
   bool isAlertVisible = false;
   var alertTitle = '';
@@ -99,13 +102,18 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> _updateUserData() async {
     user.firstName = firstNameController.text;
     user.lastName = lastNameController.text;
-    user.email = emailController.text;
+    user.link?.bindlink = bindlinkController.text;
+    user.link?.github = githubController.text;
+    user.link?.linkedin = linkedinController.text;
   }
 
   Future<void> _updateInputFields() async {
     firstNameController.text = user.firstName ?? '';
     lastNameController.text = user.lastName ?? '';
     emailController.text = user.email ?? '';
+    bindlinkController.text = user.link?.bindlink ?? '';
+    githubController.text =user.link?.github  ?? '';
+    linkedinController.text =  user.link?.linkedin ?? '';
   }
 
   Future<void> updateLogo() async {

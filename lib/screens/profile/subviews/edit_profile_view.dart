@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/buttons/elevated_btn_view.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/images/logo_view.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/popups/custom_popup_view.dart';
 import '../../../reusable_components/custom_text_field.dart';
@@ -18,8 +19,7 @@ class EditProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Expanded(
-            child: Padding(
+        Padding(
           padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 18),
           child: AspectRatio(
             aspectRatio: 2,
@@ -40,7 +40,7 @@ class EditProfileView extends StatelessWidget {
                         )),
             ),
           ),
-        )),
+        ),
         const Text('First Name')
             .styled(size: 16, color: C.black, weight: FontWeight.w700),
         CustomTextField(
@@ -70,46 +70,94 @@ class EditProfileView extends StatelessWidget {
             .styled(size: 16, color: C.black, weight: FontWeight.w700),
         Row(
           children: [
-            IconButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return CustomPopupView(
-                        title: "LinkedIn Profile",
-                        child: Text("data"),
-                        callback: () {
-                          Navigator.of(context).pop(); // Close the popup
-                        },
-                      );
-                    },
-                  );
-                },
-                icon: const FaIcon(
-                  FontAwesomeIcons.github,
-                  color: C.bg2,
-                )),
-            IconButton(
-                onPressed: () {},
-                icon: const FaIcon(
-                  FontAwesomeIcons.link,
-                  color: C.bg2,
-                )),
-            IconButton(
-                onPressed: () {},
-                icon: const FaIcon(
-                  FontAwesomeIcons.linkedinIn,
-                  color: C.bg2,
-                )),
+            SocialMediaLinks(
+                title: "Github",
+                hint: "mohammed_19994",
+                controller: cubit.githubController,
+                icon: FontAwesomeIcons.github),
+            SocialMediaLinks(
+                title: "Bindlink",
+                hint: "mohammed_19994",
+                controller: cubit.bindlinkController,
+                icon: FontAwesomeIcons.link),
+            SocialMediaLinks(
+                title: "Linkedin",
+                hint: "mohammed_19994",
+                controller: cubit.linkedinController,
+                icon: FontAwesomeIcons.linkedinIn),
           ],
         ),
-        ElevatedButton(
-          onPressed: () {
+        const SizedBox(height: 30),
+        ElevatedBtnView(
+          callBack: () {
             cubit.updateProfile();
           },
-          child: const Text('Save Changes'),
+          title: 'Save',
         )
       ],
     );
+  }
+}
+
+class SocialMediaLinks extends StatelessWidget {
+  const SocialMediaLinks({
+    super.key,
+    required this.title,
+    required this.hint,
+    required this.controller,
+    required this.icon,
+  });
+
+  final String title;
+  final String hint;
+  final TextEditingController controller;
+  final IconData icon;
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CustomPopupView(
+                title: "Update URL",
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(title).styled(
+                      size: 16,
+                      weight: FontWeight.w600,
+                    ),
+                    CustomTextField(
+                      controller: controller,
+                      hintText: hint,
+                      validation: Validations.emptyFieldValidation,
+                    ),
+                    const SizedBox(height: 16),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: ElevatedBtnView(
+                        title: 'Save',
+                        callBack: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                callback: () {
+                  Navigator.of(context).pop();
+                },
+              );
+            },
+          );
+        },
+        icon: FaIcon(
+          icon,
+          color: C.bg2,
+        ));
   }
 }
