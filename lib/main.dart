@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tuwaiq_project_pulse/screens/bottom_nav/bottom_nav_screen.dart';
 import 'package:tuwaiq_project_pulse/screens/splash/splash_screen.dart';
 import 'package:tuwaiq_project_pulse/services/di_container.dart';
 
