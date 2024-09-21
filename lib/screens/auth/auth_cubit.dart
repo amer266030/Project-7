@@ -26,7 +26,7 @@ class AuthCubit extends Cubit<AuthState> {
   var alertMsg = '';
 
   AuthCubit() : super(AuthInitial());
-  frist() {
+  first() {
     print('kjhgggggghjhgffghgffghgfdfghgfdfghgfddfghgfdfghgfdfgh');
     emit(AuthInitial());
   }
