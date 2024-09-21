@@ -30,6 +30,8 @@ class ProfileApi extends NetworkMgr {
   }
 
   Future<void> updateProfile(User user) async {
+    print('In the api method!');
+    print(user.toJson());
     try {
       var response = await dio.put(
         ApiPath.user.editProfile,
@@ -38,11 +40,14 @@ class ProfileApi extends NetworkMgr {
           headers: {'Authorization': 'Bearer ${authMgr.authData?.token}'},
         ),
       );
+      print(response.data);
       await setUser(response);
     } on DioException catch (e) {
       errorMsg = e.response.toString();
+      print(e.response);
     } catch (e) {
       errorMsg = e.toString();
+      print(e);
     }
   }
 

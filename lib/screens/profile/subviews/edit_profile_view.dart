@@ -1,9 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
-import 'package:tuwaiq_project_pulse/reusable_components/buttons/elevated_btn_view.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/buttons/social_media_btn.dart';
-import 'package:tuwaiq_project_pulse/reusable_components/popups/animated_snackbar.dart';
 import '../../../reusable_components/custom_text_field.dart';
 import '../../../utils/validations.dart';
 import '../profile_cubit.dart';
@@ -20,28 +19,33 @@ class EditProfileView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 18),
           child: AspectRatio(
-              aspectRatio: 2,
-              child: ClipOval(
-                  child: cubit.user.imageUrl == null
-                      ? Image.network(
-                          'https://picsum.photos/200/200',
-                          fit: BoxFit.cover,
-                        )
-                      : Image.network(
-                          cubit.user.imageUrl!,
-                          fit: BoxFit.cover,
-                        ))),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 80),
-          child: ElevatedBtnView(
-            title: 'Generate Image',
-            callBack: () async {
-              await cubit.updateLogo();
-              animatedSnakbar(msg: 'Profile image updated successfully')
-                  .show(context);
-            },
-          ),
+              aspectRatio: 1,
+              child: Container(
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: C.primary, width: 2),
+                    color: C.bg1,
+                    boxShadow: [
+                      BoxShadow(
+                        color: C.black.withOpacity(0.4),
+                        spreadRadius: 4,
+                        blurRadius: 4,
+                      )
+                    ]),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ClipOval(
+                      child: cubit.user.imageUrl == null
+                          ? Image.network(
+                              'https://picsum.photos/200/200',
+                              fit: BoxFit.cover,
+                            )
+                          : Image.network(
+                              cubit.user.imageUrl!,
+                              fit: BoxFit.cover,
+                            )),
+                ),
+              )),
         ),
         const Text('First Name')
             .styled(size: 16, color: C.black, weight: FontWeight.w700),
@@ -55,21 +59,25 @@ class EditProfileView extends StatelessWidget {
             controller: cubit.lastNameController,
             hintText: 'Doe',
             validation: Validations.emptyFieldValidation),
-        const Text('Email')
-            .styled(size: 16, color: C.black, weight: FontWeight.w700),
-        CustomTextField(
-            controller: cubit.emailController,
-            hintText: 'user@gmai.com',
-            validation: Validations.email),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-                child: const Text('Resume')
-                    .styled(size: 16, color: C.black, weight: FontWeight.w700)),
+            const Text('Resume')
+                .styled(size: 16, color: C.black, weight: FontWeight.w700),
+            Container(
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: C.primary,
+              ),
+              child: SocialMediaBtn(
+                  title: "Resume",
+                  hint: "https://",
+                  controller: cubit.resumeController,
+                  icon: FontAwesomeIcons.fileArrowUp),
+            ),
           ],
         ),
-        const Text('Social Media')
-            .styled(size: 16, color: C.black, weight: FontWeight.w700),
+        const Divider(),
         Row(
           children: [
             SocialMediaBtn(

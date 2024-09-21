@@ -46,7 +46,6 @@ class UserApi extends NetworkMgr {
     }
   }
 
-  // TODO: - Create Logo
   // PUT
   Future<void> createLogo(
       {required String projectId, required AssetImage img}) async {
@@ -65,7 +64,6 @@ class UserApi extends NetworkMgr {
     }
   }
 
-  // TODO: - Create Project Base
   // PUT
   Future<void> createProjectBase({required Project project}) async {
     try {
@@ -93,7 +91,6 @@ class UserApi extends NetworkMgr {
     }
   }
 
-  // TODO: - Project Presentation
   // PUT
   Future<void> createProjectPresentation() async {
     /* Data
@@ -105,7 +102,6 @@ class UserApi extends NetworkMgr {
      */
   }
 
-  // TODO: - Create Images
   // PUT
   Future<void> createImages() async {
     /* Data
@@ -121,7 +117,6 @@ class UserApi extends NetworkMgr {
      */
   }
 
-  // TODO: - Create Links
   // PUT
   Future<void> createLinks({required String projectId}) async {
     try {
@@ -149,7 +144,6 @@ class UserApi extends NetworkMgr {
     }
   }
 
-  // TODO: - Create Members
   // PUT
   Future<void> createMembers({required String projectId}) async {
     try {

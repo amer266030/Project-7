@@ -43,7 +43,7 @@ class SocialMediaBtn extends StatelessWidget {
                     CustomTextField(
                       controller: controller,
                       hintText: hint,
-                      validation: Validations.emptyFieldValidation,
+                      validation: Validations.none,
                     ),
                     const SizedBox(height: 16),
                     Padding(
@@ -60,7 +60,6 @@ class SocialMediaBtn extends StatelessWidget {
                   ],
                 ),
                 callback: () {
-                  controller.text = '';
                   Navigator.of(context).pop();
                 },
               );

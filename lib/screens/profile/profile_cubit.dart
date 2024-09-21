@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +9,7 @@ import 'package:tuwaiq_project_pulse/screens/user_projects/user_projects_screen.
 
 import '../../managers/alert_mgr.dart';
 import '../../managers/auth_mgr.dart';
+import '../../managers/popup_mgr.dart';
 import '../../networking/_client/networking_api.dart';
 import '../admin/admin_screen.dart';
 import '../create_project/create_project_screen.dart';
@@ -30,6 +29,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   var githubController = TextEditingController();
   var bindlinkController = TextEditingController();
   var linkedinController = TextEditingController();
+  var resumeController = TextEditingController();
   // Alert Dialog
   bool isAlertVisible = false;
   var alertTitle = '';
@@ -45,7 +45,13 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   void toggleIsEdit() {
     isEdit = !isEdit;
-    emit(ProfileUpdateState());
+    emit(UpdateUIState());
+  }
+
+  void copyIdToClipboard() {
+    Clipboard.setData(ClipboardData(text: user.id ?? '')).then((_) {
+      emit(IdCopiedState());
+    });
   }
 
   Future<void> _updateUserData() async {
@@ -55,6 +61,8 @@ class ProfileCubit extends Cubit<ProfileState> {
     user.link?.bindlink = bindlinkController.text;
     user.link?.github = githubController.text;
     user.link?.linkedin = linkedinController.text;
+    user.resumeUrl = resumeController.text;
+    user.link?.resume = resumeController.text;
   }
 
   Future<void> _updateInputFields() async {
@@ -64,7 +72,10 @@ class ProfileCubit extends Cubit<ProfileState> {
     bindlinkController.text = user.link?.bindlink ?? '';
     githubController.text = user.link?.github ?? '';
     linkedinController.text = user.link?.linkedin ?? '';
+    resumeController.text = user.link?.resume ?? '';
   }
+
+  // Alert
 
   void showAlert(BuildContext context, bool withDismiss) {
     AlertManager().showAlert(
@@ -83,6 +94,16 @@ class ProfileCubit extends Cubit<ProfileState> {
     alertMsg = '';
   }
 
+  void showPopup(
+          {required BuildContext context,
+          required String title,
+          required Widget child}) =>
+      PopupMgr().showPopup(context: context, title: title, child: child);
+
+  // Snackbar
+
+  void showSnackBar(BuildContext context, String msg) {}
+
   // Navigation
 
   void navigateToUserProjects(BuildContext context) =>
@@ -100,36 +121,37 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   void loadProfile() async {
     clearAlertFields();
-    emit(ProfileLoadingState());
+    emit(LoadingState());
     try {
       await nwk.fetchProfile();
       if (nwk.user == null) throw Exception(nwk.errorMsg);
       user = nwk.user!;
       await _updateInputFields();
-      emit(ProfileUpdateState());
+      emit(UpdateUIState());
     } catch (e) {
       alertTitle = 'Oops';
       alertMsg = '$e';
-      emit(ProfileErrorState());
+      emit(ErrorState());
     }
   }
 
   void updateProfile() async {
     clearAlertFields();
-    emit(ProfileLoadingState());
+    emit(LoadingState());
     try {
       await _updateUserData();
       await nwk.updateProfile(user);
       toggleIsEdit();
+      emit(SuccessState());
     } catch (e) {
       if (e is DioException) {
         alertTitle = 'Status Code: ${e.response?.statusCode}';
         alertMsg = 'Error Message: ${e.message}';
-        emit(ProfileErrorState());
+        emit(ErrorState());
       } else {
-        alertTitle = '';
+        alertTitle = 'Error: $e';
         alertMsg = 'Something wrong happened!, please try again later';
-        emit(ProfileErrorState());
+        emit(ErrorState());
       }
     }
   }
@@ -137,7 +159,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> updateLogo() async {
     user.imageUrl =
         'https://picsum.photos/200/200?random=${DateTime.now().millisecondsSinceEpoch}';
-    emit(ProfileUpdateState());
+    emit(UpdateUIState());
   }
 
   void logOut(BuildContext context) {
@@ -145,11 +167,5 @@ class ProfileCubit extends Cubit<ProfileState> {
     if (!context.mounted) return;
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const AuthScreen()));
-  }
-
-  void copyIdToClipboard() {
-    Clipboard.setData(ClipboardData(text: user.id ?? '')).then((_) {
-      emit(ProfileIdCopiedState());
-    });
   }
 }

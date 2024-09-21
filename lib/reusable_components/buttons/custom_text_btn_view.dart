@@ -17,7 +17,7 @@ class CustomTextBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => callback(),
+      onPressed: callback,
       style: ButtonStyle(
         padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
         minimumSize: WidgetStateProperty.all(Size.zero), // Adjust if needed

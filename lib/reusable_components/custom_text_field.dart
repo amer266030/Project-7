@@ -29,11 +29,15 @@ class CustomTextField extends StatelessWidget {
             prefixIcon: prefixIcon,
             prefixIconColor: C.primary,
             suffixIcon: suffixIcon,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: C.primary, width: 1),
+            ),
             border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
-                borderSide: BorderSide.none),
+                borderSide: BorderSide(color: C.primary, width: 1)),
             filled: true,
-            fillColor: Colors.white60,
+            fillColor: C.secondary.withOpacity(0.5),
             hintText: hintText,
             hintStyle: const TS(
               color: Colors.grey,

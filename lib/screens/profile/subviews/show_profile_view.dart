@@ -36,7 +36,6 @@ class ShowProfileView extends StatelessWidget {
                     label: 'Create Project',
                     callback: () => cubit.navigateToSupervisorScreen(context)),
               ListItemView(label: 'Account', callback: cubit.toggleIsEdit),
-              const ListItemView(label: 'Resume'),
               ListItemView(
                 label: 'Resume',
                 callback: () {

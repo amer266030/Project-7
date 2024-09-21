@@ -22,11 +22,11 @@ class ProfileScreen extends StatelessWidget {
         final cubit = context.read<ProfileCubit>();
         return BlocListener<ProfileCubit, ProfileState>(
           listener: (context, state) {
-            if (state is ProfileLoadingState || state is ProfileErrorState) {
+            if (state is LoadingState || state is ErrorState) {
               cubit.showAlert(context, false);
             } else {
               cubit.dismissAlert(context);
-              if (state is ProfileIdCopiedState) {
+              if (state is IdCopiedState) {
                 animatedSnakbar(msg: 'ID copied to clipboard').show(context);
               }
             }
@@ -44,10 +44,7 @@ class ProfileScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 IconButton(
-                                    onPressed: () {
-                                      cubit.isEdit;
-                                      cubit.toggleIsEdit();
-                                    },
+                                    onPressed: cubit.toggleIsEdit,
                                     icon: const Icon(
                                       CupertinoIcons.arrow_left,
                                       color: C.primary,
@@ -56,12 +53,11 @@ class ProfileScreen extends StatelessWidget {
                                     .styled(size: 18, weight: FW.bold),
                                 CustomTextBtn(
                                   title: "Save",
-                                  callback: () {
-                                    cubit.updateProfile();
-                                    animatedSnakbar(
-                                            msg: 'Updates saved successfully')
-                                        .show(context);
-                                  },
+                                  callback: cubit.updateProfile,
+
+                                  // animatedSnakbar(
+                                  //         msg: 'Updates saved successfully')
+                                  //     .show(context);
                                 )
                               ],
                             )
