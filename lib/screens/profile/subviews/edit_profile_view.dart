@@ -36,9 +36,9 @@ class EditProfileView extends StatelessWidget {
                         ))),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 90),
+          padding: const EdgeInsets.symmetric(horizontal: 80),
           child: ElevatedBtnView(
-            title: 'Update Image',
+            title: 'Generate Image',
             callBack: () async {
               await cubit.updateLogo();
               animatedSnakbar(msg: 'Profile image updated successfully')
