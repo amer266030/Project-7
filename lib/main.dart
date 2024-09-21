@@ -19,6 +19,19 @@ class MainApp extends StatelessWidget {
       create: (context) => AppThemeCubit(),
       child: BlocBuilder<AppThemeCubit, AppThemeState>(
         builder: (context, state) {
+          if (state is AppLightThemeState) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData.light(),
+              home: SplashScreen(),
+            );
+          } else if (state is AppDarkThemeState) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData.dark(),
+              home: SplashScreen(),
+            );
+          }
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             home: SplashScreen(),
