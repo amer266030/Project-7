@@ -7,9 +7,6 @@ extension C on Colors {
   static const bg1 = Color(0xFFF5F5F7);
   static const bg2 = Color(0xFFF9FAFB);
   static const bg3 = Color(0xFF4A0EB0);
-<<<<<<< HEAD
   static const navBar = Color(0xFF4D429A);
-=======
   static const black = Color(0xFF121212);
->>>>>>> origin/edit_profile
 }
