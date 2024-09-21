@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tuwaiq_project_pulse/model/user/user.dart';
@@ -23,6 +26,10 @@ class ProfileCubit extends Cubit<ProfileState> {
   // Input Fields
   var firstNameController = TextEditingController();
   var lastNameController = TextEditingController();
+  var emailController = TextEditingController();
+  var githubController = TextEditingController();
+  var bindlinkController = TextEditingController();
+  var linkedinController = TextEditingController();
   // Alert Dialog
   bool isAlertVisible = false;
   var alertTitle = '';
@@ -41,6 +48,24 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(ProfileUpdateState());
   }
 
+  Future<void> _updateUserData() async {
+    user.firstName = firstNameController.text;
+    user.lastName = lastNameController.text;
+    user.imageUrl = 'https://picsum.photos/200/200';
+    user.link?.bindlink = bindlinkController.text;
+    user.link?.github = githubController.text;
+    user.link?.linkedin = linkedinController.text;
+  }
+
+  Future<void> _updateInputFields() async {
+    firstNameController.text = user.firstName ?? '';
+    lastNameController.text = user.lastName ?? '';
+    emailController.text = user.email ?? '';
+    bindlinkController.text = user.link?.bindlink ?? '';
+    githubController.text = user.link?.github ?? '';
+    linkedinController.text = user.link?.linkedin ?? '';
+  }
+
   void showAlert(BuildContext context, bool withDismiss) {
     AlertManager().showAlert(
       context: context,
@@ -56,17 +81,6 @@ class ProfileCubit extends Cubit<ProfileState> {
   void clearAlertFields() {
     alertTitle = '';
     alertMsg = '';
-  }
-
-  Future<void> _updateUserData() async {
-    user.firstName = firstNameController.text;
-    user.lastName = lastNameController.text;
-    user.imageUrl = 'https://picsum.photos/200/200';
-  }
-
-  Future<void> _updateInputFields() async {
-    firstNameController.text = user.firstName ?? '';
-    lastNameController.text = user.lastName ?? '';
   }
 
   // Navigation
@@ -120,10 +134,22 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
-  void logOut(BuildContext context) async {
-    await authMgr.logOut();
+  Future<void> updateLogo() async {
+    user.imageUrl =
+        'https://picsum.photos/200/200?random=${DateTime.now().millisecondsSinceEpoch}';
+    emit(ProfileUpdateState());
+  }
+
+  void logOut(BuildContext context) {
+    authMgr.logOut();
     if (!context.mounted) return;
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const AuthScreen()));
+  }
+
+  void copyIdToClipboard() {
+    Clipboard.setData(ClipboardData(text: user.id ?? '')).then((_) {
+      emit(ProfileIdCopiedState());
+    });
   }
 }

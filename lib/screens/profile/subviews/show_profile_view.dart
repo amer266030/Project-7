@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/cards/bordered_card_view.dart';
 import 'package:tuwaiq_project_pulse/screens/admin/user_role.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/popups/custom_popup_view.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/profile_cubit.dart';
 
 import '../../../extensions/color_ext.dart';
@@ -34,7 +35,25 @@ class ShowProfileView extends StatelessWidget {
                 ListItemView(
                     label: 'Create Project',
                     callback: () => cubit.navigateToSupervisorScreen(context)),
+              ListItemView(label: 'Account', callback: cubit.toggleIsEdit),
               const ListItemView(label: 'Resume'),
+              ListItemView(
+                label: 'Resume',
+                callback: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return CustomPopupView(
+                        title: "Resume",
+                        child: const Text("data"),
+                        callback: () {
+                          Navigator.of(context).pop();
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
               ListItemView(
                   label: 'Projects',
                   callback: () => cubit.navigateToUserProjects(context)),
@@ -85,12 +104,21 @@ class _ProfileCardView extends StatelessWidget {
                       children: [
                         Text('${cubit.user.firstName ?? '?'} ${cubit.user.lastName ?? '?'}')
                             .styled(weight: FW.bold),
+                        Text(cubit.user.id ?? '?')
+                            .styled(size: 10, weight: FW.w400),
                         Text(cubit.user.email ?? '?')
-                            .styled(size: 9, weight: FW.w300),
-                        Text(cubit.user.id ?? '?').styled(
-                            size: 9, color: Colors.black, weight: FW.w300),
+                            .styled(size: 10, weight: FW.w400),
                       ],
                     ),
+                    IconButton(
+                      icon: const Icon(
+                        CupertinoIcons.doc_on_clipboard_fill,
+                        color: C.primary,
+                      ),
+                      onPressed: () {
+                        cubit.copyIdToClipboard();
+                      },
+                    )
                   ],
                 ),
               ),
@@ -100,10 +128,7 @@ class _ProfileCardView extends StatelessWidget {
         Card(
           shape: RoundedRectangleBorder(
             borderRadius: BR.circular(24),
-            side: const BorderSide(
-                color: C.primary, // Border color
-                width: 1 // Border width
-                ),
+            side: const BorderSide(color: C.primary, width: 1),
           ),
           borderOnForeground: true,
           child: Padding(
