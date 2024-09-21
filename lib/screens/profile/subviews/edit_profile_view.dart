@@ -24,33 +24,30 @@ class EditProfileView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 18),
           child: AspectRatio(
             aspectRatio: 2,
-            child: InkWell(
-              onTap: () async {
-                await cubit.updateLogo();
-              },
-              child: ClipOval(
-                  child: cubit.user.imageUrl == null
-                      // ignore: prefer_const_constructors
-                      ? LogoView()
-                      //   : Image.network(
-                      //     cubit.user.imageUrl!,
-                      //     fit: BoxFit.cover,
-                      // )
-                      : Image.file(
-                          File(cubit.user.imageUrl!),
-                          fit: BoxFit.cover,
-                        )),
-            ),
+            child: ClipOval(
+                child: cubit.user.imageUrl == null
+                    // ignore: prefer_const_constructors
+                    ? LogoView()
+                    //   : Image.network(
+                    //     cubit.user.imageUrl!,
+                    //     fit: BoxFit.cover,
+                    // )
+                    : Image.file(
+                        File(cubit.user.imageUrl!),
+                        fit: BoxFit.cover,
+                      )),
           ),
         ),
-        ElevatedBtnView(
-          title: 'Update Image',
-          callBack: () async {
-            await cubit.updateLogo();
-
-            animatedSnakbar(msg: 'Profile image updated successfully')
-                .show(context);
-          },
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 90),
+          child: ElevatedBtnView(
+            title: 'Update Image',
+            callBack: () async {
+              await cubit.updateLogo();
+              animatedSnakbar(msg: 'Profile image updated successfully')
+                  .show(context);
+            },
+          ),
         ),
         const Text('First Name')
             .styled(size: 16, color: C.black, weight: FontWeight.w700),

@@ -41,7 +41,7 @@ class ShowProfileView extends StatelessWidget {
                       builder: (BuildContext context) {
                         return CustomPopupView(
                           title: "Resume",
-                          child: Text("data"),
+                          child: const Text("data"),
                           callback: () {
                             Navigator.of(context).pop();
                           },
