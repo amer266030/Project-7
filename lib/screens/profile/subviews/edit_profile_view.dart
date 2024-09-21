@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/buttons/elevated_btn_view.dart';
-import 'package:tuwaiq_project_pulse/reusable_components/buttons/social_media_links.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/buttons/social_media_btn.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/images/logo_view.dart';
-import 'package:tuwaiq_project_pulse/reusable_components/popups/custom_popup_view.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/popups/animated_snackbar.dart';
 import '../../../reusable_components/custom_text_field.dart';
 import '../../../utils/validations.dart';
 import '../profile_cubit.dart';
@@ -30,6 +30,7 @@ class EditProfileView extends StatelessWidget {
               },
               child: ClipOval(
                   child: cubit.user.imageUrl == null
+                      // ignore: prefer_const_constructors
                       ? LogoView()
                       //   : Image.network(
                       //     cubit.user.imageUrl!,
@@ -41,6 +42,15 @@ class EditProfileView extends StatelessWidget {
                         )),
             ),
           ),
+        ),
+        ElevatedBtnView(
+          title: 'Update Image',
+          callBack: () async {
+            await cubit.updateLogo();
+
+            animatedSnakbar(msg: 'Profile image updated successfully')
+                .show(context);
+          },
         ),
         const Text('First Name')
             .styled(size: 16, color: C.black, weight: FontWeight.w700),
@@ -71,17 +81,17 @@ class EditProfileView extends StatelessWidget {
             .styled(size: 16, color: C.black, weight: FontWeight.w700),
         Row(
           children: [
-            SocialMediaLinks(
+            SocialMediaBtn(
                 title: "Github",
                 hint: "mohammed_19994",
                 controller: cubit.githubController,
                 icon: FontAwesomeIcons.github),
-            SocialMediaLinks(
+            SocialMediaBtn(
                 title: "Bindlink",
                 hint: "mohammed_19994",
                 controller: cubit.bindlinkController,
                 icon: FontAwesomeIcons.link),
-            SocialMediaLinks(
+            SocialMediaBtn(
                 title: "Linkedin",
                 hint: "mohammed_19994",
                 controller: cubit.linkedinController,

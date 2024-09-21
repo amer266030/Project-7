@@ -6,9 +6,10 @@ import 'package:tuwaiq_project_pulse/reusable_components/buttons/elevated_btn_vi
 import 'package:tuwaiq_project_pulse/reusable_components/custom_text_field.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/popups/custom_popup_view.dart';
 import 'package:tuwaiq_project_pulse/utils/validations.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/popups/animated_snackbar.dart';
 
-class SocialMediaLinks extends StatelessWidget {
-  const SocialMediaLinks({
+class SocialMediaBtn extends StatelessWidget {
+  const SocialMediaBtn({
     super.key,
     required this.title,
     required this.hint,
@@ -32,7 +33,7 @@ class SocialMediaLinks extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Text(title).styled(
@@ -51,6 +52,8 @@ class SocialMediaLinks extends StatelessWidget {
                         title: 'Save',
                         callBack: () {
                           Navigator.of(context).pop();
+                          animatedSnakbar(msg: 'URL saved successfully')
+                              .show(context);
                         },
                       ),
                     ),
@@ -67,6 +70,7 @@ class SocialMediaLinks extends StatelessWidget {
         icon: FaIcon(
           icon,
           color: C.bg2,
+          size: 30,
         ));
   }
 }

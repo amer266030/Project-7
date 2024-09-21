@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/buttons/custom_text_btn_view.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/popups/animated_snackbar.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/profile_cubit.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/subviews/edit_profile_view.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/subviews/show_profile_view.dart';
@@ -27,9 +28,6 @@ class ProfileScreen extends StatelessWidget {
             } else {
               cubit.dismissAlert(context);
             }
-            if (state is ProfileUpdateState) {
-              showSnackBar( context: context, msg: '');
-            }
           },
           child: Scaffold(
             body: Stack(
@@ -49,8 +47,10 @@ class ProfileScreen extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       IconButton(
-                                          onPressed: () =>
-                                              ShowProfileView(cubit: cubit),
+                                          onPressed: () {
+                                            cubit.isEdit;
+                                            cubit.toggleIsEdit();
+                                          },
                                           icon: const Icon(
                                             CupertinoIcons.arrow_left,
                                             color: C.primary,
@@ -61,6 +61,10 @@ class ProfileScreen extends StatelessWidget {
                                         title: "Save",
                                         callback: () {
                                           cubit.updateProfile();
+                                          animatedSnakbar(
+                                                  msg:
+                                                      'Updates saved successfully')
+                                              .show(context);
                                         },
                                       )
                                     ],

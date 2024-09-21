@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/cards/bordered_card_view.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/popups/animated_snackbar.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/popups/custom_popup_view.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/profile_cubit.dart';
-import 'package:tuwaiq_project_pulse/screens/profile/subviews/edit_profile_view.dart';
 
 import '../../../extensions/color_ext.dart';
 import '../../../reusable_components/list_item_view.dart';
@@ -21,7 +21,7 @@ class ShowProfileView extends StatelessWidget {
     return BlocListener<ProfileCubit, ProfileState>(
         listener: (context, state) {
           if (state is ProfileIdCopiedState) {
-            showSnackBar(context: context, msg: 'ID copied to clipboard');
+            animatedSnakbar(msg: 'ID copied to clipboard').show(context);
           }
         },
         child: Column(
@@ -133,21 +133,4 @@ class _ProfileCardView extends StatelessWidget {
       ],
     );
   }
-}
-
-void showSnackBar({required BuildContext context, required String msg}) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      behavior: SnackBarBehavior.floating,
-      margin: const EdgeInsets.only(top: 50, left: 20, right: 20),
-      backgroundColor: C.secondary,
-      content: Row(
-        children: [
-          const Icon(CupertinoIcons.check_mark_circled_solid, color: C.primary),
-          const SizedBox(width: 8),
-          Text(msg).styled(),
-        ],
-      ),
-    ),
-  );
 }
