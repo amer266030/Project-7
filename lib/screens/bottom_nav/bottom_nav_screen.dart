@@ -30,7 +30,7 @@ class BottomNavScreen extends StatelessWidget {
                           controller: cubit.pageController,
                           physics: const NeverScrollableScrollPhysics(),
                           children: List.generate(
-                            BarItems.bottomBarItems.length,
+                            BarItems.bottomBarPages.length,
                             (index) => BarItems.bottomBarPages[index],
                           ),
                         ),
