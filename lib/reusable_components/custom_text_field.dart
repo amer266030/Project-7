@@ -31,10 +31,10 @@ class CustomTextField extends StatelessWidget {
             suffixIcon: suffixIcon,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: C.primary(context), width: 1),
+              borderSide: BorderSide(color: C.primary(context), width: 1),
             ),
-            border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
+            border: OutlineInputBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
                 borderSide: BorderSide(color: C.primary(context), width: 1)),
             filled: true,
             fillColor: C.secondary(context).withOpacity(0.5),
