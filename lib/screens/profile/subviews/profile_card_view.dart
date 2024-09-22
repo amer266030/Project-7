@@ -44,15 +44,15 @@ class ProfileCardView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('${cubit.user.firstName ?? '?'} ${cubit.user.lastName ?? '?'}')
-                            .styled(weight: FW.bold),
-                        Text(cubit.user.id ?? '?')
-                            .styled(size: 10, weight: FW.w400),
-                        Text(cubit.user.email ?? '?')
-                            .styled(size: 10, weight: FW.w400),
+                            .styled(context: context, weight: FW.bold),
+                        Text(cubit.user.id ?? '?').styled(
+                            context: context, size: 10, weight: FW.w400),
+                        Text(cubit.user.email ?? '?').styled(
+                            context: context, size: 10, weight: FW.w400),
                       ],
                     ),
                     IconButton(
-                      icon: const Icon(
+                      icon: Icon(
                         CupertinoIcons.doc_on_clipboard_fill,
                         color: C.primary(context),
                         size: 12,
@@ -68,13 +68,13 @@ class ProfileCardView extends StatelessWidget {
         Card(
           shape: RoundedRectangleBorder(
             borderRadius: BR.circular(24),
-            side: const BorderSide(color: C.primary(context), width: 1),
+            side: BorderSide(color: C.primary(context), width: 1),
           ),
           borderOnForeground: true,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-            child:
-                Text(cubit.user.role ?? '?').styled(size: 12, weight: FW.bold),
+            child: Text(cubit.user.role ?? '?')
+                .styled(context: context, size: 12, weight: FW.bold),
           ),
         ),
       ],
