@@ -27,7 +27,7 @@ class CreateProjectScreen extends StatelessWidget {
           appBar: AppBar(
               centerTitle: true,
               title: const Text('Create Project')
-                  .styled(size: 18, weight: FW.bold)),
+                  .styled(context: context, size: 18, weight: FW.bold)),
           body: Stack(
             children: [
               const BackgroundImg(),
@@ -51,6 +51,7 @@ class CreateProjectScreen extends StatelessWidget {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         const Text('User:').styled(
+                                            context: context,
                                             color: Colors.black,
                                             weight: FW.bold),
                                         Card(
@@ -79,7 +80,10 @@ class CreateProjectScreen extends StatelessWidget {
                                                         child: Text(
                                                                 user.email ??
                                                                     '')
-                                                            .styled(size: 10));
+                                                            .styled(
+                                                                context:
+                                                                    context,
+                                                                size: 10));
                                                   }).toList(),
                                                 );
                                               },
@@ -102,6 +106,7 @@ class CreateProjectScreen extends StatelessWidget {
                                                       ? 'Edit Enabled'
                                                       : 'Edit Disabled')
                                                   .styled(
+                                                    context: context, 
                                                       color: Colors.black,
                                                       weight: FW.bold),
                                               Switch(
@@ -122,6 +127,7 @@ class CreateProjectScreen extends StatelessWidget {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             const Text('End Date:').styled(
+                                              context: context, 
                                                 color: Colors.black,
                                                 weight: FW.bold),
                                             Text(cubit.selectedDate
@@ -129,7 +135,7 @@ class CreateProjectScreen extends StatelessWidget {
                                             IconButton(
                                               onPressed: () =>
                                                   BottomPicker.date(
-                                                pickerTitle: const Text(
+                                                pickerTitle:  Text(
                                                   'Select an End Date for the project',
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.bold,
@@ -153,8 +159,7 @@ class CreateProjectScreen extends StatelessWidget {
                                                 onSubmit: (date) =>
                                                     cubit.setSelectedDate(date),
                                               ).show(context),
-                                              icon: const Icon(
-                                                  Icons.calendar_month,
+                                              icon: Icon(Icons.calendar_month,
                                                   color: C.primary(context)),
                                             )
                                           ],
