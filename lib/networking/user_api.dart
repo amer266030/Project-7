@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -48,13 +49,13 @@ class UserApi extends NetworkMgr {
 
   // PUT
   Future<void> createLogo(
-      {required String projectId, required AssetImage img}) async {
-    var convertedImg = await ImgConverter.assetImgToIntList(img);
+      {required String projectId, required File img}) async {
+    var imgToUpload = await ImgConverter.fileImgToIntList(img);
     try {
-      var response = await dio.put(
+      await dio.put(
         ApiPath.user.editProjectLogo(projectId: projectId),
         options: Options(headers: {'Authorization': 'Bearer $token'}),
-        data: jsonEncode({"logo": convertedImg}),
+        data: jsonEncode({"logo": imgToUpload}),
       );
     } on DioException catch (e) {
       errorMsg = '${e.response}';
@@ -66,8 +67,6 @@ class UserApi extends NetworkMgr {
   // PUT
   Future<void> createProjectBase({required Project project}) async {
     try {
-      print(ApiPath.user.editProjectBase(projectId: project.projectId ?? ''));
-
       var response = await dio.put(
         ApiPath.user.editProjectBase(projectId: project.projectId ?? ''),
         options: Options(headers: {'Authorization': 'Bearer $token'}),
@@ -82,16 +81,15 @@ class UserApi extends NetworkMgr {
         },
       );
       setProject(response);
-      print('Project Updated');
     } on DioException catch (e) {
-      errorMsg = '${e.response.toString()}';
+      errorMsg = '${e.response}';
     } catch (e) {
-      print(e);
+      errorMsg = '$e';
     }
   }
 
   // PUT
-  Future<void> createProjectPresentation() async {
+  Future<void> createProjectPresentation(File pdf) async {
     /* Data
 
     {
@@ -102,7 +100,7 @@ class UserApi extends NetworkMgr {
   }
 
   // PUT
-  Future<void> createImages() async {
+  Future<void> createImages(List<File>? images) async {
     /* Data
 
     {

@@ -19,9 +19,7 @@ class ProjectsScreen extends StatelessWidget {
         final cubit = context.read<ProjectsCubit>();
         return BlocListener<ProjectsCubit, ProjectsState>(
           listener: (context, state) {
-            if (state is ProjectsLoadingState) {
-              cubit.showAlert(context, false);
-            } else if (state is ProjectsErrorState) {
+            if (state is ProjectsErrorState) {
               cubit.showAlert(context, true);
             } else {
               cubit.dismissAlert(context);

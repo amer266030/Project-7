@@ -45,17 +45,9 @@ class ProjectDetailsScreen extends StatelessWidget {
                       },
                     ),
                   ),
-                  _TextFieldContainer(
-                    hintText: 'The amazing Spider man',
-                    controller: TextEditingController(),
-                  ),
-                  Text('${project.logoUrl}'),
                   TextButton(
                       onPressed: () => cubit.updateProjectBase(project),
                       child: const Text('Update Proj Base')),
-                  TextButton(
-                      onPressed: () => cubit.makePublic(project),
-                      child: const Text('Make Public'))
                 ],
               ),
             ),

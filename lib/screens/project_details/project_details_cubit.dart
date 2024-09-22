@@ -26,11 +26,14 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
   }
 
   void updateImage() async {
-    try {
-      await userApi.createLogo(
-          projectId: project.projectId ?? '', img: Img.smallLogo);
-    } catch (_) {
-      print('${userApi.errorMsg}');
+    if (selectedImg != null) {
+      try {
+        await userApi.createLogo(
+            projectId: project.projectId ?? '', img: selectedImg!);
+        emit(SuccessState());
+      } catch (_) {
+        emit(ErrorState());
+      }
     }
   }
 
@@ -38,7 +41,7 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
     try {
       await userApi.createProjectBase(project: project);
     } catch (e) {
-      print('Error $e');
+      emit(ErrorState());
     }
   }
 
@@ -57,4 +60,3 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
     }
   }
 }
-
