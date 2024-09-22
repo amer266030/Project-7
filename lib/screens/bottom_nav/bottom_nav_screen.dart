@@ -41,7 +41,7 @@ class BottomNavScreen extends StatelessWidget {
               ),
               extendBody: true,
               bottomNavigationBar: (BarItems.bottomBarPages.length <=
-                      BarItems.bottomBarItems.length)
+                      BarItems.bottomBarPages.length)
                   ? AnimatedNotchBottomBar(
                       notchBottomBarController: cubit.notchController,
                       color: C.navBar(context),
@@ -50,7 +50,7 @@ class BottomNavScreen extends StatelessWidget {
                       maxLine: 1,
                       shadowElevation: 5,
                       kBottomRadius: 28.0,
-                      notchGradient: const LinearGradient(
+                      notchGradient: LinearGradient(
                           colors: [C.bg1(context), C.bg2(context)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight),
@@ -58,7 +58,7 @@ class BottomNavScreen extends StatelessWidget {
                       showShadow: false,
                       durationInMilliSeconds: 150,
                       elevation: 1,
-                      bottomBarItems: BarItems.bottomBarItems,
+                      bottomBarItems: BarItems.bottomBarItems(context),
                       onTap: (index) {
                         cubit.pageController.jumpToPage(index);
                       },

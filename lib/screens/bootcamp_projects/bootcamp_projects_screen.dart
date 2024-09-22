@@ -20,7 +20,10 @@ class BootcampProjectsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           title: Text(title).styled(
-              size: 20, weight: FontWeight.bold, color: C.primary(context))),
+              context: context,
+              size: 20,
+              weight: FontWeight.bold,
+              color: C.primary(context))),
       body: Stack(
         children: [
           const BackgroundImg(),
@@ -79,8 +82,12 @@ class _ProjectCardView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(project.projectName ?? '?').styled(
-                            size: 14, weight: FontWeight.bold, lineLimit: 1),
+                            context: context,
+                            size: 14,
+                            weight: FontWeight.bold,
+                            lineLimit: 1),
                         Text(project.projectDescription ?? '').styled(
+                            context: context,
                             color: Colors.black,
                             size: 10,
                             weight: FontWeight.w300,
@@ -91,7 +98,8 @@ class _ProjectCardView extends StatelessWidget {
                           children: [
                             RatingStarsView(
                                 rating: (project.rating as num).toDouble()),
-                            Text(project.endDate.toString()).styled(size: 10),
+                            Text(project.endDate.toString())
+                                .styled(context: context, size: 10),
                           ],
                         ),
                       ],
