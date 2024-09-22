@@ -56,7 +56,6 @@ class UserApi extends NetworkMgr {
         options: Options(headers: {'Authorization': 'Bearer $token'}),
         data: jsonEncode({"logo": convertedImg}),
       );
-      print(response);
     } on DioException catch (e) {
       errorMsg = '${e.response}';
     } catch (e) {

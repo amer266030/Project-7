@@ -32,18 +32,18 @@ class EditProfileView extends StatelessWidget {
                         blurRadius: 4,
                       )
                     ]),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ClipOval(
-                      child: cubit.user.imageUrl == null
-                          ? Image.network(
-                              'https://picsum.photos/200/200',
-                              fit: BoxFit.cover,
-                            )
-                          : Image.network(
-                              cubit.user.imageUrl!,
-                              fit: BoxFit.cover,
-                            )),
+                child: InkWell(
+                  onTap: cubit.getImage,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ClipOval(
+                        child: cubit.avatar != null
+                            ? Image.file(cubit.avatar!, fit: BoxFit.cover)
+                            : cubit.user.imageUrl == null
+                                ? const Icon(FontAwesomeIcons.image, size: 40)
+                                : Image.network(cubit.user.imageUrl!,
+                                    fit: BoxFit.cover)),
+                  ),
                 ),
               )),
         ),
@@ -64,16 +64,19 @@ class EditProfileView extends StatelessWidget {
           children: [
             const Text('Resume')
                 .styled(size: 16, color: C.black, weight: FontWeight.w700),
-            Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: C.primary,
+            InkWell(
+              onTap: cubit.pickPdfFile,
+              child: Container(
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: C.primary,
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child:
+                      Icon(FontAwesomeIcons.fileArrowUp, color: Colors.white),
+                ),
               ),
-              child: SocialMediaBtn(
-                  title: "Resume",
-                  hint: "https://",
-                  controller: cubit.resumeController,
-                  icon: FontAwesomeIcons.fileArrowUp),
             ),
           ],
         ),

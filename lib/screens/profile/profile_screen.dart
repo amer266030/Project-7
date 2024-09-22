@@ -29,6 +29,9 @@ class ProfileScreen extends StatelessWidget {
               if (state is IdCopiedState) {
                 animatedSnakbar(msg: 'ID copied to clipboard').show(context);
               }
+              if (state is SuccessState) {
+                cubit.showSnackBar(context, state.msg);
+              }
             }
           },
           child: SafeArea(
@@ -54,10 +57,6 @@ class ProfileScreen extends StatelessWidget {
                                 CustomTextBtn(
                                   title: "Save",
                                   callback: cubit.updateProfile,
-
-                                  // animatedSnakbar(
-                                  //         msg: 'Updates saved successfully')
-                                  //     .show(context);
                                 )
                               ],
                             )

@@ -9,7 +9,10 @@ final class LoadingState extends ProfileState {}
 
 final class UpdateUIState extends ProfileState {}
 
-final class SuccessState extends ProfileState {}
+final class SuccessState extends ProfileState {
+  final String msg;
+  SuccessState(this.msg);
+}
 
 final class ErrorState extends ProfileState {}
 

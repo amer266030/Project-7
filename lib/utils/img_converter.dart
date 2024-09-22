@@ -48,4 +48,9 @@ class ImgConverter {
     final Uint8List imageBytes = await imageFile.readAsBytes();
     return base64Encode(imageBytes);
   }
+
+  static Future<List<int>> fileImgToIntList(File imageFile) async {
+    final Uint8List imageBytes = await imageFile.readAsBytes();
+    return imageBytes.buffer.asUint8List().toList();
+  }
 }

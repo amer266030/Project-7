@@ -61,7 +61,6 @@ class User {
         "last_name": lastName,
         "email": email,
         "image_url": imageUrl,
-        "cv": resumeUrl,
         "accounts": link?.toJson(),
       };
 }
