@@ -27,10 +27,10 @@ class CustomPopupView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Icon(CupertinoIcons.circle, color: Colors.transparent),
-              Text(title).styled(weight: FW.bold, size: 18),
+              Text(title).styled(context: context,weight: FW.bold, size: 18),
               InkWell(
                   onTap: callback,
-                  child: const Icon(CupertinoIcons.xmark_circle_fill,
+                  child:  Icon(CupertinoIcons.xmark_circle_fill,
                       color: C.primary(context)))
             ],
           ),
