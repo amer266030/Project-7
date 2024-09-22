@@ -28,8 +28,8 @@ class AuthMgr {
 
   Future<void> loadAuthData() async {
     if (box.read(authKey) != null) {
-      authData = await BoxStorage.readItem<AuthData>(
-          key: authKey, fromJson: (json) => AuthData.fromJson(json));
+      // authData = await BoxStorage.readItem<AuthData>(
+      //     key: authKey, fromJson: (json) => AuthData.fromJson(json));
     }
   }
 

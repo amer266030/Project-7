@@ -5,6 +5,7 @@ import 'package:tuwaiq_project_pulse/managers/auth_mgr.dart';
 import 'package:tuwaiq_project_pulse/networking/_client/networking_api.dart';
 import 'package:tuwaiq_project_pulse/screens/bottom_nav/bottom_nav_screen.dart';
 
+import '../../extensions/color_ext.dart';
 import '../../managers/alert_mgr.dart';
 
 part 'auth_state.dart';
@@ -25,10 +26,15 @@ class AuthCubit extends Cubit<AuthState> {
   var alertTitle = '';
   var alertMsg = '';
 
+  Color flagPrimary = C.primary;
+  Color flagBg1 = C.bg1;
+
   AuthCubit() : super(AuthInitial());
-  first() {
-    print('kjhgggggghjhgffghgffghgfdfghgfdfghgfddfghgfdfghgfdfgh');
-    emit(AuthInitial());
+
+  changeColor() {
+    flagPrimary = flagBg1;
+    flagBg1 = flagPrimary;
+    emit(AuthUpdateState(flagPrimary: flagPrimary, flagBg1: flagBg1));
   }
 
   String headerTitle() => isOtp

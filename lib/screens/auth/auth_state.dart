@@ -5,7 +5,11 @@ sealed class AuthState {}
 
 final class AuthInitial extends AuthState {}
 
-final class AuthUpdateState extends AuthState {}
+final class AuthUpdateState extends AuthState {
+  final Color? flagBg1, flagPrimary;
+
+  AuthUpdateState({this.flagBg1, this.flagPrimary});
+}
 
 final class AuthLoadingState extends AuthState {}
 

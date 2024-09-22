@@ -7,19 +7,19 @@ class BoxStorage {
   /*    MARK: - READ    */
   // Single Item
 
-  static Future<T?> readItem<T>({
-    required String key,
-    required T Function(Map<String, dynamic>) fromJson,
-  }) async {
-    String? data = box.read(key);
+  // static Future<T?> readItem<T>({
+  //   required String key,
+  //   required T Function(Map<String, dynamic>) fromJson,
+  // }) async {
+  //   String? data = box.read(key);
 
-    if (data == null || data.isEmpty) {
-      return null;
-    }
+  //   if (data == null || data.isEmpty) {
+  //     return null;
+  //   }
 
-    var jsonResult = json.decode(data);
-    return fromJson(jsonResult);
-  }
+  //   var jsonResult = json.decode(data);
+  //   // return fromJson(jsonResult);
+  // }
 
   // List of Items
 

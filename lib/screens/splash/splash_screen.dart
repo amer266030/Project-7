@@ -15,7 +15,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<AppThemeCubit>(context).changeTheme(ThemeState.dark);
+    // BlocProvider.of<AppThemeCubit>(context).changeTheme(ThemeState.dark);
     return AnimatedSplashScreen(
       splash: const Text('Splash Screen :)'),
       nextScreen: (authMgr.authData == null)
