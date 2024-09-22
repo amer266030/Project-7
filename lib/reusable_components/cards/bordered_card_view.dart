@@ -19,7 +19,7 @@ class BorderedCardView extends StatelessWidget {
               : Colors.white
                   .withOpacity(0.8), // Keeps the semi-transparent background
           borderRadius: BorderRadius.circular(16),
-          border: const Border(
+          border:  Border(
             right: BorderSide(
                 color: C.primary(context),
                 width: 6), // Solid border on the right
