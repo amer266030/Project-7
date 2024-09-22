@@ -37,6 +37,7 @@ class ProjectsScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('TUWAIQ ACADEMY').styled(
+                        context: context, 
                           size: 20,
                           weight: FontWeight.bold,
                           color: C.primary(context)),

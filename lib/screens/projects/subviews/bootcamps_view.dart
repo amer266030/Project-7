@@ -60,7 +60,7 @@ class _BootCampCardView extends StatelessWidget {
         children: [
           const LogoView(),
           Text(title)
-              .styled(align: TextAlign.center, weight: FW.bold, lineLimit: 2)
+              .styled(context: context, align: TextAlign.center, weight: FW.bold, lineLimit: 2)
         ],
       ),
     );

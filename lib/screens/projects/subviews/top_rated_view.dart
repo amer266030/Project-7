@@ -19,7 +19,7 @@ class TopRatedView extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: const Text(
             'Top Rated', // Display Bootcamp name as header
-          ).styled(size: 14, weight: FontWeight.bold, color: Colors.black),
+          ).styled(context: context, size: 14, weight: FontWeight.bold, color: Colors.black),
         ),
         projects.firstOrNull == null
             ? const CircularProgressIndicator()
