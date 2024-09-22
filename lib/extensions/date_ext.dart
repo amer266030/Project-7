@@ -19,9 +19,17 @@ extension StringToDateTime on String {
   }
 
   String toSlashDate() {
-    // Parse the string in 'dd/MM/yyyy' format
-    DateTime date = DateFormat('yyyy-MM-dd').parse(this);
-    // Format the date to 'yyyy-MM-dd'
-    return DateFormat('dd/MM/yyyy').format(date);
+    final RegExp dateFormatRegex = RegExp(r'^\d{4}-\d{2}-\d{2}$');
+    // Check if the string matches the 'yyyy-MM-dd' format
+    if (dateFormatRegex.hasMatch(this)) {
+      try {
+        DateTime date = DateFormat('yyyy-MM-dd').parse(this);
+        return DateFormat('dd/MM/yyyy').format(date);
+      } catch (e) {
+        return this;
+      }
+    } else {
+      return this;
+    }
   }
 }

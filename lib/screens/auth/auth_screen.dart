@@ -121,11 +121,8 @@ class _BottomButtons extends StatelessWidget {
                   title: 'Sign Up',
                   btnColor: cubit.isSignup ? cubit.flagBg1 : cubit.flagPrimary,
                   textColor: cubit.isSignup ? cubit.flagPrimary : cubit.flagBg1,
-                  callBack: cubit.isSignup
-                      ? () {
-                          cubit.changeColor();
-                        }
-                      : cubit.toggleIsSignup,
+                  callBack:
+                      cubit.isSignup ? cubit.changeColor : cubit.toggleIsSignup,
                 ),
               ),
               Expanded(

@@ -11,6 +11,7 @@ import 'package:tuwaiq_project_pulse/networking/_client/network_mgr.dart';
 import 'package:tuwaiq_project_pulse/utils/img_converter.dart';
 
 import '../managers/auth_mgr.dart';
+import '../model/project/project_links.dart';
 import '../model/rating.dart';
 import '_client/api_path.dart';
 
@@ -71,13 +72,13 @@ class UserApi extends NetworkMgr {
         ApiPath.user.editProjectBase(projectId: project.projectId ?? ''),
         options: Options(headers: {'Authorization': 'Bearer $token'}),
         data: {
-          "project_name": "Donald Duck",
-          "bootcamp_name": "Disney Land",
-          "type": "website",
-          "start_date": "15/09/2024",
-          "end_date": "15/04/2025",
-          "presentation_date": "15/04/2025",
-          "project_description": "A movie about a sailor duck"
+          "project_name": project.projectName,
+          "bootcamp_name": project.bootcampName,
+          "type": project.type!.name,
+          "start_date": project.startDate,
+          "end_date": project.endDate,
+          "presentation_date": project.presentationDate,
+          "project_description": project.projectDescription
         },
       );
       setProject(response);
@@ -89,40 +90,56 @@ class UserApi extends NetworkMgr {
   }
 
   // PUT
-  Future<void> createProjectPresentation(File pdf) async {
-    /* Data
+  Future<void> createProjectPresentation(
+      {required String projectId, required File presentation}) async {
+    List<int>? fileToUpload = await presentation.readAsBytes();
 
-    {
-      "presentation_file":[1,2,3,4]
-    }
-
-     */
-  }
-
-  // PUT
-  Future<void> createImages(List<File>? images) async {
-    /* Data
-
-    {
-      "images": [
-        [1,2,3,4],
-        [1,2,3,4],
-        [1,2,3,4]
-      ]
-    }
-
-     */
-  }
-
-  // PUT
-  Future<void> createLinks({required String projectId}) async {
     try {
-      print(ApiPath.user.editProjectLink(projectId: projectId));
+      var response = await dio.put(
+        ApiPath.user.editProjectPresentation(projectId: projectId),
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+        data: {"presentation_file": fileToUpload},
+      );
+      setProject(response);
+    } on DioException catch (e) {
+      errorMsg = '${e.response}';
+    } catch (e) {
+      errorMsg = '$e';
+    }
+  }
 
+  // PUT
+  Future<void> createImages(
+      {required String projectId, required List<File> fileImages}) async {
+    List<List<int>> imagesToUpload = [];
+
+    if (fileImages.isNotEmpty) {
+      for (var img in fileImages) {
+        imagesToUpload.add(await ImgConverter.fileImgToIntList(img));
+      }
+    }
+
+    try {
+      var response = await dio.put(
+        ApiPath.user.editProjectImages(projectId: projectId),
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+        data: {"images": imagesToUpload},
+      );
+      setProject(response);
+    } on DioException catch (e) {
+      errorMsg = '${e.response}';
+    } catch (e) {
+      errorMsg = '$e';
+    }
+  }
+
+  // PUT
+  Future<void> createLinks(
+      {required String projectId, required ProjectLinks links}) async {
+    try {
       var response = await dio.put(
           ApiPath.user.editProjectLink(projectId: projectId),
-          options:
-              Options(headers: {'Authorization': 'Bearer ${AuthMgr.adminKey}'}),
+          options: Options(headers: {'Authorization': 'Bearer $token'}),
           data: {
             "link": [
               {"type": "github", "url": "https://github.com/example"},
@@ -136,8 +153,10 @@ class UserApi extends NetworkMgr {
             ]
           });
       setProject(response);
+    } on DioException catch (e) {
+      errorMsg = '${e.response}';
     } catch (e) {
-      print(e);
+      errorMsg = '$e';
     }
   }
 
@@ -148,8 +167,7 @@ class UserApi extends NetworkMgr {
 
       var response = await dio.put(
           ApiPath.user.editProjectMembers(projectId: projectId),
-          options:
-              Options(headers: {'Authorization': 'Bearer ${AuthMgr.adminKey}'}),
+          options: Options(headers: {'Authorization': 'Bearer $token'}),
           data: {
             "members": [
               {
@@ -167,8 +185,10 @@ class UserApi extends NetworkMgr {
             ]
           });
       setProject(response);
+    } on DioException catch (e) {
+      errorMsg = '${e.response}';
     } catch (e) {
-      print(e);
+      errorMsg = '$e';
     }
   }
 

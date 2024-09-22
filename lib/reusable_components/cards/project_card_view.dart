@@ -7,6 +7,7 @@ import 'package:tuwaiq_project_pulse/reusable_components/rating_stars_view.dart'
 import 'package:tuwaiq_project_pulse/screens/project_details/project_details_cubit.dart';
 import '../../model/project/project.dart';
 import '../../utils/typedefs.dart';
+import '../dot_indicator_view.dart';
 
 class ProjectCardView extends StatelessWidget {
   const ProjectCardView(
@@ -124,34 +125,6 @@ class ProjectCardView extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class DotIndicator extends StatelessWidget {
-  final int count;
-  final int currentIndex;
-
-  const DotIndicator(
-      {super.key, required this.count, required this.currentIndex});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(count, (index) {
-        return Expanded(
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 2.0),
-            height: 6.0,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              shape: BoxShape.rectangle,
-              color: index == currentIndex ? C.primary : C.bg1,
-            ),
-          ),
-        );
-      }),
     );
   }
 }

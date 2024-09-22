@@ -8,6 +8,7 @@ import 'package:tuwaiq_project_pulse/extensions/date_ext.dart';
 import 'package:tuwaiq_project_pulse/model/project/project_links.dart';
 import 'package:tuwaiq_project_pulse/model/project/project_members.dart';
 import 'package:tuwaiq_project_pulse/model/project/project_images.dart';
+import 'package:tuwaiq_project_pulse/model/project/project_type.dart';
 
 Project projectFromJson(String str) => Project.fromJson(json.decode(str));
 
@@ -15,7 +16,7 @@ String projectToJson(Project data) => json.encode(data.toJson());
 
 class Project {
   String? projectId;
-  String? type;
+  ProjectType? type; // Change from String to ProjectType
   String? projectName;
   String? bootcampName;
   String? startDate;
@@ -64,7 +65,7 @@ class Project {
 
   factory Project.fromJson(Map<String, dynamic> json) => Project(
         projectId: json["project_id"],
-        type: json["type"],
+        type: json["type"] != null ? projectTypeFromString(json["type"]) : null,
         projectName: json["project_name"],
         bootcampName: json["bootcamp_name"],
         startDate: json["start_date"],
@@ -101,7 +102,9 @@ class Project {
 
   Map<String, dynamic> toJson() => {
         "project_id": projectId,
-        "type": type,
+        "type": type != null
+            ? projectTypeToString(type!)
+            : null, // Convert enum to string
         "project_name": projectName,
         "bootcamp_name": bootcampName,
         "start_date": startDate?.toDateTime().toFormattedString(),
