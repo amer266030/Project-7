@@ -20,6 +20,8 @@ class AuthMgr {
   fetchData() async {
     await fetchUsers();
     await loadAuthData();
+    print('All users: ${allUsers.length}');
+    print('Auth Data: ${authData?.expiresAt.toString()}');
   }
 
   // Auth Functions
