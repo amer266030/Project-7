@@ -22,7 +22,8 @@ class AdminScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
               centerTitle: true,
-              title: const Text('Admin').styled(size: 18, weight: FW.bold)),
+              title: const Text('Admin')
+                  .styled(context: context, size: 18, weight: FW.bold)),
           body: Stack(
             children: [
               const BackgroundImg(),
@@ -43,7 +44,9 @@ class AdminScreen extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     const Text('User:').styled(
-                                        color: Colors.black, weight: FW.bold),
+                                        context: context,
+                                        color: Colors.black,
+                                        weight: FW.bold),
                                     Card(
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -65,7 +68,10 @@ class AdminScreen extends StatelessWidget {
                                                     value: user,
                                                     child:
                                                         Text(user.email ?? '')
-                                                            .styled(size: 10));
+                                                            .styled(
+                                                                context:
+                                                                    context,
+                                                                size: 10));
                                               }).toList(),
                                             );
                                           },
@@ -85,7 +91,9 @@ class AdminScreen extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     const Text('Role:').styled(
-                                        color: Colors.black, weight: FW.bold),
+                                        context: context,
+                                        color: Colors.black,
+                                        weight: FW.bold),
                                     Card(
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
