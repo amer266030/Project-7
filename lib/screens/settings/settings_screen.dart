@@ -25,7 +25,8 @@ class SettingsScreen extends StatelessWidget {
             child: Column(
               children: [
                 Row(children: [
-                  const Text('Settings').styled(size: 18, weight: FW.bold)
+                  const Text('Settings')
+                      .styled(context: context, size: 18, weight: FW.bold)
                 ]),
                 Expanded(
                   child: ListView(
@@ -51,7 +52,10 @@ class SettingsScreen extends StatelessWidget {
                         },
                       ),
                       const Text('More').styled(
-                          size: 18, weight: FW.bold, color: Colors.black),
+                          context: context,
+                          size: 18,
+                          weight: FW.bold,
+                          color: Colors.black),
                       ...SettingsPopupItems.values.map(
                         (item) => ListItemView(
                           label: item.title,

@@ -29,7 +29,7 @@ class ListItem extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(label).styled(weight: FW.bold),
+                Text(label).styled(context: context, weight: FW.bold),
                 const Switch(value: true, onChanged: null),
               ],
             ),

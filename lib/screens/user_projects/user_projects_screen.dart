@@ -27,7 +27,7 @@ class UserProjectsScreen extends StatelessWidget {
           child: Scaffold(
             appBar: AppBar(
                 title: const Text('My Projects')
-                    .styled(size: 18, weight: FW.bold)),
+                    .styled(context: context, size: 18, weight: FW.bold)),
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(24),
