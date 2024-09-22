@@ -29,7 +29,7 @@ class ListItemView extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(label).styled(weight: FW.bold),
+              Text(label).styled(context: context, weight: FW.bold),
               (toggleValue != null)
                   ? ToggleButtons(
                       isSelected: [toggleValue!, !toggleValue!],
@@ -42,7 +42,7 @@ class ListItemView extends StatelessWidget {
                       constraints: const BoxConstraints(),
                       children: toggleType!.widgetArr.map((v) => v).toList(),
                     )
-                  : const Icon(CupertinoIcons.arrow_right_circle_fill,
+                  : Icon(CupertinoIcons.arrow_right_circle_fill,
                       color: C.primary(context))
             ],
           ),
