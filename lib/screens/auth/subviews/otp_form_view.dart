@@ -63,7 +63,7 @@ class OtpFormView extends StatelessWidget {
                 ),
                 Text(
                   cubit.emailController.text,
-                  style: const TS(color: C.primary(context)),
+                  style:  TS(color: C.primary(context)),
                 ),
               ],
             ),
@@ -109,7 +109,7 @@ class OtpFormView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: TextButton(
               onPressed: cubit.toggleIsOTP,
-              child: const Text('Resend OTP',
+              child:  Text('Resend OTP',
                   style: TS(color: C.primary(context))),
             ),
           ),
