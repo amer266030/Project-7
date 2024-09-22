@@ -44,7 +44,7 @@ class SignInFormView extends StatelessWidget {
                       callBack: cubit.signIn),
                 ],
               ),
-              const Padding(
+               Padding(
                 padding: EdgeInsets.symmetric(vertical: 16),
                 child: Divider(
                   color: C.bg3(context),
