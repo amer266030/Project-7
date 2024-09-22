@@ -5,11 +5,11 @@ import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 AnimatedSnackBar animatedSnakbar({required String msg}) {
   return AnimatedSnackBar(
     builder: ((context) {
-      return  MaterialAnimatedSnackBar(
-        messageText:msg,
+      return MaterialAnimatedSnackBar(
+        messageText: msg,
         type: AnimatedSnackBarType.success,
-        foregroundColor: C.primary,
-        backgroundColor: C.secondary,
+        foregroundColor: C.primary(context),
+        backgroundColor: C.secondary(context),
         iconData: CupertinoIcons.check_mark_circled_solid,
       );
     }),

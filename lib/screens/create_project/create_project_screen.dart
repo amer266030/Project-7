@@ -134,7 +134,7 @@ class CreateProjectScreen extends StatelessWidget {
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 16,
-                                                    color: C.primary,
+                                                    color: C.primary(context),
                                                   ),
                                                 ),
                                                 dateOrder:
@@ -155,7 +155,7 @@ class CreateProjectScreen extends StatelessWidget {
                                               ).show(context),
                                               icon: const Icon(
                                                   Icons.calendar_month,
-                                                  color: C.primary),
+                                                  color: C.primary(context)),
                                             )
                                           ],
                                         );

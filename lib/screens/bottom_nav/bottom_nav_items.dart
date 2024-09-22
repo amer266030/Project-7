@@ -19,9 +19,9 @@ class BarItems {
     const BottomBarItem(
       inActiveItem: Icon(
         CupertinoIcons.settings,
-        color: C.bg1,
+        color: C.bg1(context),
       ),
-      activeItem: Icon(CupertinoIcons.settings, color: C.primary),
+      activeItem: Icon(CupertinoIcons.settings, color: C.primary(context)),
     ),
     const BottomBarItem(
       inActiveItem: Image(image: Img.logoWhite, fit: BoxFit.contain),
@@ -30,9 +30,9 @@ class BarItems {
     const BottomBarItem(
       inActiveItem: Icon(
         CupertinoIcons.person_fill,
-        color: C.bg1,
+        color: C.bg1(context),
       ),
-      activeItem: Icon(CupertinoIcons.person_fill, color: C.primary),
+      activeItem: Icon(CupertinoIcons.person_fill, color: C.primary(context)),
     ),
   ];
 }

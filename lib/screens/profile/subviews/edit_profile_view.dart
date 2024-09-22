@@ -23,11 +23,11 @@ class EditProfileView extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    border: Border.all(color: C.primary, width: 2),
-                    color: C.bg1,
+                    border: Border.all(color: C.primary(context), width: 2),
+                    color: C.bg1(context),
                     boxShadow: [
                       BoxShadow(
-                        color: C.black.withOpacity(0.4),
+                        color: C.black(context).withOpacity(0.4),
                         spreadRadius: 4,
                         blurRadius: 4,
                       )
@@ -48,13 +48,13 @@ class EditProfileView extends StatelessWidget {
               )),
         ),
         const Text('First Name')
-            .styled(size: 16, color: C.black, weight: FontWeight.w700),
+            .styled(size: 16, color: C.black(context), weight: FontWeight.w700),
         CustomTextField(
             controller: cubit.firstNameController,
             hintText: 'John',
             validation: Validations.emptyFieldValidation),
         const Text('Last Name')
-            .styled(size: 16, color: C.black, weight: FontWeight.w700),
+            .styled(size: 16, color: C.black(context), weight: FontWeight.w700),
         CustomTextField(
             controller: cubit.lastNameController,
             hintText: 'Doe',
@@ -62,14 +62,14 @@ class EditProfileView extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text('Resume')
-                .styled(size: 16, color: C.black, weight: FontWeight.w700),
+            const Text('Resume').styled(
+                size: 16, color: C.black(context), weight: FontWeight.w700),
             InkWell(
               onTap: cubit.pickPdfFile,
               child: Container(
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: C.primary,
+                  color: C.primary(context),
                 ),
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),

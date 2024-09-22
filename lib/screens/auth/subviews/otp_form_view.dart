@@ -26,7 +26,7 @@ class OtpFormView extends StatelessWidget {
 
     final focusedPinTheme = defaultPinTheme.copyDecorationWith(
       border: Border.all(
-          color: C.primary,
+          color: C.primary(context),
           width: 2,
           strokeAlign: BorderSide.strokeAlignCenter),
       borderRadius: BorderRadius.circular(50),
@@ -63,7 +63,7 @@ class OtpFormView extends StatelessWidget {
                 ),
                 Text(
                   cubit.emailController.text,
-                  style: const TS(color: C.primary),
+                  style: const TS(color: C.primary(context)),
                 ),
               ],
             ),
@@ -109,7 +109,8 @@ class OtpFormView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: TextButton(
               onPressed: cubit.toggleIsOTP,
-              child: const Text('Resend OTP', style: TS(color: C.primary)),
+              child: const Text('Resend OTP',
+                  style: TS(color: C.primary(context))),
             ),
           ),
           ElevatedBtnView(

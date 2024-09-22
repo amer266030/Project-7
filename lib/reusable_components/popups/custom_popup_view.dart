@@ -31,7 +31,7 @@ class CustomPopupView extends StatelessWidget {
               InkWell(
                   onTap: callback,
                   child: const Icon(CupertinoIcons.xmark_circle_fill,
-                      color: C.primary))
+                      color: C.primary(context)))
             ],
           ),
           child,

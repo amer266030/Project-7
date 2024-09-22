@@ -37,6 +37,7 @@ class SocialMediaBtn extends StatelessWidget {
                       height: 20,
                     ),
                     Text(title).styled(
+                      context: context,
                       size: 16,
                       weight: FontWeight.w600,
                     ),
@@ -68,7 +69,7 @@ class SocialMediaBtn extends StatelessWidget {
         },
         icon: FaIcon(
           icon,
-          color: C.bg2,
+          color: C.bg2(context),
           size: 30,
         ));
   }

@@ -28,14 +28,14 @@ class ProjectCardView extends StatelessWidget {
         border: const Border(
           right: BorderSide(
             width: 7,
-            color: C.primary,
+            color: C.primary(context),
           ),
           bottom: BorderSide(
             width: 7,
-            color: C.primary,
+            color: C.primary(context),
           ),
         ),
-        color: C.secondaryWOpacity,
+        color: C.secondary(context)WOpacity,
       ),
       child: Padding(
         padding:
@@ -147,7 +147,7 @@ class DotIndicator extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               shape: BoxShape.rectangle,
-              color: index == currentIndex ? C.primary : C.bg1,
+              color: index == currentIndex ? C.primary(context) : C.bg1(context),
             ),
           ),
         );

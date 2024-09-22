@@ -19,7 +19,7 @@ class BottomNavScreen extends StatelessWidget {
         return BlocBuilder<BottomNavCubit, BottomNavState>(
           builder: (context, state) {
             return Scaffold(
-              backgroundColor: C.bg1,
+              backgroundColor: C.bg1(context),
               body: Stack(
                 children: [
                   const BackgroundImg(),
@@ -44,14 +44,14 @@ class BottomNavScreen extends StatelessWidget {
                       BarItems.bottomBarItems.length)
                   ? AnimatedNotchBottomBar(
                       notchBottomBarController: cubit.notchController,
-                      color: C.navBar,
+                      color: C.navBar(context),
                       showLabel: true,
                       textOverflow: TextOverflow.visible,
                       maxLine: 1,
                       shadowElevation: 5,
                       kBottomRadius: 28.0,
                       notchGradient: const LinearGradient(
-                          colors: [C.bg1, C.bg2],
+                          colors: [C.bg1(context), C.bg2(context)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight),
                       removeMargins: false,

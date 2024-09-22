@@ -24,7 +24,7 @@ class CustomTextBtn extends StatelessWidget {
         tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Shrinks the tap area
       ),
       child: Text(title,
-          style: const TS(color: C.primary, fontWeight: FontWeight.w700)),
+          style: TS(color: C.primary(context), fontWeight: FontWeight.w700)),
     );
   }
 }

@@ -14,17 +14,17 @@ class RatingStarsView extends StatelessWidget {
         if (rating >= index + 1) {
           return const Icon(
             Icons.star,
-            color: C.primary,
+            color: C.primary(context),
           );
         } else if (rating >= index + 0.5) {
           return const Icon(
             Icons.star_half,
-            color: C.primary,
+            color: C.primary(context),
           );
         } else {
           return const Icon(
             Icons.star_border,
-            color: C.primary,
+            color: C.primary(context),
           );
         }
       }),

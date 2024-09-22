@@ -38,7 +38,7 @@ class FormFieldView extends StatelessWidget {
                 child: Icon(
                   CupertinoIcons.staroflife_fill,
                   size: 12,
-                  color: C.primary,
+                  color: C.primary(context),
                 ),
               ),
           ],

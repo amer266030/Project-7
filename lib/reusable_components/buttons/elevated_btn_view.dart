@@ -21,12 +21,13 @@ class ElevatedBtnView extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         elevation: 4,
-        shadowColor: C.primary,
-        backgroundColor: C.primary,
+        shadowColor: C.primary(context),
+        backgroundColor: C.primary(context),
         shape: RoundedRectangleBorder(
             borderRadius: BR.circular(8),
             side: BorderSide(
-                color: hasBorder ? C.bg1 : Colors.transparent, width: 2)),
+                color: hasBorder ? C.bg1(context) : Colors.transparent,
+                width: 2)),
       ),
       onPressed: () => callBack(),
       child: Padding(

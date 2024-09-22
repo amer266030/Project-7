@@ -26,8 +26,8 @@ class AuthCubit extends Cubit<AuthState> {
   var alertTitle = '';
   var alertMsg = '';
 
-  Color flagPrimary = C.primary;
-  Color flagBg1 = C.bg1;
+  Color flagPrimary = C.primary(context);
+  Color flagBg1 = C.bg1(context);
 
   AuthCubit() : super(AuthInitial());
 

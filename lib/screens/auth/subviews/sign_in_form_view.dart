@@ -47,7 +47,7 @@ class SignInFormView extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 16),
                 child: Divider(
-                  color: C.bg3,
+                  color: C.bg3(context),
                   thickness: 1,
                 ),
               ),

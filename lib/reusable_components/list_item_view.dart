@@ -36,14 +36,14 @@ class ListItemView extends StatelessWidget {
                       onPressed: (idx) => callback == null ? () : callback!(),
                       selectedColor: Colors.white,
                       color: Colors.black,
-                      fillColor: C.primary,
+                      fillColor: C.primary(context),
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       borderRadius: BorderRadius.circular(8.0),
                       constraints: const BoxConstraints(),
                       children: toggleType!.widgetArr.map((v) => v).toList(),
                     )
                   : const Icon(CupertinoIcons.arrow_right_circle_fill,
-                      color: C.primary)
+                      color: C.primary(context))
             ],
           ),
         ),
