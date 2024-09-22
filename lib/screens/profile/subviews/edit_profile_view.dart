@@ -48,13 +48,13 @@ class EditProfileView extends StatelessWidget {
               )),
         ),
         const Text('First Name')
-            .styled(size: 16, color: C.black(context), weight: FontWeight.w700),
+            .styled(context: context, size: 16, color: C.black(context), weight: FontWeight.w700),
         CustomTextField(
             controller: cubit.firstNameController,
             hintText: 'John',
             validation: Validations.emptyFieldValidation),
         const Text('Last Name')
-            .styled(size: 16, color: C.black(context), weight: FontWeight.w700),
+            .styled(context: context, size: 16, color: C.black(context), weight: FontWeight.w700),
         CustomTextField(
             controller: cubit.lastNameController,
             hintText: 'Doe',
@@ -63,11 +63,12 @@ class EditProfileView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text('Resume').styled(
+              context: context, 
                 size: 16, color: C.black(context), weight: FontWeight.w700),
             InkWell(
               onTap: cubit.pickPdfFile,
               child: Container(
-                decoration: const BoxDecoration(
+                decoration:  BoxDecoration(
                   shape: BoxShape.circle,
                   color: C.primary(context),
                 ),
