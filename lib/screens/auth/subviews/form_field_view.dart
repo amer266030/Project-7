@@ -33,7 +33,7 @@ class FormFieldView extends StatelessWidget {
           children: [
             Text(title, style: const TS(fontSize: 18, fontWeight: FW.w600)),
             if (isRequired)
-              const Padding(
+               Padding(
                 padding: EdgeInsets.only(left: 4.0),
                 child: Icon(
                   CupertinoIcons.staroflife_fill,
