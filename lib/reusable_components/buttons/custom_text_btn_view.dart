@@ -17,13 +17,14 @@ class CustomTextBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => callback(),
+      onPressed: callback,
       style: ButtonStyle(
         padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
         minimumSize: WidgetStateProperty.all(Size.zero), // Adjust if needed
         tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Shrinks the tap area
       ),
-      child: Text(title, style: const TS(color: C.primary)),
+      child: Text(title,
+          style: const TS(color: C.primary, fontWeight: FontWeight.w700)),
     );
   }
 }

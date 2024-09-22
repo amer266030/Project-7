@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:meta/meta.dart';
 import 'package:tuwaiq_project_pulse/model/project/project.dart';
 import 'package:tuwaiq_project_pulse/networking/_client/networking_api.dart';
 
@@ -51,9 +51,10 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
         canRate: true,
         isPublic: true,
       );
-      print('Project is Public!');
+      emit(SuccessState());
     } catch (e) {
-      print('Error $e');
+      emit(ErrorState());
     }
   }
 }
+

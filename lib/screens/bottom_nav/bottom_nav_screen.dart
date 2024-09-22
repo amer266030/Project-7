@@ -19,6 +19,7 @@ class BottomNavScreen extends StatelessWidget {
         return BlocBuilder<BottomNavCubit, BottomNavState>(
           builder: (context, state) {
             return Scaffold(
+              backgroundColor: C.bg1,
               body: Stack(
                 children: [
                   const BackgroundImg(),

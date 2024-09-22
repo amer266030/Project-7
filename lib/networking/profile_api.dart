@@ -1,6 +1,10 @@
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tuwaiq_project_pulse/managers/auth_mgr.dart';
+import 'package:tuwaiq_project_pulse/utils/img_converter.dart';
 
 import '../model/api_response.dart';
 import '../model/user/user.dart';
@@ -29,16 +33,44 @@ class ProfileApi extends NetworkMgr {
     }
   }
 
-  Future<void> updateProfile(User user) async {
+  Future<void> updateProfile({required User user, File? img, File? cv}) async {
+    List<int>? imgToUpload;
+    List<int>? fileToUpload;
+
+    if (img != null) {
+      imgToUpload = await ImgConverter.fileImgToIntList(img);
+    }
+    if (cv != null) {
+      fileToUpload = await cv.readAsBytes();
+    }
+
+    // Create a map for the data
+    Map<String, dynamic> data = {
+      "first_name": user.firstName,
+      "last_name": user.lastName,
+      "accounts": {
+        "bindlink": user.link?.bindlink,
+        "linkedin": user.link?.linkedin,
+        "github": user.link?.github,
+      },
+    };
+
+    // Conditionally add image and cv if not null
+    if (imgToUpload != null) {
+      data["image"] = imgToUpload;
+    }
+    if (fileToUpload != null) {
+      data["cv"] = fileToUpload;
+    }
+
     try {
-      var response = await dio.put(
+      await dio.put(
         ApiPath.user.editProfile,
-        data: user.toJson(),
+        data: data,
         options: Options(
           headers: {'Authorization': 'Bearer ${authMgr.authData?.token}'},
         ),
       );
-      await setUser(response);
     } on DioException catch (e) {
       errorMsg = e.response.toString();
     } catch (e) {

@@ -17,8 +17,8 @@ class User {
   String? resumeUrl;
   Account? link;
   List<Project>? projects;
-  String? createdAt;
-  String? updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   User({
     this.id,
@@ -42,16 +42,17 @@ class User {
         role: json["role"],
         imageUrl: json["image_url"],
         resumeUrl: json["resume_url"],
-        link: json["link"] == null
-            ? null
-            : Account.fromJson(json["link"] as Map<String, dynamic>),
+        link: json["link"] == null ? null : Account.fromJson(json["link"]),
         projects: json["projects"] == null
             ? []
-            : (json["projects"] as List<dynamic>)
-                .map((x) => Project.fromJson(x as Map<String, dynamic>))
-                .toList(),
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
+            : List<Project>.from(
+                json["projects"]!.map((x) => Project.fromJson(x))),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -59,14 +60,7 @@ class User {
         "first_name": firstName,
         "last_name": lastName,
         "email": email,
-        "role": role,
         "image_url": imageUrl,
-        "resume_url": resumeUrl,
-        "link": link?.toJson(),
-        "projects": projects == null
-            ? []
-            : List<dynamic>.from(projects!.map((x) => x.toJson())),
-        "created_at": createdAt,
-        "updated_at": updatedAt,
+        "accounts": link?.toJson(),
       };
 }

@@ -1,6 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/buttons/custom_text_btn_view.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/popups/animated_snackbar.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/profile_cubit.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/subviews/edit_profile_view.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/subviews/show_profile_view.dart';
@@ -18,10 +22,16 @@ class ProfileScreen extends StatelessWidget {
         final cubit = context.read<ProfileCubit>();
         return BlocListener<ProfileCubit, ProfileState>(
           listener: (context, state) {
-            if (state is ProfileLoadingState || state is ProfileErrorState) {
+            if (state is LoadingState || state is ErrorState) {
               cubit.showAlert(context, false);
             } else {
               cubit.dismissAlert(context);
+              if (state is IdCopiedState) {
+                animatedSnakbar(msg: 'ID copied to clipboard').show(context);
+              }
+              if (state is SuccessState) {
+                cubit.showSnackBar(context, state.msg);
+              }
             }
           },
           child: SafeArea(
@@ -32,17 +42,31 @@ class ProfileScreen extends StatelessWidget {
                   if (state is ProfileInitial) cubit.loadProfile();
                   return Column(
                     children: [
-                      Row(
-                        children: [
-                          const Text('Profile')
+                      cubit.isEdit
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                IconButton(
+                                    onPressed: cubit.toggleIsEdit,
+                                    icon: const Icon(
+                                      CupertinoIcons.arrow_left,
+                                      color: C.primary,
+                                    )),
+                                const Text('Profile')
+                                    .styled(size: 18, weight: FW.bold),
+                                CustomTextBtn(
+                                  title: "Save",
+                                  callback: cubit.updateProfile,
+                                )
+                              ],
+                            )
+                          : const Text('Profile')
                               .styled(size: 18, weight: FW.bold),
-                        ],
-                      ),
                       Expanded(
                         child: cubit.isEdit
                             ? EditProfileView(cubit: cubit)
                             : ShowProfileView(cubit: cubit),
-                      ),
+                      )
                     ],
                   );
                 },
@@ -54,13 +78,3 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
-
-// TextButton(
-// onPressed: () =>
-// NetworkingApi.shared.supervisorApi.createProject(
-// userId: '8c534564-cf6e-42eb-9377-6c08a81debd2',
-// endDate: DateTime.now().add(Duration(days: 30)),
-// edit: true,
-// ),
-// child: const Text('Create Project'),
-// ),

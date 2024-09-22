@@ -24,9 +24,11 @@ class AuthMgr {
     print('Auth Data: ${authData?.expiresAt.toString()}');
   }
 
+  // Auth Functions
+
   Future<void> loadAuthData() async {
     if (box.read(authKey) != null) {
-      authData = await BoxStorage.readItem(
+      authData = await BoxStorage.readItem<AuthData>(
           key: authKey, fromJson: (json) => AuthData.fromJson(json));
     }
   }
@@ -42,10 +44,12 @@ class AuthMgr {
     box.remove(authKey);
   }
 
+  // User Functions
+
   Future<void> fetchUsers() async {
     try {
       allUsers = await BoxStorage.readItems<User>(
-          key: authKey, fromJson: (json) => User.fromJson(json));
+          key: usersKey, fromJson: (json) => User.fromJson(json));
     } catch (e) {
       print(e.toString());
     }
@@ -59,7 +63,7 @@ class AuthMgr {
       allUsers.add(user);
       await BoxStorage.writeItems<User>(
         items: allUsers,
-        key: authKey,
+        key: usersKey,
         toJson: (user) => user.toJson(),
       );
     }
