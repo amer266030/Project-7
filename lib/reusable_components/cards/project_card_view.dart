@@ -25,7 +25,7 @@ class ProjectCardView extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        border: const Border(
+        border: Border(
           right: BorderSide(
             width: 7,
             color: C.primary(context),
@@ -35,7 +35,7 @@ class ProjectCardView extends StatelessWidget {
             color: C.primary(context),
           ),
         ),
-        color: C.secondary(context)WOpacity,
+        color: C.secondary(context), // secondaryWOpacity(context),
       ),
       child: Padding(
         padding:
@@ -82,10 +82,16 @@ class ProjectCardView extends StatelessWidget {
                           project.projectName ?? 'None!',
                           maxLines: 1,
                         ).styled(
-                            size: 14, weight: FontWeight.bold, lineLimit: 1),
-                        Text(project.bootcampName ?? '')
-                            .styled(size: 12, weight: FontWeight.w400),
+                            context: context,
+                            size: 14,
+                            weight: FontWeight.bold,
+                            lineLimit: 1),
+                        Text(project.bootcampName ?? '').styled(
+                            context: context,
+                            size: 12,
+                            weight: FontWeight.w400),
                         Text(project.projectDescription ?? '').styled(
+                            context: context,
                             color: Colors.black,
                             size: 10,
                             weight: FontWeight.w300,
@@ -105,7 +111,7 @@ class ProjectCardView extends StatelessWidget {
                       ? DateFormat('y MMM')
                           .format(DateTime.tryParse(project.createAt ?? '')!)
                       : '',
-                ).styled(size: 12, weight: FontWeight.w500),
+                ).styled(context: context, size: 12, weight: FontWeight.w500),
                 Stack(
                   alignment: Alignment.center,
                   children: [
@@ -147,7 +153,8 @@ class DotIndicator extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               shape: BoxShape.rectangle,
-              color: index == currentIndex ? C.primary(context) : C.bg1(context),
+              color:
+                  index == currentIndex ? C.primary(context) : C.bg1(context),
             ),
           ),
         );
