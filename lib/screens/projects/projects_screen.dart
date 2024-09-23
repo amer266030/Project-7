@@ -16,6 +16,7 @@ class ProjectsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => ProjectsCubit(),
       child: Builder(builder: (context) {
+        final brightness = Theme.of(context).brightness;
         final cubit = context.read<ProjectsCubit>();
         return BlocListener<ProjectsCubit, ProjectsState>(
           listener: (context, state) {
@@ -37,7 +38,7 @@ class ProjectsScreen extends StatelessWidget {
                       const Text('TUWAIQ ACADEMY').styled(
                           size: 20,
                           weight: FontWeight.bold,
-                          color: C.primary(context)),
+                          color: C.primary(brightness)),
                       IconButton(
                           onPressed: () => (),
                           icon: const Icon(CupertinoIcons.search))

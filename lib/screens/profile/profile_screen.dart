@@ -19,6 +19,7 @@ class ProfileScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => ProfileCubit(),
       child: Builder(builder: (context) {
+        final brightness = Theme.of(context).brightness;
         final cubit = context.read<ProfileCubit>();
         return BlocListener<ProfileCubit, ProfileState>(
           listener: (context, state) {
@@ -50,7 +51,7 @@ class ProfileScreen extends StatelessWidget {
                                     onPressed: cubit.toggleIsEdit,
                                     icon: Icon(
                                       CupertinoIcons.arrow_left,
-                                      color: C.primary(context),
+                                      color: C.primary(brightness),
                                     )),
                                 const Text('Profile')
                                     .styled(size: 18, weight: FW.bold),

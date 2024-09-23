@@ -13,6 +13,7 @@ class ScreenShotsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -23,7 +24,7 @@ class ScreenShotsView extends StatelessWidget {
             IconButton(
                 onPressed: cubit.getScreenshots,
                 icon: Icon(CupertinoIcons.plus_circle_fill,
-                    color: C.primary(context)))
+                    color: C.primary(brightness)))
           ],
         ),
         images.isEmpty

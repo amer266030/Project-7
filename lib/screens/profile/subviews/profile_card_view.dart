@@ -13,6 +13,7 @@ class ProfileCardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Stack(
       alignment: Alignment.topRight,
       children: [
@@ -54,7 +55,7 @@ class ProfileCardView extends StatelessWidget {
                     IconButton(
                       icon: Icon(
                         CupertinoIcons.doc_on_clipboard_fill,
-                        color: C.primary(context),
+                        color: C.primary(brightness),
                         size: 12,
                       ),
                       onPressed: cubit.copyIdToClipboard,
@@ -68,7 +69,7 @@ class ProfileCardView extends StatelessWidget {
         Card(
           shape: RoundedRectangleBorder(
             borderRadius: BR.circular(24),
-            side: BorderSide(color: C.primary(context), width: 1),
+            side: BorderSide(color: C.primary(brightness), width: 1),
           ),
           borderOnForeground: true,
           child: Padding(

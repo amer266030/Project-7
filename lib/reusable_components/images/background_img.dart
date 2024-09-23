@@ -10,6 +10,7 @@ class BackgroundImg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Align(
       alignment: Alignment.bottomCenter,
       child: SizedBox(
@@ -24,7 +25,7 @@ class BackgroundImg extends StatelessWidget {
             // // Blur effect
             BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
-                child: Container(color: C.bg1(context).withOpacity(0.1))),
+                child: Container(color: C.bg1(brightness).withOpacity(0.1))),
           ],
         ),
       ),

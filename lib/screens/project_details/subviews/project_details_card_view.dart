@@ -20,6 +20,7 @@ class ProjectDetailsCardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return BorderedCardView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -34,12 +35,12 @@ class ProjectDetailsCardView extends StatelessWidget {
                   onPressed: cubit.updateProjectBase,
                   icon: Icon(
                     Icons.save,
-                    color: C.primary(context),
+                    color: C.primary(brightness),
                     size: 22,
                   ))
             ],
           ),
-          Divider(color: C.bg1(context), thickness: 2),
+          Divider(color: C.bg1(brightness), thickness: 2),
           ListItemWithTextField(
               title: 'Description',
               controller: cubit.descController,
@@ -58,7 +59,9 @@ class ProjectDetailsCardView extends StatelessWidget {
                   '${project.startDate?.toSlashDate()} - ${project.endDate?.toSlashDate()}'),
           ListItemWithText(
               title: 'Presentation',
-              body: project.presentationDate!.toSlashDate()),
+              body: project.presentationDate != null
+                  ? project.presentationDate!.toSlashDate()
+                  : 'None'),
           Row(children: [
             Text('Edit ${project.allowEdit! ? 'Enabled' : 'Disabled'}')
           ]),
@@ -71,13 +74,14 @@ class ProjectDetailsCardView extends StatelessWidget {
                             url: '',
                             link: link,
                             controller: cubit.githubController,
+                            canEdit: !cubit.readOnly,
                           ))
                       .toList()),
               IconButton(
                   onPressed: cubit.updateLinks,
                   icon: Icon(
                     Icons.save,
-                    color: C.primary(context),
+                    color: C.primary(brightness),
                     size: 22,
                   ))
             ],
@@ -131,15 +135,18 @@ class ListItemWithText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(child: Text(title).styled(weight: FW.w500)),
+        Expanded(
+            child: Text(title)
+                .styled(color: C.primary(brightness), weight: FW.w500)),
         const SizedBox(width: 4),
         Expanded(
             flex: 2,
             child: Text(body)
-                .styled(size: 12, color: C.text(context), weight: FW.w300)),
+                .styled(size: 12, color: Colors.black, weight: FW.w300)),
       ],
     );
   }
@@ -157,10 +164,13 @@ class ListItemWithTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(child: Text(title).styled(weight: FW.w500)),
+        Expanded(
+            child: Text(title)
+                .styled(color: C.primary(brightness), weight: FW.w500)),
         const SizedBox(width: 4),
         Expanded(
           flex: 2,
@@ -173,12 +183,21 @@ class ListItemWithTextField extends StatelessWidget {
                   controller: controller,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
-                  style: const TextStyle(fontSize: 12, fontWeight: FW.w300),
-                  decoration: const InputDecoration(
+                  style: TextStyle(
+                      color: Colors.black, fontSize: 12, fontWeight: FW.w300),
+                  decoration: InputDecoration(
                     isDense: true, // Reduces vertical space
                     contentPadding: EdgeInsets.symmetric(
                         vertical: 0, horizontal: 4), // Removes vertical padding
-                    border: InputBorder.none, // Removes the border (optional)
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Colors.grey), // Set the border color
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: C.primary(
+                              brightness)), // Set the border color when focused
+                    ),
                   ),
                 ),
               ),
@@ -198,9 +217,12 @@ class ListItemWithDropDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Row(
       children: [
-        Expanded(child: Text(title).styled(weight: FW.w500)),
+        Expanded(
+            child: Text(title)
+                .styled(color: C.primary(brightness), weight: FW.w500)),
         const SizedBox(width: 4),
         Expanded(
           child: DropdownButton<ProjectType>(
@@ -210,7 +232,7 @@ class ListItemWithDropDown extends StatelessWidget {
                 return DropdownMenuItem<ProjectType>(
                     value: type,
                     child: Text(type.toString().split('.').last)
-                        .styled(color: C.text(context), weight: FW.w300));
+                        .styled(color: Colors.black, weight: FW.w300));
               }).toList(),
               onChanged: cubit.readOnly
                   ? null
@@ -224,10 +246,14 @@ class ListItemWithDropDown extends StatelessWidget {
 
 class _LinkIconView extends StatelessWidget {
   const _LinkIconView(
-      {required this.url, required this.link, required this.controller});
+      {required this.url,
+      required this.link,
+      required this.controller,
+      required this.canEdit});
   final String? url;
   final LinkType? link;
   final TextEditingController controller;
+  final bool canEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -239,6 +265,7 @@ class _LinkIconView extends StatelessWidget {
           controller: controller,
           icon: link?.icon() ?? Icons.circle,
           smallIcon: true,
+          canEdit: canEdit,
         ));
   }
 }

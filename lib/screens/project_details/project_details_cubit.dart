@@ -50,8 +50,8 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
     descController.text = project.projectDescription ?? '';
     bootcampController.text = project.bootcampName ?? '';
     selectedType = project.type ?? ProjectType.ai;
-    readOnly = ((project.adminId != authMgr.currentUserId) ||
-        (project.userId != authMgr.currentUserId));
+    readOnly = !((project.adminId == authMgr.currentUserId) ||
+        (project.userId == authMgr.currentUserId));
   }
 
   // UI
@@ -62,7 +62,7 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
     required String msg,
     AnimatedSnackBarType type = AnimatedSnackBarType.success,
   }) {
-    animatedSnakbar(msg: msg, type: type).show(context);
+    if (context.mounted) animatedSnakbar(msg: msg, type: type).show(context);
   }
 
   // Popup

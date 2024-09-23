@@ -14,6 +14,7 @@ class EditProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return ListView(
       children: [
         Padding(
@@ -23,11 +24,11 @@ class EditProfileView extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    border: Border.all(color: C.primary(context), width: 2),
-                    color: C.bg1(context),
+                    border: Border.all(color: C.primary(brightness), width: 2),
+                    color: C.bg1(brightness),
                     boxShadow: [
                       BoxShadow(
-                        color: C.text(context).withOpacity(0.4),
+                        color: C.text(brightness).withOpacity(0.4),
                         spreadRadius: 4,
                         blurRadius: 4,
                       )
@@ -47,14 +48,14 @@ class EditProfileView extends StatelessWidget {
                 ),
               )),
         ),
-        const Text('First Name')
-            .styled(size: 16, color: C.text(context), weight: FontWeight.w700),
+        const Text('First Name').styled(
+            size: 16, color: C.text(brightness), weight: FontWeight.w700),
         CustomTextField(
             controller: cubit.firstNameController,
             hintText: 'John',
             validation: Validations.emptyFieldValidation),
-        const Text('Last Name')
-            .styled(size: 16, color: C.text(context), weight: FontWeight.w700),
+        const Text('Last Name').styled(
+            size: 16, color: C.text(brightness), weight: FontWeight.w700),
         CustomTextField(
             controller: cubit.lastNameController,
             hintText: 'Doe',
@@ -63,13 +64,13 @@ class EditProfileView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text('Resume').styled(
-                size: 16, color: C.text(context), weight: FontWeight.w700),
+                size: 16, color: C.text(brightness), weight: FontWeight.w700),
             InkWell(
               onTap: cubit.pickPdfFile,
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: C.primary(context),
+                  color: C.primary(brightness),
                 ),
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),

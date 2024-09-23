@@ -14,6 +14,7 @@ class RatingCardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return BorderedCardView(
       isSecondaryColor: false,
       child: Padding(
@@ -27,7 +28,7 @@ class RatingCardView extends StatelessWidget {
                 const Text('Rating').styled(weight: FW.bold),
                 RatingStarsView(rating: rating),
                 Text('10K Ratings')
-                    .styled(color: C.text(context), weight: FW.w300),
+                    .styled(color: C.text(brightness), weight: FW.w300),
               ],
             ),
             ElevatedBtnView(title: 'Rating QR', callBack: () => ())

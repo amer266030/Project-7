@@ -16,6 +16,7 @@ class CustomTextBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return TextButton(
       onPressed: callback,
       style: ButtonStyle(
@@ -24,7 +25,7 @@ class CustomTextBtn extends StatelessWidget {
         tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Shrinks the tap area
       ),
       child: Text(title,
-          style: TS(color: C.primary(context), fontWeight: FontWeight.w700)),
+          style: TS(color: C.primary(brightness), fontWeight: FontWeight.w700)),
     );
   }
 }

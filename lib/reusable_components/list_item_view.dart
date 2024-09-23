@@ -20,6 +20,7 @@ class ListItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return InkWell(
       onTap: () => (toggleValue != null || callback == null) ? () : callback!(),
       child: BorderedCardView(
@@ -36,14 +37,14 @@ class ListItemView extends StatelessWidget {
                       onPressed: (idx) => callback == null ? () : callback!(),
                       selectedColor: Colors.white,
                       color: Colors.black,
-                      fillColor: C.primary(context),
+                      fillColor: C.primary(brightness),
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       borderRadius: BorderRadius.circular(8.0),
                       constraints: const BoxConstraints(),
                       children: toggleType!.widgetArr.map((v) => v).toList(),
                     )
                   : Icon(CupertinoIcons.arrow_right_circle_fill,
-                      color: C.primary(context))
+                      color: C.primary(brightness))
             ],
           ),
         ),

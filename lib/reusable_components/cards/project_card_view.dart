@@ -21,6 +21,7 @@ class ProjectCardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     final double rating = double.tryParse('${project.rating}') ?? 0;
 
     return Container(
@@ -29,14 +30,14 @@ class ProjectCardView extends StatelessWidget {
         border: Border(
           right: BorderSide(
             width: 7,
-            color: C.primary(context),
+            color: C.primary(brightness),
           ),
           bottom: BorderSide(
             width: 7,
-            color: C.primary(context),
+            color: C.primary(brightness),
           ),
         ),
-        color: C.secondary(context),
+        color: C.secondary(brightness),
       ),
       child: Padding(
         padding:

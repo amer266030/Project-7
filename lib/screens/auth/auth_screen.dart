@@ -16,6 +16,7 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return BlocProvider(
       create: (context) => AuthCubit(),
       child: Builder(builder: (context) {
@@ -33,7 +34,7 @@ class AuthScreen extends StatelessWidget {
             }
           },
           child: Scaffold(
-            backgroundColor: C.bg1(context),
+            backgroundColor: C.bg1(brightness),
             resizeToAvoidBottomInset: false,
             body: Stack(children: [
               const BackgroundImg(),
@@ -113,21 +114,26 @@ class _BottomButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Row(
       children: [
         Expanded(
           child: BottomBtnView(
             title: 'Sign Up',
-            btnColor: cubit.isSignup ? C.primary(context) : C.bg1(context),
-            textColor: cubit.isSignup ? C.bg1(context) : C.primary(context),
+            btnColor:
+                cubit.isSignup ? C.primary(brightness) : C.bg1(brightness),
+            textColor:
+                cubit.isSignup ? C.bg1(brightness) : C.primary(brightness),
             callBack: cubit.isSignup ? () => () : cubit.toggleIsSignup,
           ),
         ),
         Expanded(
           child: BottomBtnView(
             title: 'Sign In',
-            btnColor: !cubit.isSignup ? C.primary(context) : C.bg1(context),
-            textColor: !cubit.isSignup ? C.bg1(context) : C.primary(context),
+            btnColor:
+                !cubit.isSignup ? C.primary(brightness) : C.bg1(brightness),
+            textColor:
+                !cubit.isSignup ? C.bg1(brightness) : C.primary(brightness),
             callBack: !cubit.isSignup ? () => () : cubit.toggleIsSignup,
           ),
         ),

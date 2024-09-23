@@ -12,6 +12,7 @@ class SignInFormView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16),
       child: Column(
@@ -46,7 +47,7 @@ class SignInFormView extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 16),
                 child: Divider(
-                  color: C.bg2(context),
+                  color: C.bg2(brightness),
                   thickness: 1,
                 ),
               ),

@@ -6,8 +6,9 @@ class RatingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Scaffold(
-      backgroundColor: C.bg1(context),
+      backgroundColor: C.bg1(brightness),
       body: const SafeArea(
           child: Column(
         children: [

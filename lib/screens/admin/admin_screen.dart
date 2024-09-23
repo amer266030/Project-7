@@ -16,12 +16,13 @@ class AdminScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return BlocProvider(
       create: (context) => AdminCubit(),
       child: Builder(builder: (context) {
         final cubit = context.read<AdminCubit>();
         return Scaffold(
-          backgroundColor: C.bg1(context),
+          backgroundColor: C.bg1(brightness),
           appBar: AppBar(
               centerTitle: true,
               title: const Text('Admin').styled(size: 18, weight: FW.bold)),

@@ -9,22 +9,23 @@ class RatingStarsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Row(
       children: List.generate(totalStars, (index) {
         if (rating >= index + 1) {
           return Icon(
             Icons.star,
-            color: C.primary(context),
+            color: C.primary(brightness),
           );
         } else if (rating >= index + 0.5) {
           return Icon(
             Icons.star_half,
-            color: C.primary(context),
+            color: C.primary(brightness),
           );
         } else {
           return Icon(
             Icons.star_border,
-            color: C.primary(context),
+            color: C.primary(brightness),
           );
         }
       }),

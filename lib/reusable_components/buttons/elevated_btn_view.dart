@@ -18,15 +18,16 @@ class ElevatedBtnView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         elevation: 4,
-        shadowColor: C.primary(context),
-        backgroundColor: C.primary(context),
+        shadowColor: C.primary(brightness),
+        backgroundColor: C.primary(brightness),
         shape: RoundedRectangleBorder(
             borderRadius: BR.circular(8),
             side: BorderSide(
-                color: hasBorder ? C.bg1(context) : Colors.transparent,
+                color: hasBorder ? C.bg1(brightness) : Colors.transparent,
                 width: 2)),
       ),
       onPressed: () => callBack(),

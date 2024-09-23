@@ -6,13 +6,12 @@ import 'package:tuwaiq_project_pulse/reusable_components/cards/project_card_view
 import 'package:tuwaiq_project_pulse/screens/user_projects/user_projects_cubit.dart';
 import 'package:tuwaiq_project_pulse/utils/typedefs.dart';
 
-import '../../model/project/project.dart';
-
 class UserProjectsScreen extends StatelessWidget {
   const UserProjectsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return BlocProvider(
       create: (context) => UserProjectsCubit(),
       child: Builder(builder: (context) {
@@ -26,8 +25,9 @@ class UserProjectsScreen extends StatelessWidget {
             }
           },
           child: Scaffold(
-            backgroundColor: C.bg1(context),
+            backgroundColor: C.bg1(brightness),
             appBar: AppBar(
+                backgroundColor: C.bg1(brightness),
                 title: const Text('My Projects')
                     .styled(size: 18, weight: FW.bold)),
             body: SafeArea(

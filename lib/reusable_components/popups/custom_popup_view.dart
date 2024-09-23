@@ -17,6 +17,7 @@ class CustomPopupView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return AlertDialog(
       content: Column(
         mainAxisSize:
@@ -31,7 +32,7 @@ class CustomPopupView extends StatelessWidget {
               InkWell(
                   onTap: callback,
                   child: Icon(CupertinoIcons.xmark_circle_fill,
-                      color: C.primary(context)))
+                      color: C.primary(brightness)))
             ],
           ),
           child,

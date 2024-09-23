@@ -14,6 +14,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return FlutterSplashScreen.gif(
       gifPath: "assets/logo1.gif",
       gifWidth: double.infinity,
@@ -22,7 +23,7 @@ class SplashScreen extends StatelessWidget {
           ? const AuthScreen()
           : const BottomNavScreen(),
       duration: const Duration(milliseconds: 1500),
-      backgroundColor: C.bg2(context),
+      backgroundColor: C.bg2(brightness),
       onInit: () async {
         debugPrint("onInit");
       },

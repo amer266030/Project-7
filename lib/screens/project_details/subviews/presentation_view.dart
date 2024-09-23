@@ -15,6 +15,7 @@ class PresentationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -40,12 +41,12 @@ class PresentationView extends StatelessWidget {
                           });
                     },
                     icon: Icon(CupertinoIcons.doc_text,
-                        color: C.primary(context))),
+                        color: C.primary(brightness))),
                 // Upload
                 IconButton(
                     onPressed: cubit.pickPdfFile,
                     icon: Icon(CupertinoIcons.pencil_circle_fill,
-                        color: C.primary(context)))
+                        color: C.primary(brightness)))
               ],
             )
             // Show

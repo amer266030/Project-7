@@ -13,8 +13,6 @@ import 'package:tuwaiq_project_pulse/screens/project_details/subviews/rating_car
 import 'package:tuwaiq_project_pulse/screens/project_details/subviews/screen_shots_view.dart';
 import 'package:tuwaiq_project_pulse/utils/typedefs.dart';
 
-import '../../utils/validations.dart';
-
 class ProjectDetailsScreen extends StatelessWidget {
   const ProjectDetailsScreen({super.key, required this.project});
 
@@ -25,6 +23,7 @@ class ProjectDetailsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => ProjectDetailsCubit(),
       child: Builder(builder: (context) {
+        final brightness = Theme.of(context).brightness;
         final cubit = context.read<ProjectDetailsCubit>();
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -41,10 +40,11 @@ class ProjectDetailsScreen extends StatelessWidget {
               }
             },
             child: Scaffold(
-              backgroundColor: C.bg1(context),
+              backgroundColor: C.bg1(brightness),
               appBar: AppBar(
                 title: const Text('Project Details')
                     .styled(size: 18, weight: FW.bold),
+                backgroundColor: C.bg1(brightness),
                 centerTitle: true,
               ),
               body: SafeArea(

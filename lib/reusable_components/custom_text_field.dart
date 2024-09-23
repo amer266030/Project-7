@@ -18,6 +18,7 @@ class CustomTextField extends StatelessWidget {
   final Function(String value) validation;
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: TextFormField(
@@ -27,17 +28,17 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(4),
             prefixIcon: prefixIcon,
-            prefixIconColor: C.primary(context),
+            prefixIconColor: C.primary(brightness),
             suffixIcon: suffixIcon,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: C.primary(context), width: 1),
+              borderSide: BorderSide(color: C.primary(brightness), width: 1),
             ),
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
-                borderSide: BorderSide(color: C.primary(context), width: 1)),
+                borderSide: BorderSide(color: C.primary(brightness), width: 1)),
             filled: true,
-            fillColor: C.secondary(context).withOpacity(0.5),
+            fillColor: C.secondary(brightness).withOpacity(0.5),
             hintText: hintText,
             hintStyle: const TS(
               color: Colors.grey,

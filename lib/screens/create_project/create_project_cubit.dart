@@ -6,6 +6,8 @@ import 'package:tuwaiq_project_pulse/managers/auth_mgr.dart';
 import 'package:tuwaiq_project_pulse/model/user/user.dart';
 import 'package:tuwaiq_project_pulse/networking/_client/networking_api.dart';
 
+import '../../reusable_components/popups/animated_snackbar.dart';
+
 part 'create_project_state.dart';
 
 class CreateProjectCubit extends Cubit<CreateProjectState> {
@@ -17,12 +19,17 @@ class CreateProjectCubit extends Cubit<CreateProjectState> {
   User? selectedUser;
   DateTime selectedDate = DateTime.now();
   bool canEdit = false;
+  var addedUserId = TextEditingController();
 
   void fetchUsers() => allUsers = authMgr.allUsers;
 
   void changeSelectedUser(User user) {
     selectedUser = user;
     emit(UpdateUIState());
+  }
+
+  void showSnackBar(BuildContext context, String msg) {
+    animatedSnakbar(msg: msg).show(context);
   }
 
   void toggleCanEdit() {
@@ -36,15 +43,17 @@ class CreateProjectCubit extends Cubit<CreateProjectState> {
   }
 
   void saveChanges() {
-    if (selectedUser == null) emit(ErrorState(msg: 'No User Selected!'));
-    if (selectedDate.isBefore(DateTime.now())) {
-      emit(ErrorState(msg: 'No User Selected!'));
+    if (addedUserId.text.isNotEmpty) {
+      selectedUser = User(id: addedUserId.text);
     }
+    if (selectedUser == null) {
+      emit(ErrorState(msg: 'No User Selected!'));
+    } else {
+      var formattedDate = selectedDate.toFormattedString();
 
-    var formattedDate = selectedDate.toFormattedString();
-
-    supervisorApi.createProject(
-        userId: selectedUser!.id!, endDate: formattedDate, edit: canEdit);
-    emit(SuccessState());
+      supervisorApi.createProject(
+          userId: selectedUser!.id!, endDate: formattedDate, edit: canEdit);
+      emit(SuccessState());
+    }
   }
 }

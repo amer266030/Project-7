@@ -11,6 +11,7 @@ class DotIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(count, (index) {
@@ -21,8 +22,9 @@ class DotIndicator extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               shape: BoxShape.rectangle,
-              color:
-                  index == currentIndex ? C.primary(context) : C.bg1(context),
+              color: index == currentIndex
+                  ? C.primary(brightness)
+                  : C.bg1(brightness),
             ),
           ),
         );

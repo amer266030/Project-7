@@ -12,6 +12,7 @@ class BlurredCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0),
       child: Stack(
@@ -21,9 +22,9 @@ class BlurredCard extends StatelessWidget {
           Card(
             elevation: 4,
             shape: RoundedRectangleBorder(borderRadius: BR.circular(24)),
-            surfaceTintColor: C.secondary(context),
-            shadowColor: C.secondary(context).withOpacity(0.3),
-            color: C.secondary(context).withOpacity(0.7),
+            surfaceTintColor: C.secondary(brightness),
+            shadowColor: C.secondary(brightness).withOpacity(0.3),
+            color: C.secondary(brightness).withOpacity(0.7),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Stack(
@@ -54,10 +55,12 @@ class _BlurFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
       child: Container(
-        decoration: BoxDecoration(color: C.secondary(context).withOpacity(0.5)),
+        decoration:
+            BoxDecoration(color: C.secondary(brightness).withOpacity(0.5)),
       ),
     );
   }
