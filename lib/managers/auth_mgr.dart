@@ -45,6 +45,7 @@ class AuthMgr {
   Future<void> logOut() async {
     authData = null;
     box.remove(authKey);
+    box.remove(currentUserKey);
   }
 
   // User Functions

@@ -5,7 +5,6 @@ import 'package:tuwaiq_project_pulse/managers/auth_mgr.dart';
 import 'package:tuwaiq_project_pulse/networking/_client/networking_api.dart';
 import 'package:tuwaiq_project_pulse/screens/bottom_nav/bottom_nav_screen.dart';
 
-import '../../extensions/color_ext.dart';
 import '../../managers/alert_mgr.dart';
 
 part 'auth_state.dart';
@@ -26,15 +25,11 @@ class AuthCubit extends Cubit<AuthState> {
   var alertTitle = '';
   var alertMsg = '';
 
-  Color flagPrimary = C.primary;
-  Color flagBg1 = C.bg1;
-
   AuthCubit() : super(AuthInitial());
 
-  changeColor() {
-    flagPrimary = flagBg1;
-    flagBg1 = flagPrimary;
-    emit(AuthUpdateState(flagPrimary: flagPrimary, flagBg1: flagBg1));
+  Future<void> initial() async {
+    await Future.delayed(const Duration(seconds: 3));
+    emit(UpdateUIState());
   }
 
   String headerTitle() => isOtp
@@ -62,12 +57,12 @@ class AuthCubit extends Cubit<AuthState> {
 
   void toggleIsSignup() {
     isSignup = !isSignup;
-    emit(AuthUpdateState());
+    emit(UpdateUIState());
   }
 
   void toggleIsOTP() {
     isOtp = !isOtp;
-    emit(AuthUpdateState());
+    emit(UpdateUIState());
   }
 
   void clearAlertFields() {
@@ -81,7 +76,7 @@ class AuthCubit extends Cubit<AuthState> {
     var lName = lastNameController.text;
     clearAlertFields();
     alertMsg = 'Creating Account';
-    emit(AuthLoadingState());
+    emit(LoadingState());
     try {
       await nwk.createUser(email: email, firstName: fName, lastName: lName);
       toggleIsOTP();
@@ -89,7 +84,7 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (e) {
       alertTitle = 'Oops';
       alertMsg = '$e';
-      emit(AuthErrorState());
+      emit(ErrorState());
     }
   }
 
@@ -97,7 +92,7 @@ class AuthCubit extends Cubit<AuthState> {
     var email = emailController.text;
     clearAlertFields();
     alertMsg = 'Loading Profile';
-    emit(AuthLoadingState());
+    emit(LoadingState());
     try {
       await nwk.login(email: email);
       toggleIsOTP();
@@ -105,23 +100,23 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (e) {
       alertTitle = 'Oops';
       alertMsg = '$e';
-      emit(AuthErrorState());
+      emit(ErrorState());
     }
   }
 
   void verifyOtp() async {
     var email = emailController.text;
     clearAlertFields();
-    emit(AuthLoadingState());
+    emit(LoadingState());
     try {
       await nwk.verifyOTP(email: email, otp: otp);
       if (authMgr.authData == null) throw Exception(nwk.errorMsg);
       await Future.delayed(const Duration(seconds: 1));
-      emit(AuthSuccessState());
+      emit(SuccessState());
     } catch (e) {
       alertTitle = 'Oops';
       alertMsg = '$e';
-      emit(AuthErrorState());
+      emit(ErrorState());
     }
   }
 }

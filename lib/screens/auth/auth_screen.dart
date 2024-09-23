@@ -22,11 +22,11 @@ class AuthScreen extends StatelessWidget {
         final cubit = context.read<AuthCubit>();
         return BlocListener<AuthCubit, AuthState>(
           listener: (context, state) {
-            if (state is AuthLoadingState) {
+            if (state is LoadingState) {
               cubit.showAlert(context, false);
-            } else if (state is AuthErrorState) {
+            } else if (state is ErrorState) {
               cubit.showAlert(context, true);
-            } else if (state is AuthSuccessState) {
+            } else if (state is SuccessState) {
               cubit.navigateToHome(context);
             } else {
               cubit.dismissAlert(context);
@@ -38,6 +38,7 @@ class AuthScreen extends StatelessWidget {
               const BackgroundImg(),
               BlocBuilder<AuthCubit, AuthState>(
                 builder: (context, state) {
+                  if (state is AuthInitial) cubit.initial();
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -55,7 +56,7 @@ class AuthScreen extends StatelessWidget {
                       ),
                       if (!cubit.isOtp)
                         AbsorbPointer(
-                          absorbing: (state is AuthLoadingState) ? true : false,
+                          absorbing: (state is LoadingState) ? true : false,
                           child: _BottomButtons(cubit: cubit),
                         )
                     ],
@@ -111,57 +112,25 @@ class _BottomButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthCubit, AuthState>(
-      builder: (context, state) {
-        if (state is AuthUpdateState) {
-          return Row(
-            children: [
-              Expanded(
-                child: BottomBtnView(
-                  title: 'Sign Up',
-                  btnColor: cubit.isSignup ? cubit.flagBg1 : cubit.flagPrimary,
-                  textColor: cubit.isSignup ? cubit.flagPrimary : cubit.flagBg1,
-                  callBack:
-                      cubit.isSignup ? cubit.changeColor : cubit.toggleIsSignup,
-                ),
-              ),
-              Expanded(
-                child: BottomBtnView(
-                  title: 'Sign In',
-                  btnColor: !cubit.isSignup ? cubit.flagBg1 : cubit.flagPrimary,
-                  textColor:
-                      !cubit.isSignup ? cubit.flagPrimary : cubit.flagBg1,
-                  callBack: !cubit.isSignup ? () => () : cubit.toggleIsSignup,
-                ),
-              ),
-            ],
-          );
-        }
-        return Row(
-          children: [
-            Expanded(
-              child: BottomBtnView(
-                title: 'Sign Up',
-                btnColor: cubit.isSignup ? cubit.flagPrimary : cubit.flagBg1,
-                textColor: cubit.isSignup ? cubit.flagBg1 : cubit.flagPrimary,
-                callBack: cubit.isSignup
-                    ? () {
-                        cubit.changeColor();
-                      }
-                    : cubit.toggleIsSignup,
-              ),
-            ),
-            Expanded(
-              child: BottomBtnView(
-                title: 'Sign In',
-                btnColor: !cubit.isSignup ? cubit.flagBg1 : cubit.flagPrimary,
-                textColor: !cubit.isSignup ? cubit.flagPrimary : cubit.flagBg1,
-                callBack: !cubit.isSignup ? () => () : cubit.toggleIsSignup,
-              ),
-            ),
-          ],
-        );
-      },
+    return Row(
+      children: [
+        Expanded(
+          child: BottomBtnView(
+            title: 'Sign Up',
+            btnColor: cubit.isSignup ? C.primary : C.bg1,
+            textColor: cubit.isSignup ? C.bg1 : C.primary,
+            callBack: cubit.isSignup ? () => () : cubit.toggleIsSignup,
+          ),
+        ),
+        Expanded(
+          child: BottomBtnView(
+            title: 'Sign In',
+            btnColor: !cubit.isSignup ? C.primary : C.bg1,
+            textColor: !cubit.isSignup ? C.bg1 : C.primary,
+            callBack: !cubit.isSignup ? () => () : cubit.toggleIsSignup,
+          ),
+        ),
+      ],
     );
   }
 }

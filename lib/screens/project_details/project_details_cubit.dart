@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -26,6 +27,8 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
   var bootcampController = TextEditingController();
   ProjectType selectedType = ProjectType.ai;
   File? logo;
+  List<File> screens = [];
+  File? presentation;
 
   // Initial
 
@@ -40,6 +43,7 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
 
   // UI
 
+  // Logo
   void getImage() async {
     final img = await ImagePicker().pickImage(source: ImageSource.gallery);
     logo = File(img?.path ?? '');
@@ -57,6 +61,51 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
         emit(ErrorState());
       }
     }
+  }
+
+  // Screenshots
+
+  void getScreenshots() async {
+    final images = await ImagePicker().pickMultiImage();
+    for (var img in images) {
+      screens.add(File(img.path));
+    }
+    updateScreenshots();
+  }
+
+  void updateScreenshots() async {
+    try {
+      await userApi.createImages(
+          projectId: project.projectId ?? '', fileImages: screens);
+      emit(SuccessState());
+    } catch (_) {
+      emit(ErrorState());
+    }
+  }
+
+  // Presentation
+
+  void pickPdfFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+
+    if (result != null && result.files.isNotEmpty) {
+      File file = File(result.files.single.path!);
+      presentation = file;
+    }
+
+    if (presentation != null) {
+      try {
+        userApi.createProjectPresentation(
+            projectId: project.projectId ?? '', presentation: presentation!);
+      } catch (_) {
+        emit(ErrorState());
+      }
+    }
+
+    emit(UpdateUIState());
   }
 
   void changeType(ProjectType type) {

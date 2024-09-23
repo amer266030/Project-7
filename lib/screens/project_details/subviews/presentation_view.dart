@@ -43,7 +43,7 @@ class PresentationView extends StatelessWidget {
                         const Icon(CupertinoIcons.doc_text, color: C.primary)),
                 // Upload
                 IconButton(
-                    onPressed: () => (),
+                    onPressed: cubit.pickPdfFile,
                     icon: const Icon(CupertinoIcons.pencil_circle_fill,
                         color: C.primary))
               ],
