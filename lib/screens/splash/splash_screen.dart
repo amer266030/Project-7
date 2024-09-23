@@ -5,6 +5,8 @@ import 'package:get_it/get_it.dart';
 import 'package:tuwaiq_project_pulse/model/enums/theme_state.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/auth_screen.dart';
 import 'package:tuwaiq_project_pulse/screens/settings/app_theme/app_theme_cubit.dart';
+import 'package:rive/rive.dart';
+
 
 import '../../managers/auth_mgr.dart';
 import '../bottom_nav/bottom_nav_screen.dart';
