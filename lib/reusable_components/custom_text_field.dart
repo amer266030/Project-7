@@ -39,8 +39,12 @@ class CustomTextField extends StatelessWidget {
             filled: true,
             fillColor: C.secondary(context).withOpacity(0.5),
             hintText: hintText,
-            hintStyle: const TS(
-              color: Colors.grey,
+            hintStyle: TS(
+              color: C
+                  .text(
+                    context,
+                  )
+                  .withOpacity(0.8),
             )),
         validator: (value) => validation(value ?? ''),
       ),

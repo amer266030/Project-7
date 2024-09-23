@@ -17,7 +17,7 @@ class BorderedCardView extends StatelessWidget {
           color: isSecondaryColor
               ? C.secondary(context).withOpacity(0.7)
               : Colors.white
-                  .withOpacity(0.8), // Keeps the semi-transparent background
+                  .withOpacity(0.7), // Keeps the semi-transparent background
           borderRadius: BorderRadius.circular(16),
           border: Border(
             right: BorderSide(

@@ -24,7 +24,7 @@ class BarItems {
       BottomBarItem(
         inActiveItem: Icon(
           CupertinoIcons.settings,
-          color: C.bg1(context), // Access colors dynamically with context
+          color: Color(0xFFF5F5F7), // Access colors dynamically with context
         ),
         activeItem: Icon(
           CupertinoIcons.settings,
@@ -38,7 +38,7 @@ class BarItems {
       BottomBarItem(
         inActiveItem: Icon(
           CupertinoIcons.person_fill,
-          color: C.bg1(context), // Access colors dynamically with context
+          color: Color(0xFFF5F5F7), // Access colors dynamically with context
         ),
         activeItem: Icon(
           CupertinoIcons.person_fill,

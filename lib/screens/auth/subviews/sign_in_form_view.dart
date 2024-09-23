@@ -23,7 +23,8 @@ class SignInFormView extends StatelessWidget {
             children: [
               Text(
                 'Sign In',
-                style: TS(fontSize: 24, fontWeight: FW.bold),
+                style:
+                    TS(fontSize: 24, fontWeight: FW.bold, color: Colors.black),
               ),
             ],
           ),

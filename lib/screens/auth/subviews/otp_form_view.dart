@@ -44,12 +44,13 @@ class OtpFormView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 'OTP',
-                style: TS(fontSize: 24, fontWeight: FW.bold),
+                style: TS(
+                    fontSize: 24, fontWeight: FW.bold, color: C.bg2(context)),
               ),
             ],
           ),
@@ -68,13 +69,13 @@ class OtpFormView extends StatelessWidget {
               ],
             ),
           ),
-          const Padding(
+          Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Row(
               children: [
                 Text(
                   'OTP Verification code: *',
-                  style: TS(fontWeight: FW.bold),
+                  style: TS(fontWeight: FW.bold, color: C.bg2(context)),
                 ),
               ],
             ),

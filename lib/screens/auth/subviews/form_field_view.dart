@@ -31,7 +31,9 @@ class FormFieldView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: const TS(fontSize: 18, fontWeight: FW.w600)),
+            Text(title,
+                style:
+                    TS(fontSize: 18, fontWeight: FW.w600, color: Colors.black)),
             if (isRequired)
               Padding(
                 padding: const EdgeInsets.only(left: 4.0),

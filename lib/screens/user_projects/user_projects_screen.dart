@@ -29,7 +29,7 @@ class UserProjectsScreen extends StatelessWidget {
             backgroundColor: C.bg1(context),
             appBar: AppBar(
                 title: const Text('My Projects')
-                    .styled(size: 18, weight: FW.bold)),
+                    .styled(size: 18, weight: FW.bold, color: C.text(context))),
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(24),

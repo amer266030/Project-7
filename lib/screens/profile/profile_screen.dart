@@ -52,16 +52,20 @@ class ProfileScreen extends StatelessWidget {
                                       CupertinoIcons.arrow_left,
                                       color: C.primary(context),
                                     )),
-                                const Text('Profile')
-                                    .styled(size: 18, weight: FW.bold),
+                                const Text('Profile').styled(
+                                    size: 18,
+                                    weight: FW.bold,
+                                    color: C.text(context)),
                                 CustomTextBtn(
                                   title: "Save",
                                   callback: cubit.updateProfile,
                                 )
                               ],
                             )
-                          : const Text('Profile')
-                              .styled(size: 18, weight: FW.bold),
+                          : const Text('Profile').styled(
+                              size: 18,
+                              weight: FW.bold,
+                              color: C.text(context)),
                       Expanded(
                         child: cubit.isEdit
                             ? EditProfileView(cubit: cubit)

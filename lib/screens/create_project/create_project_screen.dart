@@ -28,7 +28,7 @@ class CreateProjectScreen extends StatelessWidget {
           appBar: AppBar(
               centerTitle: true,
               title: const Text('Create Project')
-                  .styled(size: 18, weight: FW.bold)),
+                  .styled(size: 18, weight: FW.bold, color: C.text(context))),
           body: Stack(
             children: [
               const BackgroundImg(),
@@ -80,7 +80,10 @@ class CreateProjectScreen extends StatelessWidget {
                                                         child: Text(
                                                                 user.email ??
                                                                     '')
-                                                            .styled(size: 10));
+                                                            .styled(
+                                                                size: 10,
+                                                                color: C.text(
+                                                                    context)));
                                                   }).toList(),
                                                 );
                                               },
@@ -106,6 +109,7 @@ class CreateProjectScreen extends StatelessWidget {
                                                       color: Colors.black,
                                                       weight: FW.bold),
                                               Switch(
+                                                activeColor: C.navBar(context),
                                                 value: cubit.canEdit,
                                                 onChanged: (_) =>
                                                     cubit.toggleCanEdit(),
@@ -125,8 +129,12 @@ class CreateProjectScreen extends StatelessWidget {
                                             const Text('End Date:').styled(
                                                 color: Colors.black,
                                                 weight: FW.bold),
-                                            Text(cubit.selectedDate
-                                                .toFormattedString()),
+                                            Text(
+                                              cubit.selectedDate
+                                                  .toFormattedString(),
+                                            ).styled(
+                                              color: Colors.black,
+                                            ),
                                             IconButton(
                                               onPressed: () =>
                                                   BottomPicker.date(
@@ -138,6 +146,9 @@ class CreateProjectScreen extends StatelessWidget {
                                                     color: C.primary(context),
                                                   ),
                                                 ),
+                                                backgroundColor: C.bg2(context),
+                                                buttonSingleColor:
+                                                    C.primary(context),
                                                 dateOrder:
                                                     DatePickerDateOrder.dmy,
                                                 initialDateTime: DateTime.now(),

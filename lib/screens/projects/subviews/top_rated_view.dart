@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 
 import '../../../model/project/project.dart';
@@ -19,7 +20,7 @@ class TopRatedView extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: const Text(
             'Top Rated', // Display Bootcamp name as header
-          ).styled(size: 14, weight: FontWeight.bold, color: Colors.black),
+          ).styled(size: 14, weight: FontWeight.bold, color: C.text(context)),
         ),
         projects.firstOrNull == null
             ? const CircularProgressIndicator()

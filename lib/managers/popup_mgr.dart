@@ -14,9 +14,11 @@ class PopupMgr {
       {required BuildContext context,
       required String title,
       required Widget child}) {
+        
     showDialog(
       context: context,
       barrierDismissible: false,
+      
       builder: (BuildContext context) {
         return CustomPopupView(
             callback: Navigator.of(context).pop, title: title, child: child);

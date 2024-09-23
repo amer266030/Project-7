@@ -19,14 +19,18 @@ class SignUpFormView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
                 padding: EdgeInsets.only(bottom: 16.0),
                 child: Text(
                   'Sign Up',
-                  style: TS(fontSize: 24, fontWeight: FW.bold),
+                  style: TS(
+                    fontSize: 24,
+                    fontWeight: FW.bold,
+                    color: Colors.black,
+                  ),
                 ),
               ),
             ],
