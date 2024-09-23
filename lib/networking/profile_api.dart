@@ -28,8 +28,10 @@ class ProfileApi extends NetworkMgr {
       await setUser(response);
     } on DioException catch (e) {
       errorMsg = e.response.toString();
+      rethrow;
     } catch (e) {
       errorMsg = e.toString();
+      rethrow;
     }
   }
 
@@ -73,8 +75,10 @@ class ProfileApi extends NetworkMgr {
       );
     } on DioException catch (e) {
       errorMsg = e.response.toString();
+      rethrow;
     } catch (e) {
       errorMsg = e.toString();
+      rethrow;
     }
   }
 
@@ -93,6 +97,7 @@ class ProfileApi extends NetworkMgr {
         }
       } catch (e) {
         errorMsg = e.toString();
+        rethrow;
       }
     }
   }

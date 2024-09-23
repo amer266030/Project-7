@@ -28,8 +28,12 @@ class PublicApi extends NetworkMgr {
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
       setProject(response);
+    } on DioException catch (e) {
+      errorMsg = e.response.toString();
+      rethrow;
     } catch (e) {
-      errorMsg = '$e';
+      errorMsg = e.toString();
+      rethrow;
     }
   }
 
@@ -59,8 +63,12 @@ class PublicApi extends NetworkMgr {
           },
         );
         setProjects(response);
+      } on DioException catch (e) {
+        errorMsg = e.response.toString();
+        rethrow;
       } catch (e) {
-        errorMsg = '$e';
+        errorMsg = e.toString();
+        rethrow;
       }
     }
   }
@@ -75,8 +83,12 @@ class PublicApi extends NetworkMgr {
           (dataJson) => Project.fromJson(dataJson),
         );
         project = apiResponse.data;
+      } on DioException catch (e) {
+        errorMsg = e.response.toString();
+        rethrow;
       } catch (e) {
         errorMsg = e.toString();
+        rethrow;
       }
     }
   }
@@ -96,6 +108,7 @@ class PublicApi extends NetworkMgr {
         projects = projectsResponse?.projects;
       } catch (e) {
         errorMsg = e.toString();
+        rethrow;
       }
     }
   }

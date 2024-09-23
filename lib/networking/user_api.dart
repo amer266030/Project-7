@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:tuwaiq_project_pulse/model/api_response.dart';
 import 'package:tuwaiq_project_pulse/model/project/project.dart';
 import 'package:get_it/get_it.dart';
@@ -37,13 +36,13 @@ class UserApi extends NetworkMgr {
           "note": rating.note
         },
       );
-      if (kDebugMode) {
-        setProject(response);
-      }
+      setProject(response);
+    } on DioException catch (e) {
+      errorMsg = e.response.toString();
+      rethrow;
     } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+      errorMsg = e.toString();
+      rethrow;
     }
   }
 
@@ -58,9 +57,11 @@ class UserApi extends NetworkMgr {
         data: jsonEncode({"logo": imgToUpload}),
       );
     } on DioException catch (e) {
-      errorMsg = '${e.response}';
+      errorMsg = e.response.toString();
+      rethrow;
     } catch (e) {
-      errorMsg = '$e';
+      errorMsg = e.toString();
+      rethrow;
     }
   }
 
@@ -80,14 +81,13 @@ class UserApi extends NetworkMgr {
           "project_description": project.projectDescription
         },
       );
-      print(response);
       setProject(response);
     } on DioException catch (e) {
-      print(e.response);
-      errorMsg = '${e.response}';
+      errorMsg = e.response.toString();
+      rethrow;
     } catch (e) {
-      print(e);
-      errorMsg = '$e';
+      errorMsg = e.toString();
+      rethrow;
     }
   }
 
@@ -104,9 +104,11 @@ class UserApi extends NetworkMgr {
       );
       setProject(response);
     } on DioException catch (e) {
-      errorMsg = '${e.response}';
+      errorMsg = e.response.toString();
+      rethrow;
     } catch (e) {
-      errorMsg = '$e';
+      errorMsg = e.toString();
+      rethrow;
     }
   }
 
@@ -160,17 +162,17 @@ class UserApi extends NetworkMgr {
 
       setProject(response);
     } on DioException catch (e) {
-      errorMsg = '${e.response}';
+      errorMsg = e.response.toString();
+      rethrow;
     } catch (e) {
-      errorMsg = '$e';
+      errorMsg = e.toString();
+      rethrow;
     }
   }
 
   // PUT
   Future<void> createMembers({required String projectId}) async {
     try {
-      print(ApiPath.user.editProjectMembers(projectId: projectId));
-
       var response = await dio.put(
           ApiPath.user.editProjectMembers(projectId: projectId),
           options: Options(headers: {'Authorization': 'Bearer $token'}),
@@ -192,9 +194,11 @@ class UserApi extends NetworkMgr {
           });
       setProject(response);
     } on DioException catch (e) {
-      errorMsg = '${e.response}';
+      errorMsg = e.response.toString();
+      rethrow;
     } catch (e) {
-      errorMsg = '$e';
+      errorMsg = e.toString();
+      rethrow;
     }
   }
 
@@ -210,6 +214,7 @@ class UserApi extends NetworkMgr {
         project = apiResponse.data;
       } catch (e) {
         errorMsg = e.toString();
+        rethrow;
       }
     }
   }
