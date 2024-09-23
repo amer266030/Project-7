@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tuwaiq_project_pulse/model/user/user.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/auth_screen.dart';
 import 'package:tuwaiq_project_pulse/screens/user_projects/user_projects_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../managers/alert_mgr.dart';
 import '../../managers/auth_mgr.dart';
@@ -126,7 +128,8 @@ class ProfileCubit extends Cubit<ProfileState> {
   // SnackBar
 
   void showSnackBar(BuildContext context, String msg) {
-    animatedSnakbar(msg: msg).show(context);
+    animatedSnakbar(msg: msg, icon: CupertinoIcons.check_mark_circled_solid)
+        .show(context);
   }
 
   // Navigation
@@ -187,5 +190,16 @@ class ProfileCubit extends Cubit<ProfileState> {
     if (!context.mounted) return;
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const AuthScreen()));
+  }
+
+  void launchLink(String? link) async {
+    if (link != null) {
+      final Uri url = Uri.parse(link);
+      if (!await launchUrl(url)) {
+        emit(NoUrlState());
+      }
+    } else {
+      emit(NoUrlState());
+    }
   }
 }

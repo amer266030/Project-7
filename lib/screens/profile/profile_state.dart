@@ -17,3 +17,5 @@ final class SuccessState extends ProfileState {
 final class ErrorState extends ProfileState {}
 
 final class IdCopiedState extends ProfileState {}
+
+final class NoUrlState extends ProfileState {}

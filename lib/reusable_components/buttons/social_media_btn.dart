@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
@@ -52,7 +53,7 @@ class SocialMediaBtn extends StatelessWidget {
                         title: 'Save',
                         callBack: () {
                           Navigator.of(context).pop();
-                          animatedSnakbar(msg: 'URL saved successfully')
+                          animatedSnakbar(msg: 'URL saved successfully', icon: CupertinoIcons.check_mark_circled_solid)
                               .show(context);
                         },
                       ),

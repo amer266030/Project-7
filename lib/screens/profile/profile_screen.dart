@@ -27,7 +27,7 @@ class ProfileScreen extends StatelessWidget {
             } else {
               cubit.dismissAlert(context);
               if (state is IdCopiedState) {
-                animatedSnakbar(msg: 'ID copied to clipboard').show(context);
+                animatedSnakbar(msg: 'ID copied to clipboard', icon:  CupertinoIcons.check_mark_circled_solid).show(context);
               }
               if (state is SuccessState) {
                 cubit.showSnackBar(context, state.msg);
