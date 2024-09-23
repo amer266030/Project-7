@@ -151,7 +151,6 @@ class ProfileCubit extends Cubit<ProfileState> {
       await nwk.fetchProfile();
       if (nwk.user == null) throw Exception(nwk.errorMsg);
       user = nwk.user!;
-      print(user.toJson());
       await _updateInputFields();
       emit(SuccessState('Good to see you ${user.firstName}'));
     } catch (e) {

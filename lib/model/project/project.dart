@@ -16,7 +16,7 @@ String projectToJson(Project data) => json.encode(data.toJson());
 
 class Project {
   String? projectId;
-  ProjectType? type; // Change from String to ProjectType
+  ProjectType? type;
   String? projectName;
   String? bootcampName;
   String? startDate;
