@@ -7,6 +7,7 @@ import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/model/project/link_type.dart';
 import 'package:tuwaiq_project_pulse/model/project/project.dart';
 import 'package:tuwaiq_project_pulse/model/project/project_type.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/buttons/social_media_btn.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/cards/bordered_card_view.dart';
 import 'package:tuwaiq_project_pulse/screens/project_details/project_details_cubit.dart';
 import 'package:tuwaiq_project_pulse/utils/typedefs.dart';
@@ -31,14 +32,14 @@ class ProjectDetailsCardView extends StatelessWidget {
               const Text('Project Details').styled(weight: FW.w500),
               IconButton(
                   onPressed: cubit.updateProjectBase,
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.save,
-                    color: C.primary,
+                    color: C.primary(context),
                     size: 22,
                   ))
             ],
           ),
-          const Divider(color: C.bg1, thickness: 2),
+          Divider(color: C.bg1(context), thickness: 2),
           ListItemWithTextField(
               title: 'Description',
               controller: cubit.descController,
@@ -66,13 +67,17 @@ class ProjectDetailsCardView extends StatelessWidget {
             children: [
               Row(
                   children: LinkType.values
-                      .map((link) => _LinkIconView(url: '', icon: link.icon()))
+                      .map((link) => _LinkIconView(
+                            url: '',
+                            link: link,
+                            controller: cubit.githubController,
+                          ))
                       .toList()),
               IconButton(
                   onPressed: cubit.updateLinks,
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.save,
-                    color: C.primary,
+                    color: C.primary(context),
                     size: 22,
                   ))
             ],
@@ -133,8 +138,8 @@ class ListItemWithText extends StatelessWidget {
         const SizedBox(width: 4),
         Expanded(
             flex: 2,
-            child:
-                Text(body).styled(size: 12, color: C.black, weight: FW.w300)),
+            child: Text(body)
+                .styled(size: 12, color: C.text(context), weight: FW.w300)),
       ],
     );
   }
@@ -205,7 +210,7 @@ class ListItemWithDropDown extends StatelessWidget {
                 return DropdownMenuItem<ProjectType>(
                     value: type,
                     child: Text(type.toString().split('.').last)
-                        .styled(color: C.black, weight: FW.w300));
+                        .styled(color: C.text(context), weight: FW.w300));
               }).toList(),
               onChanged: cubit.readOnly
                   ? null
@@ -218,16 +223,22 @@ class ListItemWithDropDown extends StatelessWidget {
 }
 
 class _LinkIconView extends StatelessWidget {
-  const _LinkIconView({required this.url, required this.icon});
+  const _LinkIconView(
+      {required this.url, required this.link, required this.controller});
   final String? url;
-  final IconData? icon;
+  final LinkType? link;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 6),
-      child:
-          InkWell(onTap: () => (), child: Icon(icon, size: 16, color: C.black)),
-    );
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 6),
+        child: SocialMediaBtn(
+          title: link?.name ?? '',
+          hint: 'https://',
+          controller: controller,
+          icon: link?.icon() ?? Icons.circle,
+          smallIcon: true,
+        ));
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/buttons/elevated_btn_view.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/cards/bordered_card_view.dart';
@@ -20,6 +21,7 @@ class AdminScreen extends StatelessWidget {
       child: Builder(builder: (context) {
         final cubit = context.read<AdminCubit>();
         return Scaffold(
+          backgroundColor: C.bg1(context),
           appBar: AppBar(
               centerTitle: true,
               title: const Text('Admin').styled(size: 18, weight: FW.bold)),

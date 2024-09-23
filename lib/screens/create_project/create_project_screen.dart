@@ -24,6 +24,7 @@ class CreateProjectScreen extends StatelessWidget {
       child: Builder(builder: (context) {
         final cubit = context.read<CreateProjectCubit>();
         return Scaffold(
+          backgroundColor: C.bg1(context),
           appBar: AppBar(
               centerTitle: true,
               title: const Text('Create Project')
@@ -129,12 +130,12 @@ class CreateProjectScreen extends StatelessWidget {
                                             IconButton(
                                               onPressed: () =>
                                                   BottomPicker.date(
-                                                pickerTitle: const Text(
+                                                pickerTitle: Text(
                                                   'Select an End Date for the project',
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 16,
-                                                    color: C.primary,
+                                                    color: C.primary(context),
                                                   ),
                                                 ),
                                                 dateOrder:
@@ -153,9 +154,8 @@ class CreateProjectScreen extends StatelessWidget {
                                                 onSubmit: (date) =>
                                                     cubit.setSelectedDate(date),
                                               ).show(context),
-                                              icon: const Icon(
-                                                  Icons.calendar_month,
-                                                  color: C.primary),
+                                              icon: Icon(Icons.calendar_month,
+                                                  color: C.primary(context)),
                                             )
                                           ],
                                         );

@@ -67,10 +67,10 @@ class SignUpFormView extends StatelessWidget {
                       callBack: cubit.signUp),
                 ],
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(vertical: 16),
                 child: Divider(
-                  color: C.bg3,
+                  color: C.bg2(context),
                   thickness: 1,
                 ),
               ),

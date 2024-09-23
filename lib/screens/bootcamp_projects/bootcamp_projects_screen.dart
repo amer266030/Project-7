@@ -19,9 +19,10 @@ class BootcampProjectsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: C.bg1(context),
       appBar: AppBar(
-          title: Text(title)
-              .styled(size: 20, weight: FontWeight.bold, color: C.primary)),
+          title: Text(title).styled(
+              size: 20, weight: FontWeight.bold, color: C.primary(context))),
       body: Stack(
         children: [
           const BackgroundImg(),

@@ -52,9 +52,9 @@ class ProfileCardView extends StatelessWidget {
                       ],
                     ),
                     IconButton(
-                      icon: const Icon(
+                      icon: Icon(
                         CupertinoIcons.doc_on_clipboard_fill,
-                        color: C.primary,
+                        color: C.primary(context),
                         size: 12,
                       ),
                       onPressed: cubit.copyIdToClipboard,
@@ -68,7 +68,7 @@ class ProfileCardView extends StatelessWidget {
         Card(
           shape: RoundedRectangleBorder(
             borderRadius: BR.circular(24),
-            side: const BorderSide(color: C.primary, width: 1),
+            side: BorderSide(color: C.primary(context), width: 1),
           ),
           borderOnForeground: true,
           child: Padding(

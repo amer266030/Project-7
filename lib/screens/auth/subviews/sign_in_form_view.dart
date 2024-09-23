@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/buttons/elevated_btn_view.dart';
-import 'package:tuwaiq_project_pulse/reusable_components/cards/blurred_card.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/auth_cubit.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/subviews/form_field_view.dart';
 import 'package:tuwaiq_project_pulse/utils/typedefs.dart';
@@ -44,10 +43,10 @@ class SignInFormView extends StatelessWidget {
                       callBack: cubit.signIn),
                 ],
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(vertical: 16),
                 child: Divider(
-                  color: C.bg3,
+                  color: C.bg2(context),
                   thickness: 1,
                 ),
               ),

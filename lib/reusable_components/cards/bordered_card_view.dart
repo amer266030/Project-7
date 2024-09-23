@@ -15,15 +15,17 @@ class BorderedCardView extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: isSecondaryColor
-              ? C.secondary.withOpacity(0.7)
+              ? C.secondary(context).withOpacity(0.7)
               : Colors.white
                   .withOpacity(0.8), // Keeps the semi-transparent background
           borderRadius: BorderRadius.circular(16),
-          border: const Border(
+          border: Border(
             right: BorderSide(
-                color: C.primary, width: 6), // Solid border on the right
+                color: C.primary(context),
+                width: 6), // Solid border on the right
             bottom: BorderSide(
-                color: C.primary, width: 6), // Solid border at the bottom
+                color: C.primary(context),
+                width: 6), // Solid border at the bottom
           ),
         ),
         child: Padding(padding: const EdgeInsets.all(8.0), child: child),

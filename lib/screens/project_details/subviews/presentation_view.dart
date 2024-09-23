@@ -39,13 +39,13 @@ class PresentationView extends StatelessWidget {
                                 });
                           });
                     },
-                    icon:
-                        const Icon(CupertinoIcons.doc_text, color: C.primary)),
+                    icon: Icon(CupertinoIcons.doc_text,
+                        color: C.primary(context))),
                 // Upload
                 IconButton(
                     onPressed: cubit.pickPdfFile,
-                    icon: const Icon(CupertinoIcons.pencil_circle_fill,
-                        color: C.primary))
+                    icon: Icon(CupertinoIcons.pencil_circle_fill,
+                        color: C.primary(context)))
               ],
             )
             // Show

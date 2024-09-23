@@ -22,8 +22,8 @@ class ScreenShotsView extends StatelessWidget {
             const Text('Screenshots').styled(weight: FW.bold),
             IconButton(
                 onPressed: cubit.getScreenshots,
-                icon: const Icon(CupertinoIcons.plus_circle_fill,
-                    color: C.primary))
+                icon: Icon(CupertinoIcons.plus_circle_fill,
+                    color: C.primary(context)))
           ],
         ),
         images.isEmpty

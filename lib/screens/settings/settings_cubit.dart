@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/managers/popup_mgr.dart';
 import 'package:tuwaiq_project_pulse/screens/settings/help_support_view.dart';
 
+import 'app_theme/app_theme_cubit.dart';
+
 part 'settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
@@ -18,12 +20,25 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   void toggleLanguage() {
     isEnglish = !isEnglish;
-    emit(UpdateSettingsUIState());
+    emit(UpdateUIState());
   }
 
-  void toggleDarkMode() {
+  void themeButtonState(BuildContext context) {
+    final currentTheme = Theme.of(context).brightness;
+    isDarkMode = currentTheme == Brightness.dark ? false : true;
+    emit(UpdateUIState());
+  }
+
+  void toggleDarkMode(BuildContext context) {
     isDarkMode = !isDarkMode;
-    emit(UpdateSettingsUIState());
+
+    // Schedule theme change for after the current frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final themeCubit = context.read<AppThemeCubit>();
+      themeCubit.changeTheme(isDarkMode ? ThemeMode.dark : ThemeMode.light);
+    });
+
+    emit(UpdateUIState());
   }
 
   void navigateToHelpScreen(BuildContext context) {

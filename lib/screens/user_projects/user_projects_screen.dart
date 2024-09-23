@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/cards/project_card_view.dart';
 import 'package:tuwaiq_project_pulse/screens/user_projects/user_projects_cubit.dart';
@@ -25,6 +26,7 @@ class UserProjectsScreen extends StatelessWidget {
             }
           },
           child: Scaffold(
+            backgroundColor: C.bg1(context),
             appBar: AppBar(
                 title: const Text('My Projects')
                     .styled(size: 18, weight: FW.bold)),

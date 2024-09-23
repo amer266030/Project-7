@@ -12,6 +12,7 @@ class BottomNavScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final barItems = BarItems(context);
     return BlocProvider(
       create: (context) => BottomNavCubit(),
       child: Builder(builder: (context) {
@@ -19,7 +20,7 @@ class BottomNavScreen extends StatelessWidget {
         return BlocBuilder<BottomNavCubit, BottomNavState>(
           builder: (context, state) {
             return Scaffold(
-              backgroundColor: C.bg1,
+              backgroundColor: C.bg1(context),
               body: Stack(
                 children: [
                   const BackgroundImg(),
@@ -30,8 +31,8 @@ class BottomNavScreen extends StatelessWidget {
                           controller: cubit.pageController,
                           physics: const NeverScrollableScrollPhysics(),
                           children: List.generate(
-                            BarItems.bottomBarItems.length,
-                            (index) => BarItems.bottomBarPages[index],
+                            barItems.bottomBarItems.length,
+                            (index) => barItems.bottomBarPages[index],
                           ),
                         ),
                       ),
@@ -40,25 +41,25 @@ class BottomNavScreen extends StatelessWidget {
                 ],
               ),
               extendBody: true,
-              bottomNavigationBar: (BarItems.bottomBarPages.length <=
-                      BarItems.bottomBarItems.length)
+              bottomNavigationBar: (barItems.bottomBarPages.length <=
+                      barItems.bottomBarItems.length)
                   ? AnimatedNotchBottomBar(
                       notchBottomBarController: cubit.notchController,
-                      color: C.navBar,
+                      color: C.navBar(context),
                       showLabel: true,
                       textOverflow: TextOverflow.visible,
                       maxLine: 1,
                       shadowElevation: 5,
                       kBottomRadius: 28.0,
-                      notchGradient: const LinearGradient(
-                          colors: [C.bg1, C.bg2],
+                      notchGradient: LinearGradient(
+                          colors: [C.bg1(context), C.bg2(context)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight),
                       removeMargins: false,
                       showShadow: false,
                       durationInMilliSeconds: 150,
                       elevation: 1,
-                      bottomBarItems: BarItems.bottomBarItems,
+                      bottomBarItems: barItems.bottomBarItems,
                       onTap: (index) {
                         cubit.pageController.jumpToPage(index);
                       },

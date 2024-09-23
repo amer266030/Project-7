@@ -21,7 +21,8 @@ class DotIndicator extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               shape: BoxShape.rectangle,
-              color: index == currentIndex ? C.primary : C.bg1,
+              color:
+                  index == currentIndex ? C.primary(context) : C.bg1(context),
             ),
           ),
         );

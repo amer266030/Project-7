@@ -15,16 +15,18 @@ class SocialMediaBtn extends StatelessWidget {
     required this.hint,
     required this.controller,
     required this.icon,
+    this.smallIcon = false,
   });
 
   final String title;
   final String hint;
   final TextEditingController controller;
   final IconData icon;
+  final bool smallIcon;
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-        onPressed: () {
+    return InkWell(
+        onTap: () {
           showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -66,10 +68,11 @@ class SocialMediaBtn extends StatelessWidget {
             },
           );
         },
-        icon: FaIcon(
-          icon,
-          color: C.bg2,
-          size: 30,
-        ));
+        child: smallIcon
+            ? Icon(icon, size: 16, color: Colors.black)
+            : Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FaIcon(icon, color: C.bg2(context), size: 30),
+              ));
   }
 }

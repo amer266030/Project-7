@@ -24,7 +24,7 @@ class BackgroundImg extends StatelessWidget {
             // // Blur effect
             BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
-                child: Container(color: C.bg1.withOpacity(0.1))),
+                child: Container(color: C.bg1(context).withOpacity(0.1))),
           ],
         ),
       ),

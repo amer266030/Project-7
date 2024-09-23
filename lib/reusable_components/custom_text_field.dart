@@ -27,17 +27,17 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(4),
             prefixIcon: prefixIcon,
-            prefixIconColor: C.primary,
+            prefixIconColor: C.primary(context),
             suffixIcon: suffixIcon,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: C.primary, width: 1),
+              borderSide: BorderSide(color: C.primary(context), width: 1),
             ),
-            border: const OutlineInputBorder(
+            border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
-                borderSide: BorderSide(color: C.primary, width: 1)),
+                borderSide: BorderSide(color: C.primary(context), width: 1)),
             filled: true,
-            fillColor: C.secondary.withOpacity(0.5),
+            fillColor: C.secondary(context).withOpacity(0.5),
             hintText: hintText,
             hintStyle: const TS(
               color: Colors.grey,

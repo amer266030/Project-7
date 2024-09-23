@@ -35,7 +35,9 @@ class ProjectsScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('TUWAIQ ACADEMY').styled(
-                          size: 20, weight: FontWeight.bold, color: C.primary),
+                          size: 20,
+                          weight: FontWeight.bold,
+                          color: C.primary(context)),
                       IconButton(
                           onPressed: () => (),
                           icon: const Icon(CupertinoIcons.search))

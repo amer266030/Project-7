@@ -33,6 +33,7 @@ class AuthScreen extends StatelessWidget {
             }
           },
           child: Scaffold(
+            backgroundColor: C.bg1(context),
             resizeToAvoidBottomInset: false,
             body: Stack(children: [
               const BackgroundImg(),
@@ -117,16 +118,16 @@ class _BottomButtons extends StatelessWidget {
         Expanded(
           child: BottomBtnView(
             title: 'Sign Up',
-            btnColor: cubit.isSignup ? C.primary : C.bg1,
-            textColor: cubit.isSignup ? C.bg1 : C.primary,
+            btnColor: cubit.isSignup ? C.primary(context) : C.bg1(context),
+            textColor: cubit.isSignup ? C.bg1(context) : C.primary(context),
             callBack: cubit.isSignup ? () => () : cubit.toggleIsSignup,
           ),
         ),
         Expanded(
           child: BottomBtnView(
             title: 'Sign In',
-            btnColor: !cubit.isSignup ? C.primary : C.bg1,
-            textColor: !cubit.isSignup ? C.bg1 : C.primary,
+            btnColor: !cubit.isSignup ? C.primary(context) : C.bg1(context),
+            textColor: !cubit.isSignup ? C.bg1(context) : C.primary(context),
             callBack: !cubit.isSignup ? () => () : cubit.toggleIsSignup,
           ),
         ),

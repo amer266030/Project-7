@@ -11,8 +11,8 @@ AnimatedSnackBar animatedSnakbar({
       return MaterialAnimatedSnackBar(
         messageText: msg,
         type: type,
-        foregroundColor: C.primary,
-        backgroundColor: C.secondary,
+        foregroundColor: C.primary(context),
+        backgroundColor: C.secondary(context),
         iconData: CupertinoIcons.check_mark_circled_solid,
       );
     }),

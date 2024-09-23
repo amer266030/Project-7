@@ -32,6 +32,9 @@ class SettingsScreen extends StatelessWidget {
                     children: [
                       BlocBuilder<SettingsCubit, SettingsState>(
                         builder: (context, state) {
+                          if (state is SettingsInitial) {
+                            cubit.themeButtonState(context);
+                          }
                           return Column(
                             children: [
                               ListItemView(
@@ -44,7 +47,7 @@ class SettingsScreen extends StatelessWidget {
                                 label: 'Dark Mode',
                                 toggleValue: cubit.isDarkMode,
                                 toggleType: ToggleType.darkMode,
-                                callback: cubit.toggleDarkMode,
+                                callback: () => cubit.toggleDarkMode(context),
                               ),
                             ],
                           );

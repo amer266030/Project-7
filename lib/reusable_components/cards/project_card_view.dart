@@ -26,17 +26,17 @@ class ProjectCardView extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        border: const Border(
+        border: Border(
           right: BorderSide(
             width: 7,
-            color: C.primary,
+            color: C.primary(context),
           ),
           bottom: BorderSide(
             width: 7,
-            color: C.primary,
+            color: C.primary(context),
           ),
         ),
-        color: C.secondaryWOpacity,
+        color: C.secondary(context),
       ),
       child: Padding(
         padding:

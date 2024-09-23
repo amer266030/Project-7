@@ -18,7 +18,7 @@ class PdfPreview extends StatelessWidget {
             cubit.loadPdf(url ?? '');
           }
 
-          return Container(
+          return SizedBox(
             width:
                 MediaQuery.of(context).size.width * 0.8, // 80% of screen width
             height: MediaQuery.of(context).size.height *
