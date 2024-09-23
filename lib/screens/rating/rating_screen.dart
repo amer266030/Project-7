@@ -9,6 +9,7 @@ import 'package:tuwaiq_project_pulse/reusable_components/cards/bordered_card_vie
 import 'package:tuwaiq_project_pulse/reusable_components/cards/project_details_card.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/custom_text_field.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/images/background_img.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/rating_builder.dart';
 import 'package:tuwaiq_project_pulse/screens/rating/rating_cubit.dart';
 import 'package:tuwaiq_project_pulse/utils/typedefs.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -160,65 +161,6 @@ class RatingScreen extends StatelessWidget {
           ]),
         );
       }),
-    );
-  }
-}
-
-class RatingBuilder extends StatelessWidget {
-  const RatingBuilder({
-    super.key,
-    required this.cubit,
-    required this.title,
-  });
-
-  final RatingCubit cubit;
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title).styled(
-          size: 16,
-          color: Colors.black,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('1').styled(
-              size: 18,
-              color: C.primary(context),
-            ),
-            BlocBuilder<RatingCubit, RatingState>(
-              builder: (context, state) {
-                return RatingBar.builder(
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 10,
-                  itemSize: 24,
-                  itemBuilder: (context, _) => Icon(
-                    Icons.star,
-                    color: C.primary(context),
-                  ),
-                  onRatingUpdate: (newRating) {
-                    cubit.updateRating(newRating);
-                  },
-                );
-              },
-            ),
-            Text('10').styled(
-              size: 18,
-              color: C.primary(context),
-            ),
-          ],
-        ),
-        Divider(),
-        SizedBox(
-          height: 10,
-        )
-      ],
     );
   }
 }
