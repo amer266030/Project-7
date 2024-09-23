@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/auth_screen.dart';
 
 import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
@@ -21,7 +22,7 @@ class SplashScreen extends StatelessWidget {
           ? const AuthScreen()
           : const BottomNavScreen(),
       duration: const Duration(milliseconds: 1500),
-      backgroundColor: Color(0xffF9FAFB),
+      backgroundColor: C.bg2,
       onInit: () async {
         debugPrint("onInit");
       },
