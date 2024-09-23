@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/extensions/date_ext.dart';
@@ -22,19 +23,25 @@ class ProjectDetailsCardView extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _ImgView(url: project.logoUrl, callback: cubit.getImage),
+          _ImgView(url: project.logoUrl, cubit: cubit),
           Text(project.projectName ?? '').styled(size: 16, weight: FW.bold),
           Row(
-            children: [const Text('Project Details').styled(weight: FW.w500)],
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Project Details').styled(weight: FW.w500),
+              IconButton(
+                  onPressed: cubit.updateProjectBase,
+                  icon: const Icon(
+                    Icons.save,
+                    color: C.primary,
+                    size: 22,
+                  ))
+            ],
           ),
           const Divider(color: C.bg1, thickness: 2),
           ListItemWithTextField(
               title: 'Description',
               controller: cubit.descController,
-              readOnly: cubit.readOnly),
-          ListItemWithTextField(
-              title: 'Bootcamp',
-              controller: cubit.bootcampController,
               readOnly: cubit.readOnly),
           ListItemWithTextField(
               title: 'Bootcamp',
@@ -51,10 +58,25 @@ class ProjectDetailsCardView extends StatelessWidget {
           ListItemWithText(
               title: 'Presentation',
               body: project.presentationDate!.toSlashDate()),
+          Row(children: [
+            Text('Edit ${project.allowEdit! ? 'Enabled' : 'Disabled'}')
+          ]),
           Row(
-              children: LinkType.values
-                  .map((link) => _LinkIconView(url: '', icon: link.icon()))
-                  .toList())
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                  children: LinkType.values
+                      .map((link) => _LinkIconView(url: '', icon: link.icon()))
+                      .toList()),
+              IconButton(
+                  onPressed: cubit.updateLinks,
+                  icon: const Icon(
+                    Icons.save,
+                    color: C.primary,
+                    size: 22,
+                  ))
+            ],
+          ),
         ],
       ),
     );
@@ -62,20 +84,22 @@ class ProjectDetailsCardView extends StatelessWidget {
 }
 
 class _ImgView extends StatelessWidget {
-  const _ImgView({this.url, required this.callback});
+  const _ImgView({this.url, required this.cubit});
   final String? url;
-  final VoidCallback callback;
+  final ProjectDetailsCubit cubit;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Spacer(),
           Expanded(
             child: InkWell(
-              onTap: callback,
+              onTap: cubit.getImage,
               child: ClipRRect(
                 borderRadius: BR.circular(12),
                 child: url != null
@@ -84,7 +108,7 @@ class _ImgView extends StatelessWidget {
               ),
             ),
           ),
-          const Spacer(),
+          const Spacer()
         ],
       ),
     );
@@ -187,7 +211,7 @@ class ListItemWithDropDown extends StatelessWidget {
                   ? null
                   : (ProjectType? newValue) => cubit.changeType(newValue!)),
         ),
-        const Spacer(),
+        const Spacer()
       ],
     );
   }
@@ -203,7 +227,7 @@ class _LinkIconView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 6),
       child:
-          InkWell(onTap: () => (), child: Icon(icon, size: 18, color: C.black)),
+          InkWell(onTap: () => (), child: Icon(icon, size: 16, color: C.black)),
     );
   }
 }

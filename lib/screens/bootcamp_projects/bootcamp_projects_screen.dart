@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/cards/bordered_card_view.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/rating_stars_view.dart';
+import 'package:tuwaiq_project_pulse/screens/project_details/project_details_screen.dart';
 
 import '../../extensions/color_ext.dart';
 import '../../model/project/project.dart';
@@ -29,7 +30,12 @@ class BootcampProjectsScreen extends StatelessWidget {
               padding: const EdgeInsets.all(24),
               child: ListView(
                 children: projects
-                    .map((proj) => _ProjectCardView(project: proj))
+                    .map((proj) => InkWell(
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ProjectDetailsScreen(project: proj))),
+                        child: _ProjectCardView(project: proj)))
                     .toList(),
               ),
             ),

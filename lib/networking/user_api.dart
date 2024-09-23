@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/model/api_response.dart';
 import 'package:tuwaiq_project_pulse/model/project/project.dart';
 import 'package:get_it/get_it.dart';
@@ -17,7 +16,7 @@ import '_client/api_path.dart';
 
 class UserApi extends NetworkMgr {
   Project? project;
-  String? errorMsg;
+  String errorMsg = '';
 
   String token = GetIt.I.get<AuthMgr>().authData?.token ?? '';
   String adminToken = AuthMgr.adminKey;
@@ -70,7 +69,7 @@ class UserApi extends NetworkMgr {
     try {
       var response = await dio.put(
         ApiPath.user.editProjectBase(projectId: project.projectId ?? ''),
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
+        options: Options(headers: {'Authorization': 'Bearer $adminToken'}),
         data: {
           "project_name": project.projectName,
           "bootcamp_name": project.bootcampName,
@@ -81,10 +80,13 @@ class UserApi extends NetworkMgr {
           "project_description": project.projectDescription
         },
       );
+      print(response);
       setProject(response);
     } on DioException catch (e) {
+      print(e.response);
       errorMsg = '${e.response}';
     } catch (e) {
+      print(e);
       errorMsg = '$e';
     }
   }
@@ -134,24 +136,28 @@ class UserApi extends NetworkMgr {
   }
 
   // PUT
-  Future<void> createLinks(
-      {required String projectId, required ProjectLinks links}) async {
+  Future<void> createLinks({
+    required String projectId,
+    required List<ProjectLinks> links,
+  }) async {
     try {
+      // Convert the list of ProjectLinks to the format required by the API
+      var mappedLinks = links
+          .map((link) => {
+                "type": ProjectLinks.linkTypeToString(link.type),
+                "url": link.url,
+              })
+          .where((link) => link["type"] != null && link["url"] != null)
+          .toList();
+
       var response = await dio.put(
-          ApiPath.user.editProjectLink(projectId: projectId),
-          options: Options(headers: {'Authorization': 'Bearer $token'}),
-          data: {
-            "link": [
-              {"type": "github", "url": "https://github.com/example"},
-              {"type": "figma", "url": "https://figma.com/example"},
-              {"type": "video", "url": "https://youtube.com/example"},
-              {"type": "pinterest", "url": "https://appstore.com/example"},
-              {"type": "playstore", "url": "https://appstore.com/example"},
-              {"type": "applestore", "url": "https://appstore.com/example"},
-              {"type": "apk", "url": "https://appstore.com/example"},
-              {"type": "weblink", "url": "https://appstore.com/example"}
-            ]
-          });
+        ApiPath.user.editProjectLink(projectId: projectId),
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+        data: {
+          "link": mappedLinks,
+        },
+      );
+
       setProject(response);
     } on DioException catch (e) {
       errorMsg = '${e.response}';

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,8 @@ import 'package:tuwaiq_project_pulse/model/project/project_type.dart';
 import 'package:tuwaiq_project_pulse/networking/_client/networking_api.dart';
 
 import '../../managers/auth_mgr.dart';
+import '../../managers/popup_mgr.dart';
+import '../../reusable_components/popups/animated_snackbar.dart';
 
 part 'project_details_state.dart';
 
@@ -29,6 +32,15 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
   File? logo;
   List<File> screens = [];
   File? presentation;
+  // Links
+  var githubController = TextEditingController();
+  var figmaController = TextEditingController();
+  var videoController = TextEditingController();
+  var pintresetController = TextEditingController();
+  var googleController = TextEditingController();
+  var appleController = TextEditingController();
+  var androidController = TextEditingController();
+  var webController = TextEditingController();
 
   // Initial
 
@@ -38,10 +50,27 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
     descController.text = project.projectDescription ?? '';
     bootcampController.text = project.bootcampName ?? '';
     selectedType = project.type ?? ProjectType.ai;
-    readOnly = !(project.userId == authMgr.currentUserId);
+    readOnly = ((project.adminId != authMgr.currentUserId) ||
+        (project.userId != authMgr.currentUserId));
   }
 
   // UI
+
+  // SnackBar
+  void showSnackBar({
+    required BuildContext context,
+    required String msg,
+    AnimatedSnackBarType type = AnimatedSnackBarType.success,
+  }) {
+    animatedSnakbar(msg: msg, type: type).show(context);
+  }
+
+  // Popup
+  void showPopup(
+          {required BuildContext context,
+          required String title,
+          required Widget child}) =>
+      PopupMgr().showPopup(context: context, title: title, child: child);
 
   // Logo
   void getImage() async {
@@ -56,9 +85,9 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
       try {
         await userApi.createLogo(
             projectId: project.projectId ?? '', img: logo!);
-        emit(SuccessState());
+        emit(SuccessState('Logo updated'));
       } catch (_) {
-        emit(ErrorState());
+        emit(ErrorState('Error: ${userApi.errorMsg}'));
       }
     }
   }
@@ -77,9 +106,9 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
     try {
       await userApi.createImages(
           projectId: project.projectId ?? '', fileImages: screens);
-      emit(SuccessState());
+      emit(SuccessState('Screenshots added!'));
     } catch (_) {
-      emit(ErrorState());
+      emit(ErrorState('Error: ${userApi.errorMsg}'));
     }
   }
 
@@ -100,8 +129,9 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
       try {
         userApi.createProjectPresentation(
             projectId: project.projectId ?? '', presentation: presentation!);
+        emit(SuccessState('presentation uploaded'));
       } catch (_) {
-        emit(ErrorState());
+        emit(ErrorState('Error: ${userApi.errorMsg}'));
       }
     }
 
@@ -123,16 +153,41 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
     project.presentationDate = project.presentationDate?.toSlashDate();
   }
 
-  Future<void> updateProjectBase(Project project) async {
+  // Supervisor
+  Future<void> updateProjectBase() async {
     _updateProjectFields();
-    try {
-      await userApi.createProjectBase(project: project);
-    } catch (e) {
-      emit(ErrorState());
+    emit(LoadingState());
+    if (project.adminId != authMgr.currentUserId) {
+      emit(ErrorState('You do not have permission to edit this!'));
+    } else {
+      try {
+        await userApi.createProjectBase(project: project);
+        emit(SuccessState('Project Base Updated!'));
+      } catch (e) {
+        emit(ErrorState('Error: ${userApi.errorMsg}'));
+      }
+    }
+  }
+
+  Future<void> updateLinks() async {
+    _updateProjectFields();
+    emit(LoadingState());
+    if (readOnly) {
+      emit(ErrorState('You do not have permission to edit this!'));
+    } else {
+      try {
+        await userApi.createLinks(
+            projectId: project.projectId ?? '',
+            links: project.linksProject ?? []);
+        emit(SuccessState('Project Base Updated!'));
+      } catch (e) {
+        emit(ErrorState('Error: ${userApi.errorMsg}'));
+      }
     }
   }
 
   Future<void> makePublic(Project project) async {
+    emit(LoadingState());
     try {
       await supervisorApi.updateProject(
         projectId: project.projectId ?? '',
@@ -141,9 +196,9 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
         canRate: true,
         isPublic: true,
       );
-      emit(SuccessState());
+      emit(SuccessState('Project is now Public!'));
     } catch (e) {
-      emit(ErrorState());
+      emit(ErrorState('Error: ${userApi.errorMsg}'));
     }
   }
 }

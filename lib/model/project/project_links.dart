@@ -1,4 +1,4 @@
-import 'link_type.dart';
+import 'package:tuwaiq_project_pulse/model/project/link_type.dart';
 
 class ProjectLinks {
   String? url;
@@ -11,15 +11,15 @@ class ProjectLinks {
 
   factory ProjectLinks.fromJson(Map<String, dynamic> json) => ProjectLinks(
         url: json["url"],
-        type: _stringToLinkType(json["type"]), // Convert string to enum
+        type: stringToLinkType(json["type"]), // Convert string to enum
       );
 
   Map<String, dynamic> toJson() => {
         "url": url,
-        "type": _linkTypeToString(type), // Convert enum to string
+        "type": linkTypeToString(type), // Convert enum to string
       };
 
-  static LinkType? _stringToLinkType(String? type) {
+  static LinkType? stringToLinkType(String? type) {
     switch (type) {
       case "github":
         return LinkType.github;
@@ -42,7 +42,7 @@ class ProjectLinks {
     }
   }
 
-  static String? _linkTypeToString(LinkType? type) {
+  static String? linkTypeToString(LinkType? type) {
     if (type == null) return null;
     switch (type) {
       case LinkType.github:
