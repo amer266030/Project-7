@@ -39,8 +39,15 @@ class UserProjectsCubit extends Cubit<UserProjectsState> {
   }
 
   void navigateToDetails(BuildContext context, Project project) =>
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ProjectDetailsScreen(project: project)));
+      Navigator.of(context)
+          .push(
+        MaterialPageRoute(
+          builder: (context) => ProjectDetailsScreen(project: project),
+        ),
+      )
+          .then((_) {
+        loadProfile();
+      });
 
   void loadProfile() async {
     clearAlertFields();

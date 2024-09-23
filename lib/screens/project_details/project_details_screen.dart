@@ -38,6 +38,9 @@ class ProjectDetailsScreen extends StatelessWidget {
                     msg: state.msg,
                     type: AnimatedSnackBarType.error);
               }
+              if (state is ProjectDeletedState) {
+                Navigator.of(context).pop();
+              }
             },
             child: Scaffold(
               backgroundColor: C.bg1(brightness),
@@ -46,6 +49,11 @@ class ProjectDetailsScreen extends StatelessWidget {
                     .styled(size: 18, weight: FW.bold),
                 backgroundColor: C.bg1(brightness),
                 centerTitle: true,
+                actions: [
+                  IconButton(
+                      onPressed: () => cubit.deleteProject(),
+                      icon: const Icon(Icons.delete))
+                ],
               ),
               body: SafeArea(
                 child: Padding(

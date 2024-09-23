@@ -186,6 +186,22 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
     }
   }
 
+  Future<void> deleteProject() async {
+    emit(LoadingState());
+    try {
+      await supervisorApi.deleteProject(
+          projectId: project.projectId ?? '',
+          endDate: project.endDate ?? DateTime.now().toFormattedString(),
+          canEdit: project.allowEdit ?? false,
+          isPublic: project.isPublic ?? false);
+      emit(SuccessState('Project Deleted!'));
+      await Future.delayed(const Duration(seconds: 2));
+      emit(ProjectDeletedState());
+    } catch (e) {
+      emit(ErrorState('Error: ${userApi.errorMsg}'));
+    }
+  }
+
   Future<void> makePublic(Project project) async {
     emit(LoadingState());
     try {
