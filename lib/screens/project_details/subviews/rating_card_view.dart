@@ -28,7 +28,7 @@ class RatingCardView extends StatelessWidget {
                 const Text('Rating').styled(weight: FW.bold),
                 RatingStarsView(rating: rating),
                 Text('10K Ratings')
-                    .styled(color: C.text(brightness), weight: FW.w300),
+                    .styled(color: Colors.black, weight: FW.w300),
               ],
             ),
             ElevatedBtnView(title: 'Rating QR', callBack: () => ())

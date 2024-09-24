@@ -24,6 +24,7 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: TextFormField(
+        style: TextStyle(color: C.text(brightness)),
         maxLines: max,
         minLines: 1,
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -42,10 +43,10 @@ class CustomTextField extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(8)),
                 borderSide: BorderSide(color: C.primary(brightness), width: 1)),
             filled: true,
-            fillColor: C.secondary(brightness).withOpacity(0.5),
+            fillColor: C.secondary(brightness).withOpacity(0.4),
             hintText: hintText,
-            hintStyle: const TS(
-              color: Colors.grey,
+            hintStyle: TS(
+              color: Colors.black.withOpacity(0.5),
             )),
         validator: (value) => validation(value ?? ''),
       ),

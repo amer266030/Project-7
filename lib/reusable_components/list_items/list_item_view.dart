@@ -30,7 +30,9 @@ class ListItemView extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(label).styled(weight: FW.bold),
+              Text(label).styled(
+                weight: FW.bold,
+              ),
               (toggleValue != null)
                   ? ToggleButtons(
                       isSelected: [toggleValue!, !toggleValue!],

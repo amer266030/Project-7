@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/images/logo_view.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/rating_stars_view.dart';
 import 'package:tuwaiq_project_pulse/screens/project_details/project_details_cubit.dart';
 import '../../model/project/project.dart';
@@ -37,7 +38,7 @@ class ProjectCardView extends StatelessWidget {
             color: C.primary(brightness),
           ),
         ),
-        color: C.secondary(brightness),
+        color: C.secondary(brightness).withOpacity(0.7),
       ),
       child: Padding(
         padding:
@@ -64,7 +65,7 @@ class ProjectCardView extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BR.circular(16),
                             child: project.logoUrl == null
-                                ? const Placeholder()
+                                ? const LogoView()
                                 : Image.network(
                                     project.logoUrl!,
                                     fit: BoxFit.cover,
@@ -114,10 +115,10 @@ class ProjectCardView extends StatelessWidget {
                     const Icon(CupertinoIcons.circle_fill, size: 32),
                     IconButton(
                         onPressed: () => (),
-                        icon: const Icon(
+                        icon: Icon(
                           CupertinoIcons.arrow_up_right_circle_fill,
                           size: 32,
-                          color: Colors.white,
+                          color: C.secondary(brightness),
                         )),
                   ],
                 )

@@ -43,8 +43,9 @@ class ProjectDetailsScreen extends StatelessWidget {
             child: Scaffold(
               backgroundColor: C.bg1(brightness),
               appBar: AppBar(
-                title: const Text('Project Details')
-                    .styled(size: 18, weight: FW.bold),
+                title: const Text(
+                  'Project Details',
+                ).styled(size: 18, weight: FW.bold, color: C.text(brightness)),
                 backgroundColor: C.bg1(brightness),
                 centerTitle: true,
                 actions: [

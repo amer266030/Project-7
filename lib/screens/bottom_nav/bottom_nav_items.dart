@@ -43,7 +43,7 @@ class BarItems {
       BottomBarItem(
         inActiveItem: Icon(
           CupertinoIcons.person_fill,
-          color: C.bg1(brightness), // Access colors dynamically with context
+          color: Colors.white, // Access colors dynamically with context
         ),
         activeItem: Icon(
           CupertinoIcons.person_fill,

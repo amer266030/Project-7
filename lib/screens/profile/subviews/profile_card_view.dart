@@ -74,8 +74,8 @@ class ProfileCardView extends StatelessWidget {
           borderOnForeground: true,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-            child:
-                Text(cubit.user.role ?? '?').styled(size: 12, weight: FW.bold),
+            child: Text(cubit.user.role ?? '?')
+                .styled(size: 12, weight: FW.bold, color: C.text(brightness)),
           ),
         ),
       ],

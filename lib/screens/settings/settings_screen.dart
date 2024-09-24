@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/list_items/list_item_view.dart';
 import 'package:tuwaiq_project_pulse/screens/settings/settings_cubit.dart';
@@ -19,13 +20,16 @@ class SettingsScreen extends StatelessWidget {
       create: (context) => SettingsCubit(),
       child: Builder(builder: (context) {
         final cubit = context.read<SettingsCubit>();
+        final brightness = Theme.of(context).brightness;
+
         return SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
               children: [
                 Row(children: [
-                  const Text('Settings').styled(size: 18, weight: FW.bold)
+                  const Text('Settings').styled(
+                      size: 18, weight: FW.bold, color: C.text(brightness))
                 ]),
                 Expanded(
                   child: ListView(
@@ -54,7 +58,7 @@ class SettingsScreen extends StatelessWidget {
                         },
                       ),
                       const Text('More').styled(
-                          size: 18, weight: FW.bold, color: Colors.black),
+                          size: 18, weight: FW.bold, color: C.text(brightness)),
                       ...SettingsPopupItems.values.map(
                         (item) => ListItemView(
                           label: item.title,

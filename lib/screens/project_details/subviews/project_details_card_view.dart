@@ -193,14 +193,14 @@ class ListItemWithTextField extends StatelessWidget {
                     controller: controller,
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.black, fontSize: 12, fontWeight: FW.w300),
                     decoration: InputDecoration(
                       isDense: true, // Reduces vertical space
-                      contentPadding: EdgeInsets.symmetric(
+                      contentPadding: const EdgeInsets.symmetric(
                           vertical: 0,
                           horizontal: 4), // Removes vertical padding
-                      enabledBorder: UnderlineInputBorder(
+                      enabledBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(
                             color: Colors.grey), // Set the border color
                       ),
@@ -246,7 +246,7 @@ class ListItemWithDropDown extends StatelessWidget {
                   return DropdownMenuItem<ProjectType>(
                       value: type,
                       child: Text(type.toString().split('.').last)
-                          .styled(color: Colors.black, weight: FW.w300));
+                          .styled(color: C.text(brightness), weight: FW.w300));
                 }).toList(),
                 onChanged: cubit.readOnly
                     ? null

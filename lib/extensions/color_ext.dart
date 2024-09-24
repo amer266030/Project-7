@@ -38,7 +38,7 @@ extension C on Colors {
   // Navbar color based on the current brightness
   static Color navBar(Brightness brightness) {
     return brightness == Brightness.dark
-        ? const Color(0xFF4D429A) // Dark theme navbar
+        ? const Color(0xB3E3D8FF) // Dark theme navbar
         : const Color(0xFF4D429A); // Light theme navbar
   }
 

@@ -19,6 +19,8 @@ class BootcampProjectsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: C.bg1(brightness),
       appBar: AppBar(
+          backgroundColor: C.bg1(brightness),
+          centerTitle: true,
           title: Text(title).styled(
               size: 20, weight: FontWeight.bold, color: C.primary(brightness))),
       body: Stack(

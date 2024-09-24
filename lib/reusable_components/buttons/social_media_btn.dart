@@ -28,6 +28,8 @@ class SocialMediaBtn extends StatelessWidget {
   final bool smallIcon;
 
   void _showPopup(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -40,9 +42,7 @@ class SocialMediaBtn extends StatelessWidget {
                 height: 20,
               ),
               Text(title).styled(
-                size: 16,
-                weight: FontWeight.w600,
-              ),
+                  size: 16, weight: FontWeight.w600, color: C.text(brightness)),
               CustomTextField(
                 controller: controller,
                 hintText: hint,
