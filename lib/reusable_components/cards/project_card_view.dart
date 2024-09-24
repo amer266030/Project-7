@@ -6,19 +6,25 @@ import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/images/logo_view.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/rating_stars_view.dart';
 import 'package:tuwaiq_project_pulse/screens/project_details/project_details_cubit.dart';
+import 'package:tuwaiq_project_pulse/screens/projects/projects_cubit.dart';
 import '../../model/project/project.dart';
 import '../../utils/typedefs.dart';
-import '../dot_indicator_view.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ProjectCardView extends StatelessWidget {
   const ProjectCardView(
       {super.key,
       required this.project,
       this.cubit,
-      this.withIndicator = true});
+      this.pageController,
+      this.withIndicator = true,
+      this.projectsCubit});
   final Project project;
   final ProjectDetailsCubit? cubit;
+  final ProjectsCubit? projectsCubit;
+
   final bool withIndicator;
+  final PageController? pageController;
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +52,16 @@ class ProjectCardView extends StatelessWidget {
         child: Column(
           children: [
             if (withIndicator)
-              const DotIndicator(
+              SmoothPageIndicator(
+                controller: pageController!,
                 count: 5,
-                currentIndex: 0,
+                effect: WormEffect(
+                  activeDotColor: C.primary(brightness),
+                  dotColor: C.text(brightness).withOpacity(0.5),
+                  dotHeight: 8,
+                  dotWidth: 62,
+                  spacing: 4,
+                ),
               ),
             Padding(
               padding: const EdgeInsets.only(top: 16.0, bottom: 8),
