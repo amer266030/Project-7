@@ -10,6 +10,7 @@ import 'package:tuwaiq_project_pulse/extensions/date_ext.dart';
 import 'package:tuwaiq_project_pulse/model/project/project.dart';
 import 'package:tuwaiq_project_pulse/model/project/project_type.dart';
 import 'package:tuwaiq_project_pulse/networking/_client/networking_api.dart';
+import 'package:tuwaiq_project_pulse/screens/supervisor_project_edit/supervisor_project_edit_screen.dart';
 
 import '../../managers/auth_mgr.dart';
 import '../../managers/popup_mgr.dart';
@@ -22,6 +23,7 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
   final authMgr = GetIt.I.get<AuthMgr>();
   final userApi = NetworkingApi.shared.userApi;
   final supervisorApi = NetworkingApi.shared.supervisorApi;
+  final publicApi = NetworkingApi.shared.publicApi;
   var project = Project();
   bool readOnly = true;
   // Editing Fields
@@ -52,6 +54,32 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
     selectedType = project.type ?? ProjectType.ai;
     readOnly = !((project.adminId == authMgr.currentUserId) ||
         (project.userId == authMgr.currentUserId));
+  }
+
+  void reloadProject(String projectId) async {
+    try {
+      await publicApi.getProjectById(projectId: projectId);
+      if (publicApi.project != null) {
+        project = publicApi.project!;
+        emit(SuccessState('Project Loading Complete'));
+      } else {
+        emit(ErrorState('something wrong happened!'));
+      }
+    } catch (e) {
+      emit(ErrorState('Could not reload Project'));
+    }
+  }
+
+  void navigateToEdit(BuildContext context) {
+    Navigator.of(context)
+        .push(
+      MaterialPageRoute(
+        builder: (context) => SupervisorProjectEditScreen(project: project),
+      ),
+    )
+        .then((_) {
+      reloadProject(project.projectId ?? '');
+    });
   }
 
   // UI
@@ -148,16 +176,22 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
     project.projectDescription = descController.text;
     project.bootcampName = bootcampController.text;
     project.type = selectedType;
-    project.startDate = project.startDate?.toSlashDate();
-    project.endDate = project.endDate?.toSlashDate();
-    project.presentationDate = project.presentationDate?.toSlashDate();
+    project.startDate = project.startDate == null
+        ? DateTime.now().toFormattedString()
+        : project.startDate?.toSlashDate();
+    project.endDate = project.endDate == null
+        ? DateTime.now().toFormattedString()
+        : project.endDate?.toSlashDate();
+    project.presentationDate = project.presentationDate == null
+        ? DateTime.now().toFormattedString()
+        : project.presentationDate?.toSlashDate();
   }
 
   // Supervisor
   Future<void> updateProjectBase() async {
     _updateProjectFields();
     emit(LoadingState());
-    if (project.adminId != authMgr.currentUserId) {
+    if (readOnly) {
       emit(ErrorState('You do not have permission to edit this!'));
     } else {
       try {

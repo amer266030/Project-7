@@ -67,6 +67,9 @@ class UserApi extends NetworkMgr {
 
   // PUT
   Future<void> createProjectBase({required Project project}) async {
+    print(project.startDate);
+    print(project.endDate);
+
     try {
       var response = await dio.put(
         ApiPath.user.editProjectBase(projectId: project.projectId ?? ''),
@@ -103,10 +106,13 @@ class UserApi extends NetworkMgr {
         data: {"presentation_file": fileToUpload},
       );
       setProject(response);
+      print(response.data);
     } on DioException catch (e) {
+      print(e.response);
       errorMsg = e.response.toString();
       rethrow;
     } catch (e) {
+      print(e);
       errorMsg = e.toString();
       rethrow;
     }

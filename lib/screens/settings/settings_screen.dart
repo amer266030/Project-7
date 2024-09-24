@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
-import 'package:tuwaiq_project_pulse/reusable_components/list_item_view.dart';
+import 'package:tuwaiq_project_pulse/reusable_components/list_items/list_item_view.dart';
 import 'package:tuwaiq_project_pulse/screens/settings/settings_cubit.dart';
 import 'package:tuwaiq_project_pulse/screens/settings/settings_popup_items.dart';
 
@@ -40,13 +40,13 @@ class SettingsScreen extends StatelessWidget {
                               ListItemView(
                                 label: 'Language',
                                 toggleValue: cubit.isEnglish,
-                                toggleType: ToggleType.language,
+                                toggleType: SettingsToggleType.language,
                                 callback: cubit.toggleLanguage,
                               ),
                               ListItemView(
                                 label: 'Dark Mode',
                                 toggleValue: cubit.isDarkMode,
-                                toggleType: ToggleType.darkMode,
+                                toggleType: SettingsToggleType.darkMode,
                                 callback: () => cubit.toggleDarkMode(context),
                               ),
                             ],

@@ -5,8 +5,6 @@ import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/model/project/project.dart';
 import 'package:tuwaiq_project_pulse/screens/project_details/subviews/project_details_card_view.dart';
-import 'package:tuwaiq_project_pulse/reusable_components/custom_text_field.dart';
-import 'package:tuwaiq_project_pulse/reusable_components/cards/project_card_view.dart';
 import 'package:tuwaiq_project_pulse/screens/project_details/project_details_cubit.dart';
 import 'package:tuwaiq_project_pulse/screens/project_details/subviews/presentation_view.dart';
 import 'package:tuwaiq_project_pulse/screens/project_details/subviews/rating_card_view.dart';
@@ -50,6 +48,9 @@ class ProjectDetailsScreen extends StatelessWidget {
                 backgroundColor: C.bg1(brightness),
                 centerTitle: true,
                 actions: [
+                  IconButton(
+                      onPressed: () => cubit.navigateToEdit(context),
+                      icon: const Icon(Icons.edit)),
                   IconButton(
                       onPressed: () => cubit.deleteProject(),
                       icon: const Icon(Icons.delete))

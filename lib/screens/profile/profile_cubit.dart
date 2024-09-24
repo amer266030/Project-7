@@ -126,7 +126,9 @@ class ProfileCubit extends Cubit<ProfileState> {
   // SnackBar
 
   void showSnackBar(BuildContext context, String msg) {
-    animatedSnakbar(msg: msg).show(context);
+    if (context.mounted) {
+      animatedSnakbar(msg: msg).show(context);
+    }
   }
 
   // Navigation
@@ -170,7 +172,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(SuccessState('Profile Updated!'));
     } catch (e) {
       if (e is DioException) {
-        alertTitle = 'Status Code: ${e.response?.statusCode}';
+        alertTitle = 'Error';
         alertMsg = 'Error Message: ${e.message}';
         emit(ErrorState());
       } else {

@@ -5,7 +5,7 @@ import 'package:tuwaiq_project_pulse/reusable_components/popups/custom_popup_vie
 import 'package:tuwaiq_project_pulse/screens/profile/profile_cubit.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/subviews/profile_card_view.dart';
 
-import '../../../reusable_components/list_item_view.dart';
+import '../../../reusable_components/list_items/list_item_view.dart';
 import '../../../reusable_components/pdf_preview/pdf_preview.dart';
 
 class ShowProfileView extends StatelessWidget {

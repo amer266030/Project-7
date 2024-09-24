@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 
-import '../extensions/color_ext.dart';
-import '../utils/typedefs.dart';
-import 'cards/bordered_card_view.dart';
+import '../../extensions/color_ext.dart';
+import '../../utils/typedefs.dart';
+import '../cards/bordered_card_view.dart';
 
 class ListItemView extends StatelessWidget {
   const ListItemView(
@@ -15,7 +15,7 @@ class ListItemView extends StatelessWidget {
       this.callback});
   final String label;
   final bool? toggleValue;
-  final ToggleType? toggleType;
+  final SettingsToggleType? toggleType;
   final VoidCallback? callback;
 
   @override
@@ -53,12 +53,12 @@ class ListItemView extends StatelessWidget {
   }
 }
 
-enum ToggleType { language, darkMode }
+enum SettingsToggleType { language, darkMode }
 
-extension ToggleValues on ToggleType {
+extension ToggleValues on SettingsToggleType {
   List<Widget> get widgetArr {
     switch (this) {
-      case ToggleType.language:
+      case SettingsToggleType.language:
         return [
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
@@ -69,7 +69,7 @@ extension ToggleValues on ToggleType {
             child: Text('EN'),
           )
         ];
-      case ToggleType.darkMode:
+      case SettingsToggleType.darkMode:
         return [
           const Padding(
               padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),

@@ -57,7 +57,6 @@ class ProfileApi extends NetworkMgr {
       },
     };
 
-    // Conditionally add image and cv if not null
     if (imgToUpload != null) {
       data["image"] = imgToUpload;
     }
@@ -74,10 +73,11 @@ class ProfileApi extends NetworkMgr {
         ),
       );
     } on DioException catch (e) {
-      errorMsg = e.response.toString();
+      print(e.response);
+      errorMsg = '${e.response}';
       rethrow;
     } catch (e) {
-      errorMsg = e.toString();
+      errorMsg = '$e';
       rethrow;
     }
   }

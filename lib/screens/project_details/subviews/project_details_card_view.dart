@@ -26,7 +26,12 @@ class ProjectDetailsCardView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           _ImgView(url: project.logoUrl, cubit: cubit),
-          Text(project.projectName ?? '').styled(size: 16, weight: FW.bold),
+          Text(project.projectName == null
+                  ? 'No Name!'
+                  : project.projectName!.isEmpty
+                      ? 'No Name'
+                      : '')
+              .styled(color: C.primary(brightness), size: 16, weight: FW.bold),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -136,18 +141,21 @@ class ListItemWithText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-            child: Text(title)
-                .styled(color: C.primary(brightness), weight: FW.w500)),
-        const SizedBox(width: 4),
-        Expanded(
-            flex: 2,
-            child: Text(body)
-                .styled(size: 12, color: Colors.black, weight: FW.w300)),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+              child: Text(title)
+                  .styled(color: C.primary(brightness), weight: FW.w500)),
+          const SizedBox(width: 4),
+          Expanded(
+              flex: 2,
+              child: Text(body)
+                  .styled(size: 12, color: Colors.black, weight: FW.w300)),
+        ],
+      ),
     );
   }
 }
@@ -165,46 +173,50 @@ class ListItemWithTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-            child: Text(title)
-                .styled(color: C.primary(brightness), weight: FW.w500)),
-        const SizedBox(width: 4),
-        Expanded(
-          flex: 2,
-          child: Column(
-            children: [
-              ConstrainedBox(
-                constraints: const BoxConstraints(minWidth: double.infinity),
-                child: TextField(
-                  readOnly: readOnly,
-                  controller: controller,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
-                  style: TextStyle(
-                      color: Colors.black, fontSize: 12, fontWeight: FW.w300),
-                  decoration: InputDecoration(
-                    isDense: true, // Reduces vertical space
-                    contentPadding: EdgeInsets.symmetric(
-                        vertical: 0, horizontal: 4), // Removes vertical padding
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Colors.grey), // Set the border color
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color: C.primary(
-                              brightness)), // Set the border color when focused
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+              child: Text(title)
+                  .styled(color: C.primary(brightness), weight: FW.w500)),
+          const SizedBox(width: 4),
+          Expanded(
+            flex: 2,
+            child: Column(
+              children: [
+                ConstrainedBox(
+                  constraints: const BoxConstraints(minWidth: double.infinity),
+                  child: TextField(
+                    readOnly: readOnly,
+                    controller: controller,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    style: TextStyle(
+                        color: Colors.black, fontSize: 12, fontWeight: FW.w300),
+                    decoration: InputDecoration(
+                      isDense: true, // Reduces vertical space
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 0,
+                          horizontal: 4), // Removes vertical padding
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Colors.grey), // Set the border color
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: C.primary(
+                                brightness)), // Set the border color when focused
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -218,28 +230,31 @@ class ListItemWithDropDown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
-    return Row(
-      children: [
-        Expanded(
-            child: Text(title)
-                .styled(color: C.primary(brightness), weight: FW.w500)),
-        const SizedBox(width: 4),
-        Expanded(
-          child: DropdownButton<ProjectType>(
-              value: cubit.selectedType,
-              isExpanded: true,
-              items: ProjectType.values.map((ProjectType type) {
-                return DropdownMenuItem<ProjectType>(
-                    value: type,
-                    child: Text(type.toString().split('.').last)
-                        .styled(color: Colors.black, weight: FW.w300));
-              }).toList(),
-              onChanged: cubit.readOnly
-                  ? null
-                  : (ProjectType? newValue) => cubit.changeType(newValue!)),
-        ),
-        const Spacer()
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Row(
+        children: [
+          Expanded(
+              child: Text(title)
+                  .styled(color: C.primary(brightness), weight: FW.w500)),
+          const SizedBox(width: 4),
+          Expanded(
+            child: DropdownButton<ProjectType>(
+                value: cubit.selectedType,
+                isExpanded: true,
+                items: ProjectType.values.map((ProjectType type) {
+                  return DropdownMenuItem<ProjectType>(
+                      value: type,
+                      child: Text(type.toString().split('.').last)
+                          .styled(color: Colors.black, weight: FW.w300));
+                }).toList(),
+                onChanged: cubit.readOnly
+                    ? null
+                    : (ProjectType? newValue) => cubit.changeType(newValue!)),
+          ),
+          const Spacer()
+        ],
+      ),
     );
   }
 }

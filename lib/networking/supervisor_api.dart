@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:tuwaiq_project_pulse/extensions/date_ext.dart';
 
 import '../managers/auth_mgr.dart';
 import '_client/api_path.dart';
@@ -45,7 +46,7 @@ class SupervisorApi extends NetworkMgr {
         ApiPath.supervisor.changeStatus(projectId: projectId),
         options: Options(headers: {'Authorization': 'Bearer $adminToken'}),
         data: {
-          "time_end_edit": "11/12/2024",
+          "time_end_edit": endDate.toFormattedString(),
           "edit": canEdit,
           "rating": canRate,
           "public": isPublic
