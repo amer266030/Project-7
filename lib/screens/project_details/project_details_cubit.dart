@@ -102,7 +102,7 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
       PopupMgr().showPopup(context: context, title: title, child: child);
 
   void navigateToRatingScreen(BuildContext context) => Navigator.of(context)
-      .push(MaterialPageRoute(builder: (context) => RatingScreen()));
+      .push(MaterialPageRoute(builder: (context) => const RatingScreen()));
 
   // Logo
   void getImage() async {

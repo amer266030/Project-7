@@ -1,3 +1,11 @@
+subprojects{
+    afterEvaluate {
+        android {
+            namespace "com.example.tuwaiq_project_pulse"
+        }
+    }
+}
+
 plugins {
     id "com.android.application"
     id "kotlin-android"
@@ -6,7 +14,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.tuwaiq_project_pulse"
+    // namespace = "com.example.tuwaiq_project_pulse"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
