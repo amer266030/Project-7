@@ -36,11 +36,14 @@ class UserApi extends NetworkMgr {
           "note": rating.note
         },
       );
+      print(response.data);
       setProject(response);
     } on DioException catch (e) {
+      print('error: ${e.response}');
       errorMsg = e.response.toString();
       rethrow;
     } catch (e) {
+      print('error: $e');
       errorMsg = e.toString();
       rethrow;
     }

@@ -27,7 +27,7 @@ class SupervisorListItemView extends StatelessWidget {
           children: [
             Text(label).styled(weight: FW.bold),
             ToggleButtons(
-              isSelected: [toggleValue, !toggleValue],
+              isSelected: [!toggleValue, toggleValue],
               onPressed: (idx) => callback(),
               selectedColor: Colors.white,
               color: Colors.black,

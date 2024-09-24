@@ -50,7 +50,7 @@ class RatingBuilder extends StatelessWidget {
                     color: C.primary(brightness),
                   ),
                   onRatingUpdate: (newRating) {
-                    cubit.updateRating(newRating, 'project idea');
+                    cubit.updateRating(newRating, field);
                   },
                 );
               },

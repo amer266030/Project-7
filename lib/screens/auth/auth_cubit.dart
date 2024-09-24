@@ -17,8 +17,8 @@ class AuthCubit extends Cubit<AuthState> {
   var isSignup = false;
   // Input Fields
   var emailController = TextEditingController();
-  var firstNameController = TextEditingController(text: 'John');
-  var lastNameController = TextEditingController(text: 'Doe');
+  var firstNameController = TextEditingController();
+  var lastNameController = TextEditingController();
   int otp = -1;
   // Alert Dialog
   bool isAlertVisible = false;

@@ -14,7 +14,8 @@ import 'package:tuwaiq_project_pulse/utils/typedefs.dart';
 import 'package:tuwaiq_project_pulse/utils/validations.dart';
 
 class RatingScreen extends StatelessWidget {
-  const RatingScreen({super.key});
+  const RatingScreen({super.key, required this.projectId});
+  final String projectId;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,11 @@ class RatingScreen extends StatelessWidget {
               size: 18,
               weight: FW.bold,
             ),
-            actions: [TextButton(onPressed: () => (), child: Text('Send'))],
+            actions: [
+              TextButton(
+                  onPressed: () => cubit.sendRating(projectId),
+                  child: const Text('Send'))
+            ],
           ),
           backgroundColor: C.bg1(brightness),
           body: Stack(children: [
