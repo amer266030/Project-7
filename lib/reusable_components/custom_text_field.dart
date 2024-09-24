@@ -9,10 +9,12 @@ class CustomTextField extends StatelessWidget {
       required this.hintText,
       this.prefixIcon,
       this.suffixIcon,
+      this.max = 1,
       required this.controller,
       required this.validation});
   final String hintText;
   final Widget? prefixIcon;
+  final int? max;
   final Widget? suffixIcon;
   final TextEditingController controller;
   final Function(String value) validation;
@@ -22,6 +24,8 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: TextFormField(
+        maxLines: max,
+        minLines: 1,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: controller,
         textCapitalization: TextCapitalization.none,

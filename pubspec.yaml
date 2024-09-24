@@ -29,6 +29,7 @@ dependencies:
   video_player: ^2.9.1
   another_flutter_splash_screen: ^1.2.1
   url_launcher: ^6.3.0
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:
