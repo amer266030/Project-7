@@ -70,18 +70,21 @@ class SupervisorProjectEditScreen extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       const Text('Start Date:').styled(
-                                          color: Colors.black, weight: FW.bold),
+                                          color: C.text(brightness),
+                                          weight: FW.bold),
                                       Text(cubit.startDate.toFormattedString()),
                                       IconButton(
                                         onPressed: () => BottomPicker.date(
                                           pickerTitle: Text(
-                                            'Select an End Date for the project',
+                                            'Select an Start Date for the project',
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16,
                                               color: C.primary(brightness),
                                             ),
                                           ),
+                                          buttonSingleColor:
+                                              C.primary(brightness),
                                           dateOrder: DatePickerDateOrder.dmy,
                                           initialDateTime: DateTime.now(),
                                           maxDateTime: DateTime.now()
@@ -89,7 +92,6 @@ class SupervisorProjectEditScreen extends StatelessWidget {
                                           minDateTime: DateTime.now()
                                               .add(const Duration(days: -1)),
                                           pickerTextStyle: const TextStyle(
-                                            // color: C.text1,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 14,
                                           ),
@@ -111,7 +113,8 @@ class SupervisorProjectEditScreen extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       const Text('End Date:').styled(
-                                          color: Colors.black, weight: FW.bold),
+                                          color: C.text(brightness),
+                                          weight: FW.bold),
                                       Text(cubit.endDate.toFormattedString()),
                                       IconButton(
                                         onPressed: () => BottomPicker.date(
@@ -123,6 +126,8 @@ class SupervisorProjectEditScreen extends StatelessWidget {
                                               color: C.primary(brightness),
                                             ),
                                           ),
+                                          buttonSingleColor:
+                                              C.primary(brightness),
                                           dateOrder: DatePickerDateOrder.dmy,
                                           initialDateTime: DateTime.now(),
                                           maxDateTime: DateTime.now()

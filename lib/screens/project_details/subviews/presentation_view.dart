@@ -22,7 +22,8 @@ class PresentationView extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text('Presentation').styled(weight: FW.bold),
+            const Text('Presentation')
+                .styled(weight: FW.bold, color: C.text(brightness)),
             Row(
               children: [
                 IconButton(

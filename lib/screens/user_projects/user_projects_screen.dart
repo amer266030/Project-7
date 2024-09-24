@@ -28,8 +28,8 @@ class UserProjectsScreen extends StatelessWidget {
             backgroundColor: C.bg1(brightness),
             appBar: AppBar(
                 backgroundColor: C.bg1(brightness),
-                title: const Text('My Projects')
-                    .styled(size: 18, weight: FW.bold)),
+                title: const Text('My Projects').styled(
+                    size: 18, weight: FW.bold, color: C.text(brightness))),
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(24),
@@ -40,7 +40,9 @@ class UserProjectsScreen extends StatelessWidget {
                       builder: (context, state) {
                         if (state is UserProjectsInitial) cubit.loadProfile();
                         return cubit.user.projects == null
-                            ? const Text('No Projects Found')
+                            ? const Text(
+                                'No Projects Found',
+                              ).styled(color: C.text(brightness))
                             : Expanded(
                                 child: ListView(
                                   children: cubit.user.projects!
