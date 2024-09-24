@@ -101,8 +101,10 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
           required Widget child}) =>
       PopupMgr().showPopup(context: context, title: title, child: child);
 
-  void navigateToRatingScreen(BuildContext context) => Navigator.of(context)
-      .push(MaterialPageRoute(builder: (context) => RatingScreen()));
+  void navigateToRatingScreen(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const RatingScreen()));
+  }
 
   // Logo
   void getImage() async {

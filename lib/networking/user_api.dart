@@ -10,7 +10,7 @@ import 'package:tuwaiq_project_pulse/utils/img_converter.dart';
 
 import '../managers/auth_mgr.dart';
 import '../model/project/project_links.dart';
-import '../model/rating.dart';
+import '../model/rating/rating.dart';
 import '_client/api_path.dart';
 
 class UserApi extends NetworkMgr {

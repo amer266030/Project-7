@@ -34,22 +34,27 @@ class RatingCardView extends StatelessWidget {
               ],
             ),
             ElevatedBtnView(
+              title: cubit.project.allowRating == true
+                  ? 'Rating QR'
+                  : 'Rating Closed',
+              callBack: () => cubit.showPopup(
+                context: context,
                 title: 'Rating QR',
-                callBack: () => cubit.showPopup(
-                    context: context,
-                    title: 'Rating QR',
-                    child: SizedBox(
-                        height: context.screenWidth * 0.7,
-                        width: context.screenWidth * 0.7,
-                        child: InkWell(
-                          onTap: () => cubit.navigateToRatingScreen(context),
-                          child: QrImageView(
-                            data: 'This is a simple QR code',
-                            version: QrVersions.auto,
-                            size: 320,
-                            gapless: false,
-                          ),
-                        ))))
+                child: SizedBox(
+                  height: context.screenWidth * 0.7,
+                  width: context.screenWidth * 0.7,
+                  child: InkWell(
+                    onTap: () => cubit.navigateToRatingScreen(context),
+                    child: QrImageView(
+                      data: cubit.project.projectId ?? '',
+                      version: QrVersions.auto,
+                      size: 320,
+                      gapless: false,
+                    ),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

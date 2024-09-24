@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
+import 'package:tuwaiq_project_pulse/model/rating/rating_field.dart';
 import 'package:tuwaiq_project_pulse/screens/rating/rating_cubit.dart';
 
 class RatingBuilder extends StatelessWidget {
@@ -11,10 +12,12 @@ class RatingBuilder extends StatelessWidget {
     super.key,
     required this.cubit,
     required this.title,
+    required this.field,
   });
 
   final RatingCubit cubit;
   final String title;
+  final RatingField field;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +50,7 @@ class RatingBuilder extends StatelessWidget {
                     color: C.primary(brightness),
                   ),
                   onRatingUpdate: (newRating) {
-                    cubit.updateRating(newRating);
+                    cubit.updateRating(newRating, 'project idea');
                   },
                 );
               },
