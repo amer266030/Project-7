@@ -29,7 +29,7 @@ class TopRatedView extends StatelessWidget {
             : Column(
                 children: [
                   AspectRatio(
-                    aspectRatio: 1.7,
+                    aspectRatio: 1.8,
                     child: PageView.builder(
                       controller: pageController,
                       onPageChanged: (index) {
