@@ -43,25 +43,18 @@ class CreateProjectCubit extends Cubit<CreateProjectState> {
   }
 
   Future<void> saveChanges() async {
-    if (addedUserId.text.isNotEmpty) {
-      selectedUser = User(id: addedUserId.text);
-    }
+    var formattedDate = selectedDate.toFormattedString();
 
-    if (selectedUser == null) {
-      emit(ErrorState(msg: 'No User Selected!'));
-    } else {
-      var formattedDate = selectedDate.toFormattedString();
-
-      try {
-        await supervisorApi.createProject(
-          userId: selectedUser!.id!,
-          endDate: formattedDate,
-          edit: canEdit,
-        );
-        emit(SuccessState());
-      } catch (e) {
-        emit(ErrorState(msg: 'An error occurred while creating the project.'));
-      }
+    try {
+      await supervisorApi.createProject(
+        userId:
+            selectedUser == null ? addedUserId.text : selectedUser?.id ?? '',
+        endDate: formattedDate,
+        edit: canEdit,
+      );
+      emit(SuccessState());
+    } catch (e) {
+      emit(ErrorState(msg: 'Error! Invalid User.'));
     }
   }
 }

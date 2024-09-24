@@ -33,6 +33,9 @@ class ProfileScreen extends StatelessWidget {
               if (state is SuccessState) {
                 cubit.showSnackBar(context, state.msg);
               }
+              if (state is NoUrlState) {
+                cubit.showSnackBar(context, 'URL is not available');
+              }
             }
           },
           child: SafeArea(

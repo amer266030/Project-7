@@ -35,6 +35,7 @@ class CreateProjectScreen extends StatelessWidget {
             }
           },
           child: Scaffold(
+            resizeToAvoidBottomInset: false,
             backgroundColor: C.bg1(brightness),
             appBar: AppBar(
                 centerTitle: true,
@@ -46,162 +47,144 @@ class CreateProjectScreen extends StatelessWidget {
                 SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.all(24),
-                    child: Column(
+                    child: ListView(
                       children: [
-                        Expanded(
-                          child: ListView(
-                            children: [
-                              BorderedCardView(
-                                isSecondaryColor: false,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text('User:').styled(
-                                              color: Colors.black,
-                                              weight: FW.bold),
-                                          Card(
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 8.0),
-                                              child: BlocBuilder<
-                                                  CreateProjectCubit,
-                                                  CreateProjectState>(
-                                                builder: (context, state) {
-                                                  if (state
-                                                      is CreateProjectInitial) {
-                                                    cubit.fetchUsers();
-                                                  }
-                                                  return DropdownButton<User>(
-                                                    value: cubit.selectedUser,
-                                                    onChanged: (User? user) {
-                                                      cubit.changeSelectedUser(
-                                                          user!);
-                                                    },
-                                                    items: cubit.allUsers
-                                                        .map((User user) {
-                                                      return DropdownMenuItem<
-                                                              User>(
-                                                          value: user,
-                                                          child: Text(
-                                                                  user.email ??
-                                                                      '')
+                        BorderedCardView(
+                          isSecondaryColor: false,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text('User:').styled(
+                                        color: Colors.black, weight: FW.bold),
+                                    Flexible(
+                                      child: Card(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0),
+                                          child: BlocBuilder<CreateProjectCubit,
+                                              CreateProjectState>(
+                                            builder: (context, state) {
+                                              if (state
+                                                  is CreateProjectInitial) {
+                                                cubit.fetchUsers();
+                                              }
+                                              return DropdownButton<User>(
+                                                value: cubit.selectedUser,
+                                                onChanged: (User? user) {
+                                                  cubit.changeSelectedUser(
+                                                      user!);
+                                                },
+                                                items: cubit.allUsers
+                                                    .map((User user) {
+                                                  return DropdownMenuItem<User>(
+                                                      value: user,
+                                                      child:
+                                                          Text(user.email ?? '')
                                                               .styled(
                                                                   size: 10));
-                                                    }).toList(),
-                                                  );
-                                                },
-                                              ),
-                                            ),
+                                                }).toList(),
+                                              );
+                                            },
                                           ),
-                                        ],
+                                        ),
                                       ),
-                                      Row(
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: const Text('User ID:').styled(
+                                          color: Colors.black, weight: FW.bold),
+                                    ),
+                                    const SizedBox(width: 16),
+                                    Expanded(
+                                      flex: 3,
+                                      child: CustomTextField(
+                                          hintText: 'userId',
+                                          controller: cubit.addedUserId,
+                                          max: 3,
+                                          validation: Validations.none),
+                                    )
+                                  ],
+                                ),
+                                BlocBuilder<CreateProjectCubit,
+                                    CreateProjectState>(
+                                  builder: (context, state) {
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16),
+                                      child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          const Text('User:').styled(
-                                              color: Colors.black,
-                                              weight: FW.bold),
-                                          const SizedBox(width: 16),
-                                          Expanded(
-                                            child: CustomTextField(
-                                                hintText: 'userId',
-                                                controller: cubit.addedUserId,
-                                                validation: Validations.none),
+                                          Text(cubit.canEdit
+                                                  ? 'Edit Enabled'
+                                                  : 'Edit Disabled')
+                                              .styled(
+                                                  color: Colors.black,
+                                                  weight: FW.bold),
+                                          Switch(
+                                            value: cubit.canEdit,
+                                            onChanged: (_) =>
+                                                cubit.toggleCanEdit(),
                                           )
                                         ],
                                       ),
-                                      BlocBuilder<CreateProjectCubit,
-                                          CreateProjectState>(
-                                        builder: (context, state) {
-                                          return Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 16),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(cubit.canEdit
-                                                        ? 'Edit Enabled'
-                                                        : 'Edit Disabled')
-                                                    .styled(
-                                                        color: Colors.black,
-                                                        weight: FW.bold),
-                                                Switch(
-                                                  value: cubit.canEdit,
-                                                  onChanged: (_) =>
-                                                      cubit.toggleCanEdit(),
-                                                )
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                      BlocBuilder<CreateProjectCubit,
-                                          CreateProjectState>(
-                                        builder: (context, state) {
-                                          return Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              const Text('End Date:').styled(
-                                                  color: Colors.black,
-                                                  weight: FW.bold),
-                                              Text(cubit.selectedDate
-                                                  .toFormattedString()),
-                                              IconButton(
-                                                onPressed: () =>
-                                                    BottomPicker.date(
-                                                  pickerTitle: Text(
-                                                    'Select an End Date for the project',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 16,
-                                                      color:
-                                                          C.primary(brightness),
-                                                    ),
-                                                  ),
-                                                  dateOrder:
-                                                      DatePickerDateOrder.dmy,
-                                                  initialDateTime:
-                                                      DateTime.now(),
-                                                  maxDateTime: DateTime.now()
-                                                      .add(const Duration(
-                                                          days: 360)),
-                                                  minDateTime: DateTime.now()
-                                                      .add(const Duration(
-                                                          days: -1)),
-                                                  pickerTextStyle:
-                                                      const TextStyle(
-                                                    // color: C.text1,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14,
-                                                  ),
-                                                  onSubmit: (date) => cubit
-                                                      .setSelectedDate(date),
-                                                ).show(context),
-                                                icon: Icon(Icons.calendar_month,
-                                                    color:
-                                                        C.primary(brightness)),
-                                              )
-                                            ],
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  ),
+                                    );
+                                  },
                                 ),
-                              ),
-                            ],
+                                BlocBuilder<CreateProjectCubit,
+                                    CreateProjectState>(
+                                  builder: (context, state) {
+                                    return Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Text('End Date:').styled(
+                                            color: Colors.black,
+                                            weight: FW.bold),
+                                        Text(cubit.selectedDate
+                                            .toFormattedString()),
+                                        IconButton(
+                                          onPressed: () => BottomPicker.date(
+                                            pickerTitle: Text(
+                                              'Select an End Date for the project',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: C.primary(brightness),
+                                              ),
+                                            ),
+                                            dateOrder: DatePickerDateOrder.dmy,
+                                            initialDateTime: DateTime.now(),
+                                            maxDateTime: DateTime.now()
+                                                .add(const Duration(days: 360)),
+                                            minDateTime: DateTime.now()
+                                                .add(const Duration(days: -1)),
+                                            pickerTextStyle: const TextStyle(
+                                              // color: C.text1,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            ),
+                                            onSubmit: (date) =>
+                                                cubit.setSelectedDate(date),
+                                          ).show(context),
+                                          icon: Icon(Icons.calendar_month,
+                                              color: C.primary(brightness)),
+                                        )
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         Row(
