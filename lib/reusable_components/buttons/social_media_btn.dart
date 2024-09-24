@@ -83,7 +83,7 @@ class SocialMediaBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
     return InkWell(
-        onTap: canEdit ? () => _showPopup(context) : _openUrl,
+        onTap: canEdit ? () => _showPopup(context) : () => _openUrl(),
         child: smallIcon
             ? Icon(icon, size: 16, color: Colors.black)
             : Padding(

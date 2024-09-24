@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:tuwaiq_project_pulse/model/api_response.dart';
 import 'package:tuwaiq_project_pulse/model/project/project.dart';
 import 'package:get_it/get_it.dart';
+import 'package:tuwaiq_project_pulse/model/project/project_members.dart';
 import 'package:tuwaiq_project_pulse/networking/_client/network_mgr.dart';
 import 'package:tuwaiq_project_pulse/utils/img_converter.dart';
 
@@ -180,7 +181,9 @@ class UserApi extends NetworkMgr {
   }
 
   // PUT
-  Future<void> createMembers({required String projectId}) async {
+  Future<void> createMembers(
+      {required String projectId,
+      required List<(String, String)> members}) async {
     try {
       var response = await dio.put(
           ApiPath.user.editProjectMembers(projectId: projectId),

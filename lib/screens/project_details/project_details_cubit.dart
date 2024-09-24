@@ -12,6 +12,7 @@ import 'package:tuwaiq_project_pulse/model/project/project_type.dart';
 import 'package:tuwaiq_project_pulse/networking/_client/networking_api.dart';
 import 'package:tuwaiq_project_pulse/screens/rating/rating_screen.dart';
 import 'package:tuwaiq_project_pulse/screens/supervisor_project_edit/supervisor_project_edit_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../managers/auth_mgr.dart';
 import '../../managers/popup_mgr.dart';
@@ -35,6 +36,7 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
   File? logo;
   List<File> screens = [];
   File? presentation;
+  List<(String, String)> members = [];
   // Links
   var githubController = TextEditingController();
   var figmaController = TextEditingController();
@@ -44,6 +46,15 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
   var appleController = TextEditingController();
   var androidController = TextEditingController();
   var webController = TextEditingController();
+  // Team Members
+  var member1IDController = TextEditingController();
+  var member2IDController = TextEditingController();
+  var member3IDController = TextEditingController();
+  var member4IDController = TextEditingController();
+  var member1RoleController = TextEditingController();
+  var member2RoleController = TextEditingController();
+  var member3RoleController = TextEditingController();
+  var member4RoleController = TextEditingController();
 
   // Initial
 
@@ -68,6 +79,17 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
       }
     } catch (e) {
       emit(ErrorState('Could not reload Project'));
+    }
+  }
+
+  void launchLink(String? link) async {
+    if (link != null) {
+      final Uri url = Uri.parse(link);
+      if (!await launchUrl(url)) {
+        emit(NoUrlState());
+      }
+    } else {
+      emit(NoUrlState());
     }
   }
 

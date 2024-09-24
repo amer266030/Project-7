@@ -20,3 +20,5 @@ final class SuccessState extends ProjectDetailsState {
 final class UpdateUIState extends ProjectDetailsState {}
 
 final class ProjectDeletedState extends ProjectDetailsState {}
+
+final class NoUrlState extends ProjectDetailsState {}

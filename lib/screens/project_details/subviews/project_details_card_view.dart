@@ -36,13 +36,14 @@ class ProjectDetailsCardView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text('Project Details').styled(weight: FW.w500),
-              IconButton(
-                  onPressed: cubit.updateProjectBase,
-                  icon: Icon(
-                    Icons.save,
-                    color: C.primary(brightness),
-                    size: 22,
-                  ))
+              if (!cubit.readOnly)
+                IconButton(
+                    onPressed: cubit.updateProjectBase,
+                    icon: Icon(
+                      Icons.save,
+                      color: C.primary(brightness),
+                      size: 22,
+                    ))
             ],
           ),
           Divider(color: C.bg1(brightness), thickness: 2),
@@ -67,9 +68,6 @@ class ProjectDetailsCardView extends StatelessWidget {
               body: project.presentationDate != null
                   ? project.presentationDate!.toSlashDate()
                   : 'None'),
-          Row(children: [
-            Text('Edit ${project.allowEdit! ? 'Enabled' : 'Disabled'}')
-          ]),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -82,13 +80,14 @@ class ProjectDetailsCardView extends StatelessWidget {
                             canEdit: !cubit.readOnly,
                           ))
                       .toList()),
-              IconButton(
-                  onPressed: cubit.updateLinks,
-                  icon: Icon(
-                    Icons.save,
-                    color: C.primary(brightness),
-                    size: 22,
-                  ))
+              if (!cubit.readOnly)
+                IconButton(
+                    onPressed: cubit.updateLinks,
+                    icon: Icon(
+                      Icons.save,
+                      color: C.primary(brightness),
+                      size: 22,
+                    ))
             ],
           ),
         ],
@@ -113,7 +112,7 @@ class _ImgView extends StatelessWidget {
           const Spacer(),
           Expanded(
             child: InkWell(
-              onTap: cubit.getImage,
+              onTap: cubit.readOnly ? null : cubit.getImage,
               child: ClipRRect(
                 borderRadius: BR.circular(12),
                 child: url != null
