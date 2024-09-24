@@ -65,9 +65,6 @@ class SettingsScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      ListItemView(
-                          label: 'Help & Support',
-                          callback: () => cubit.navigateToHelpScreen(context)),
                     ],
                   ),
                 ),
