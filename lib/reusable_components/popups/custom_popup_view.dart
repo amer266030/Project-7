@@ -35,6 +35,9 @@ class CustomPopupView extends StatelessWidget {
                       color: C.primary(brightness)))
             ],
           ),
+          SizedBox(
+            height: 10,
+          ),
           child,
         ],
       ),

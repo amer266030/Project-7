@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:tuwaiq_project_pulse/managers/popup_mgr.dart';
-import 'package:tuwaiq_project_pulse/screens/settings/help_support_view.dart';
 
 import 'app_theme/app_theme_cubit.dart';
 
@@ -41,8 +40,5 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(UpdateUIState());
   }
 
-  void navigateToHelpScreen(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const HelpSupportView()));
-  }
+
 }
