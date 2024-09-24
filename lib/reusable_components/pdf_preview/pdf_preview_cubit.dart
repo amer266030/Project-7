@@ -8,10 +8,11 @@ class PdfPreviewCubit extends Cubit<PdfPreviewState> {
   PdfPreviewCubit() : super(PdfPreviewInitial());
   String? localPath;
 
-  void loadPdf(String pdfUrl) {
+  void loadPdf(String pdfUrl) async {
     if (pdfUrl.isNotEmpty) {
       emit(LoadingState());
-      downloadPdf(pdfUrl);
+      print("url: $pdfUrl");
+      await downloadPdf(pdfUrl);
     } else {
       emit(ErrorState());
     }

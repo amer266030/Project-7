@@ -9,7 +9,6 @@ import 'package:tuwaiq_project_pulse/screens/profile/subviews/profile_card_view.
 
 import '../../../reusable_components/list_items/list_item_view.dart';
 import '../../../reusable_components/pdf_preview/pdf_preview.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ShowProfileView extends StatelessWidget {
   const ShowProfileView({super.key, required this.cubit});
