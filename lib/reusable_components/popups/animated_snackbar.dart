@@ -9,15 +9,19 @@ AnimatedSnackBar animatedSnakbar({
 }) {
   return AnimatedSnackBar(
     builder: ((context) {
-      final brightness = Theme.of(context).brightness;
+      if (context.mounted) {
+        final brightness = Theme.of(context).brightness;
 
-      return MaterialAnimatedSnackBar(
-        messageText: msg,
-        type: type,
-        foregroundColor: Colors.white,
-        backgroundColor: C.navBar(brightness),
-        iconData: CupertinoIcons.check_mark_circled_solid,
-      );
+        return MaterialAnimatedSnackBar(
+          messageText: msg,
+          type: type,
+          foregroundColor: Colors.white,
+          backgroundColor: C.navBar(brightness),
+          iconData: CupertinoIcons.check_mark_circled_solid,
+        );
+      } else {
+        return const Text('');
+      }
     }),
   );
 }

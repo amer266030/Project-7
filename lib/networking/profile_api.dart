@@ -73,7 +73,6 @@ class ProfileApi extends NetworkMgr {
         ),
       );
     } on DioException catch (e) {
-      print(e.response);
       errorMsg = '${e.response}';
       rethrow;
     } catch (e) {

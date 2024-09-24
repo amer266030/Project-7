@@ -34,7 +34,7 @@ class AuthApi extends NetworkMgr {
     try {
       await dio.post(ApiPath.auth.login, data: {"email": email});
     } on DioException catch (e) {
-      errorMsg = 'Error: ${e.response?.data}';
+      errorMsg = 'Error: ${e.response}';
       rethrow;
     } catch (e) {
       errorMsg = '$e';
