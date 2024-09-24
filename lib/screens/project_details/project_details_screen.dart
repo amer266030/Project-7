@@ -75,7 +75,8 @@ class ProjectDetailsScreen extends StatelessWidget {
                           ScreenShotsView(
                               cubit: cubit,
                               images: cubit.project.imagesProject ?? []),
-                          PresentationView(cubit: cubit),
+                          PresentationView(
+                              cubit: cubit, pdfLink: project.presentationUrl),
                         ],
                       );
                     },
