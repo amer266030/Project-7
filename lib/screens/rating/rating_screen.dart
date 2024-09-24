@@ -23,6 +23,19 @@ class RatingScreen extends StatelessWidget {
       child: Builder(builder: (context) {
         final cubit = context.read<RatingCubit>();
         return Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: const Text('Rating').styled(
+              size: 18,
+              weight: FW.bold,
+            ),
+            actions: [
+              CustomTextBtn(
+                title: "Send",
+                callback: () {},
+              )
+            ],
+          ),
           backgroundColor: C.bg1(brightness),
           body: Stack(children: [
             const BackgroundImg(),
@@ -31,33 +44,6 @@ class RatingScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(24.0),
                 child: ListView(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              CupertinoIcons.arrow_left,
-                              color: C.primary(brightness),
-                            )),
-                        const Text('Rating').styled(
-                          size: 18,
-                          weight: FW.bold,
-                          /* ADD
-              
-                              color: C.text(context)
-                               */
-                        ),
-                        CustomTextBtn(
-                          title: "Send",
-                          callback: () {},
-                        )
-                      ],
-                    ),
-
-                    /* Replace
-                        replace the folowing code with ProjectDetailsCard class
-                         */
                     AspectRatio(
                       aspectRatio: 2.5,
                       child: BorderedCardView(
@@ -139,12 +125,12 @@ class RatingScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Commints').styled(
+                          const Text('Commits').styled(
                             size: 16,
                             color: Colors.black,
                           ),
                           CustomTextField(
-                            hintText: "Commints",
+                            hintText: "Comments",
                             controller: cubit.commintController,
                             validation: Validations.emptyFieldValidation,
                             max: 4,

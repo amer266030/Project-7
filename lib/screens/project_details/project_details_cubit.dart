@@ -10,6 +10,7 @@ import 'package:tuwaiq_project_pulse/extensions/date_ext.dart';
 import 'package:tuwaiq_project_pulse/model/project/project.dart';
 import 'package:tuwaiq_project_pulse/model/project/project_type.dart';
 import 'package:tuwaiq_project_pulse/networking/_client/networking_api.dart';
+import 'package:tuwaiq_project_pulse/screens/rating/rating_screen.dart';
 import 'package:tuwaiq_project_pulse/screens/supervisor_project_edit/supervisor_project_edit_screen.dart';
 
 import '../../managers/auth_mgr.dart';
@@ -99,6 +100,9 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
           required String title,
           required Widget child}) =>
       PopupMgr().showPopup(context: context, title: title, child: child);
+
+  void navigateToRatingScreen(BuildContext context) => Navigator.of(context)
+      .push(MaterialPageRoute(builder: (context) => RatingScreen()));
 
   // Logo
   void getImage() async {

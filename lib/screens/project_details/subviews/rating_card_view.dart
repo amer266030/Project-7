@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
+import 'package:tuwaiq_project_pulse/extensions/screen_size.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/buttons/elevated_btn_view.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/cards/bordered_card_view.dart';
@@ -31,7 +33,23 @@ class RatingCardView extends StatelessWidget {
                     .styled(color: C.text(brightness), weight: FW.w300),
               ],
             ),
-            ElevatedBtnView(title: 'Rating QR', callBack: () => ())
+            ElevatedBtnView(
+                title: 'Rating QR',
+                callBack: () => cubit.showPopup(
+                    context: context,
+                    title: 'Rating QR',
+                    child: SizedBox(
+                        height: context.screenWidth * 0.7,
+                        width: context.screenWidth * 0.7,
+                        child: InkWell(
+                          onTap: () => cubit.navigateToRatingScreen(context),
+                          child: QrImageView(
+                            data: 'This is a simple QR code',
+                            version: QrVersions.auto,
+                            size: 320,
+                            gapless: false,
+                          ),
+                        ))))
           ],
         ),
       ),
