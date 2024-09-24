@@ -23,14 +23,14 @@ class MembersCardView extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 8,
         mainAxisSpacing: 8,
-        childAspectRatio: 1.5,
+        childAspectRatio: 1.8,
       ),
       itemCount: members.length,
       itemBuilder: (context, index) {
         final member = members[index];
         return BorderedCardView(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(4.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -39,10 +39,12 @@ class MembersCardView extends StatelessWidget {
                     Expanded(
                         child: AspectRatio(
                       aspectRatio: 1,
-                      child: member.imageUrl == null
-                          ? const Image(image: Img.logo, fit: BoxFit.cover)
-                          : Image.network(member.imageUrl ?? '',
-                              fit: BoxFit.cover),
+                      child: ClipOval(
+                        child: member.imageUrl == null
+                            ? const Image(image: Img.logo, fit: BoxFit.cover)
+                            : Image.network(member.imageUrl ?? '',
+                                fit: BoxFit.cover),
+                      ),
                     )),
                     const SizedBox(width: 8),
                     Expanded(
@@ -56,11 +58,50 @@ class MembersCardView extends StatelessWidget {
                                   color: C.primary(brightness),
                                   weight: FW.bold,
                                   lineLimit: 1),
-                          Text(member.position ?? '?').styled(
-                              size: 12,
-                              color: C.text(brightness),
-                              weight: FW.w300,
-                              lineLimit: 1),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 2.0),
+                            child: Text(member.position ?? '?').styled(
+                                size: 12,
+                                color: C.text(brightness),
+                                weight: FW.w300,
+                                lineLimit: 1),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                InkWell(
+                                  child: Icon(
+                                    FontAwesomeIcons.github,
+                                    size: 16,
+                                    color: C.text(brightness),
+                                  ),
+                                  onTap: () =>
+                                      cubit.launchLink(member.account?.github),
+                                ),
+                                InkWell(
+                                  child: Icon(
+                                    FontAwesomeIcons.link,
+                                    size: 16,
+                                    color: C.text(brightness),
+                                  ),
+                                  onTap: () => cubit
+                                      .launchLink(member.account?.bindlink),
+                                ),
+                                InkWell(
+                                  child: Icon(
+                                    FontAwesomeIcons.linkedinIn,
+                                    size: 16,
+                                    color: C.text(brightness),
+                                  ),
+                                  onTap: () => cubit
+                                      .launchLink(member.account?.linkedin),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     )
