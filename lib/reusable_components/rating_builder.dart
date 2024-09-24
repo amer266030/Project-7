@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +18,8 @@ class RatingBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -31,7 +32,7 @@ class RatingBuilder extends StatelessWidget {
           children: [
             Text('1').styled(
               size: 18,
-              color: C.primary(context),
+              color: C.primary(brightness),
             ),
             BlocBuilder<RatingCubit, RatingState>(
               builder: (context, state) {
@@ -43,7 +44,7 @@ class RatingBuilder extends StatelessWidget {
                   itemSize: 24,
                   itemBuilder: (context, _) => Icon(
                     Icons.star,
-                    color: C.primary(context),
+                    color: C.primary(brightness),
                   ),
                   onRatingUpdate: (newRating) {
                     cubit.updateRating(newRating);
@@ -53,7 +54,7 @@ class RatingBuilder extends StatelessWidget {
             ),
             Text('10').styled(
               size: 18,
-              color: C.primary(context),
+              color: C.primary(brightness),
             ),
           ],
         ),
