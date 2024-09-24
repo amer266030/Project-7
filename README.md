@@ -101,15 +101,19 @@ Additionally, the API supports user profile management, enabling users to update
 * signup, signin, otp screens:
 
 <p align="center">
-<img src="assets/sign up.png" 
+<img src="assets/sign up.png"  
+width="300"/>
 <img src="assets/signin.png" 
-<img src="assets/otp.png" 
  width="300"/>
+<img src="assets/otp.png"  
+width="300"/>
+
 
 * home & project details screens
 
 <p align="center">
-<img src="assets/home.JPG" 
+<img src="assets/home.JPG"  
+width="300"/>
 <img src="assets/projectdetails.JPG" 
  width="300"/>
 
@@ -117,6 +121,7 @@ Additionally, the API supports user profile management, enabling users to update
 
 <p align="center">
 <img src="assets/profile.JPG" 
+ width="300"/>
 <img src="assets/myprojects.JPG" 
  width="300"/>
 
@@ -124,6 +129,7 @@ Additionally, the API supports user profile management, enabling users to update
 
 <p align="center">
 <img src="assets/edit profile.JPG" 
+ width="300"/>
 <img src="assets/updateurl.JPG" 
  width="300"/>
 
@@ -136,7 +142,11 @@ Additionally, the API supports user profile management, enabling users to update
 * Dark screens
 
 <p align="center">
-<img src="assets/setting.JPG" 
+<img src="assets/darkS.png" 
+ width="300"/>
+<img src="assets/darkPE.png" 
+ width="300"/>
+<img src="assets/darkeP.png" 
  width="300"/>
 
 ## Created By
