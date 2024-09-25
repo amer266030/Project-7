@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/screens/admin/user_role.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/popups/custom_popup_view.dart';
 import 'package:tuwaiq_project_pulse/screens/profile/profile_cubit.dart';
@@ -15,6 +17,7 @@ class ShowProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<ProfileCubit>();
+    final brightness = Theme.of(context).brightness;
     return Column(
       children: [
         Padding(
@@ -57,6 +60,43 @@ class ShowProfileView extends StatelessWidget {
                   callback: () => cubit.navigateToUserProjects(context)),
               ListItemView(
                   label: 'Logout', callback: () => cubit.logOut(context)),
+              Row(
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      FontAwesomeIcons.github,
+                      color: C.bg2(brightness),
+                    ),
+                    onPressed: () {
+                      context
+                          .read<ProfileCubit>()
+                          .launchLink(cubit.user.link?.github);
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      FontAwesomeIcons.link,
+                      color: C.bg2(brightness),
+                    ),
+                    onPressed: () {
+                      context
+                          .read<ProfileCubit>()
+                          .launchLink(cubit.user.link?.bindlink);
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      FontAwesomeIcons.linkedinIn,
+                      color: C.bg2(brightness),
+                    ),
+                    onPressed: () {
+                      context
+                          .read<ProfileCubit>()
+                          .launchLink(cubit.user.link?.linkedin);
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
         ),

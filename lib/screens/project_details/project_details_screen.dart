@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/model/project/project.dart';
+import 'package:tuwaiq_project_pulse/screens/project_details/subviews/members/members_card_view.dart';
+import 'package:tuwaiq_project_pulse/screens/project_details/subviews/members/add_members_view.dart';
 import 'package:tuwaiq_project_pulse/screens/project_details/subviews/project_details_card_view.dart';
 import 'package:tuwaiq_project_pulse/screens/project_details/project_details_cubit.dart';
 import 'package:tuwaiq_project_pulse/screens/project_details/subviews/presentation_view.dart';
@@ -36,6 +38,10 @@ class ProjectDetailsScreen extends StatelessWidget {
                     msg: state.msg,
                     type: AnimatedSnackBarType.error);
               }
+              if (state is NoUrlState) {
+                cubit.showSnackBar(
+                    context: context, msg: 'URL is not available');
+              }
               if (state is ProjectDeletedState) {
                 Navigator.of(context).pop();
               }
@@ -43,18 +49,21 @@ class ProjectDetailsScreen extends StatelessWidget {
             child: Scaffold(
               backgroundColor: C.bg1(brightness),
               appBar: AppBar(
-                title: const Text('Project Details')
-                    .styled(size: 18, weight: FW.bold),
+                title: const Text(
+                  'Project Details',
+                ).styled(size: 18, weight: FW.bold, color: C.text(brightness)),
                 backgroundColor: C.bg1(brightness),
                 centerTitle: true,
-                actions: [
-                  IconButton(
-                      onPressed: () => cubit.navigateToEdit(context),
-                      icon: const Icon(Icons.edit)),
-                  IconButton(
-                      onPressed: () => cubit.deleteProject(),
-                      icon: const Icon(Icons.delete))
-                ],
+                actions: !cubit.readOnly
+                    ? [
+                        IconButton(
+                            onPressed: () => cubit.navigateToEdit(context),
+                            icon: const Icon(Icons.edit)),
+                        IconButton(
+                            onPressed: () => cubit.deleteProject(),
+                            icon: const Icon(Icons.delete))
+                      ]
+                    : [],
               ),
               body: SafeArea(
                 child: Padding(
@@ -74,7 +83,29 @@ class ProjectDetailsScreen extends StatelessWidget {
                           ScreenShotsView(
                               cubit: cubit,
                               images: cubit.project.imagesProject ?? []),
-                          PresentationView(cubit: cubit),
+                          PresentationView(
+                              cubit: cubit, pdfLink: project.presentationUrl),
+                          const Divider(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text('Team Members').styled(
+                                  weight: FW.bold, color: C.text(brightness)),
+                              if (!cubit.readOnly)
+                                IconButton(
+                                    onPressed: () =>
+                                        cubit.updateMembers(project),
+                                    icon: Icon(Icons.save,
+                                        color: C.primary(brightness)))
+                              // Show
+                            ],
+                          ),
+                          cubit.readOnly
+                              ? MembersCardView(
+                                  cubit: cubit,
+                                  members: project.membersProject ?? [],
+                                )
+                              : AddMembersView(cubit: cubit)
                         ],
                       );
                     },

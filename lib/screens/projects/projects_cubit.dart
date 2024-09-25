@@ -21,6 +21,9 @@ class ProjectsCubit extends Cubit<ProjectsState> {
   Map<String, List<Project>> groupedProjects = {};
   Project? selectedProject;
   var topRatedIdx = 0;
+  int _currentPageIndex = 0;
+
+  int get currentPageIndex => _currentPageIndex;
 
   void navigateToBootCampProjects(
           {required BuildContext context,
@@ -102,5 +105,10 @@ class ProjectsCubit extends Cubit<ProjectsState> {
       alertMsg = '$e';
       emit(ProjectsErrorState());
     }
+  }
+
+  void setCurrentPageIndex(int index) {
+    _currentPageIndex = index;
+    emit(ProjectsIndexUpdated(index));
   }
 }

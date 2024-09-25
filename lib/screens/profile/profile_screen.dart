@@ -33,6 +33,9 @@ class ProfileScreen extends StatelessWidget {
               if (state is SuccessState) {
                 cubit.showSnackBar(context, state.msg);
               }
+              if (state is NoUrlState) {
+                cubit.showSnackBar(context, 'URL is not available');
+              }
             }
           },
           child: SafeArea(
@@ -53,16 +56,20 @@ class ProfileScreen extends StatelessWidget {
                                       CupertinoIcons.arrow_left,
                                       color: C.primary(brightness),
                                     )),
-                                const Text('Profile')
-                                    .styled(size: 18, weight: FW.bold),
+                                const Text('Profile').styled(
+                                    size: 18,
+                                    weight: FW.bold,
+                                    color: C.text(brightness)),
                                 CustomTextBtn(
                                   title: "Save",
                                   callback: cubit.updateProfile,
                                 )
                               ],
                             )
-                          : const Text('Profile')
-                              .styled(size: 18, weight: FW.bold),
+                          : const Text('Profile').styled(
+                              size: 18,
+                              weight: FW.bold,
+                              color: C.text(brightness)),
                       Expanded(
                         child: cubit.isEdit
                             ? EditProfileView(cubit: cubit)

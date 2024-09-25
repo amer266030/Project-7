@@ -61,6 +61,7 @@ class SupervisorEditCubit extends Cubit<SupervisorEditState> {
   }
 
   Future<void> updateProject(String projectId) async {
+    print('can Rate: $canRate');
     try {
       await api.updateProject(
           projectId: projectId,

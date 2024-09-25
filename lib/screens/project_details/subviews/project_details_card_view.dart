@@ -9,6 +9,7 @@ import 'package:tuwaiq_project_pulse/model/project/project.dart';
 import 'package:tuwaiq_project_pulse/model/project/project_type.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/buttons/social_media_btn.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/cards/bordered_card_view.dart';
+import 'package:tuwaiq_project_pulse/screens/project_details/Link_management.dart';
 import 'package:tuwaiq_project_pulse/screens/project_details/project_details_cubit.dart';
 import 'package:tuwaiq_project_pulse/utils/typedefs.dart';
 
@@ -36,13 +37,14 @@ class ProjectDetailsCardView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text('Project Details').styled(weight: FW.w500),
-              IconButton(
-                  onPressed: cubit.updateProjectBase,
-                  icon: Icon(
-                    Icons.save,
-                    color: C.primary(brightness),
-                    size: 22,
-                  ))
+              if (!cubit.readOnly)
+                IconButton(
+                    onPressed: cubit.updateProjectBase,
+                    icon: Icon(
+                      Icons.save,
+                      color: C.primary(brightness),
+                      size: 22,
+                    ))
             ],
           ),
           Divider(color: C.bg1(brightness), thickness: 2),
@@ -67,28 +69,29 @@ class ProjectDetailsCardView extends StatelessWidget {
               body: project.presentationDate != null
                   ? project.presentationDate!.toSlashDate()
                   : 'None'),
-          Row(children: [
-            Text('Edit ${project.allowEdit! ? 'Enabled' : 'Disabled'}')
-          ]),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
-                  children: LinkType.values
-                      .map((link) => _LinkIconView(
-                            url: '',
-                            link: link,
-                            controller: cubit.githubController,
-                            canEdit: !cubit.readOnly,
-                          ))
-                      .toList()),
-              IconButton(
-                  onPressed: cubit.updateLinks,
-                  icon: Icon(
-                    Icons.save,
-                    color: C.primary(brightness),
-                    size: 22,
-                  ))
+                children: LinkType.values
+                    .map((link) => _LinkIconView(
+                          url: cubit.getControllerForLink(link).text,
+                          link: link,
+                          controller: cubit.getControllerForLink(
+                              link), // Pass the appropriate controller
+                          canEdit: !cubit.readOnly,
+                          cubit: cubit,
+                        ))
+                    .toList(),
+              ),
+              if (!cubit.readOnly)
+                IconButton(
+                    onPressed: cubit.updateLinks,
+                    icon: Icon(
+                      Icons.save,
+                      color: C.primary(brightness),
+                      size: 22,
+                    ))
             ],
           ),
         ],
@@ -113,7 +116,7 @@ class _ImgView extends StatelessWidget {
           const Spacer(),
           Expanded(
             child: InkWell(
-              onTap: cubit.getImage,
+              onTap: cubit.readOnly ? null : cubit.getImage,
               child: ClipRRect(
                 borderRadius: BR.circular(12),
                 child: url != null
@@ -193,14 +196,14 @@ class ListItemWithTextField extends StatelessWidget {
                     controller: controller,
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.black, fontSize: 12, fontWeight: FW.w300),
                     decoration: InputDecoration(
                       isDense: true, // Reduces vertical space
-                      contentPadding: EdgeInsets.symmetric(
+                      contentPadding: const EdgeInsets.symmetric(
                           vertical: 0,
                           horizontal: 4), // Removes vertical padding
-                      enabledBorder: UnderlineInputBorder(
+                      enabledBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(
                             color: Colors.grey), // Set the border color
                       ),
@@ -246,7 +249,7 @@ class ListItemWithDropDown extends StatelessWidget {
                   return DropdownMenuItem<ProjectType>(
                       value: type,
                       child: Text(type.toString().split('.').last)
-                          .styled(color: Colors.black, weight: FW.w300));
+                          .styled(color: C.text(brightness), weight: FW.w300));
                 }).toList(),
                 onChanged: cubit.readOnly
                     ? null
@@ -264,23 +267,35 @@ class _LinkIconView extends StatelessWidget {
       {required this.url,
       required this.link,
       required this.controller,
-      required this.canEdit});
+      required this.canEdit,
+      required this.cubit});
   final String? url;
   final LinkType? link;
   final TextEditingController controller;
   final bool canEdit;
+  final ProjectDetailsCubit cubit;
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 6),
-        child: SocialMediaBtn(
-          title: link?.name ?? '',
-          hint: 'https://',
-          controller: controller,
-          icon: link?.icon() ?? Icons.circle,
-          smallIcon: true,
-          canEdit: canEdit,
-        ));
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 6),
+      child: canEdit
+          ? SocialMediaBtn(
+              title: link?.name ?? '',
+              hint: 'https://',
+              controller: controller,
+              icon: link?.icon() ?? Icons.circle,
+              smallIcon: true,
+              canEdit: canEdit)
+          : InkWell(
+              child: Icon(
+                link?.icon() ?? Icons.circle,
+                size: 18,
+                color: C.text(brightness),
+              ),
+              onTap: () => cubit.launchLink(controller.text),
+            ),
+    );
   }
 }

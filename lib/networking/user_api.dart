@@ -5,12 +5,13 @@ import 'package:dio/dio.dart';
 import 'package:tuwaiq_project_pulse/model/api_response.dart';
 import 'package:tuwaiq_project_pulse/model/project/project.dart';
 import 'package:get_it/get_it.dart';
+import 'package:tuwaiq_project_pulse/model/project/project_members.dart';
 import 'package:tuwaiq_project_pulse/networking/_client/network_mgr.dart';
 import 'package:tuwaiq_project_pulse/utils/img_converter.dart';
 
 import '../managers/auth_mgr.dart';
 import '../model/project/project_links.dart';
-import '../model/rating.dart';
+import '../model/rating/rating.dart';
 import '_client/api_path.dart';
 
 class UserApi extends NetworkMgr {
@@ -36,11 +37,14 @@ class UserApi extends NetworkMgr {
           "note": rating.note
         },
       );
+      print(response.data);
       setProject(response);
     } on DioException catch (e) {
+      print('error: ${e.response}');
       errorMsg = e.response.toString();
       rethrow;
     } catch (e) {
+      print('error: $e');
       errorMsg = e.toString();
       rethrow;
     }
@@ -165,7 +169,7 @@ class UserApi extends NetworkMgr {
           "link": mappedLinks,
         },
       );
-
+      print(response);
       setProject(response);
     } on DioException catch (e) {
       errorMsg = e.response.toString();
@@ -176,28 +180,26 @@ class UserApi extends NetworkMgr {
     }
   }
 
-  // PUT
-  Future<void> createMembers({required String projectId}) async {
+// PUT
+  Future<void> createMembers({
+    required String projectId,
+    required List<(String, String)> members, // List of tuples (user_id, role)
+  }) async {
     try {
+      List<Map<String, String>> membersData = members
+          .map((member) => {
+                "user_id": member.$1,
+                "position": member.$2,
+              })
+          .toList();
+
       var response = await dio.put(
-          ApiPath.user.editProjectMembers(projectId: projectId),
-          options: Options(headers: {'Authorization': 'Bearer $token'}),
-          data: {
-            "members": [
-              {
-                "position": "ui",
-                "user_id": "6ca9bc46-217e-48ed-9fde-4b0ff57ad4b6"
-              },
-              {
-                "position": "Developer",
-                "user_id": "edc41350-526e-40af-97be-2e32a78d55bd"
-              },
-              {
-                "position": "Developer",
-                "user_id": "10545b55-4875-441d-88e8-f835acc72374"
-              }
-            ]
-          });
+        ApiPath.user.editProjectMembers(projectId: projectId),
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+        data: {
+          "members": membersData, // Pass the formatted list
+        },
+      );
       setProject(response);
     } on DioException catch (e) {
       errorMsg = e.response.toString();

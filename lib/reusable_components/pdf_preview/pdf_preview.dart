@@ -14,9 +14,11 @@ class PdfPreview extends StatelessWidget {
       child: BlocBuilder<PdfPreviewCubit, PdfPreviewState>(
         builder: (context, state) {
           final cubit = context.read<PdfPreviewCubit>();
-          if (state is PdfPreviewInitial) {
-            cubit.loadPdf(url ?? '');
-          }
+          Future.microtask(() {
+            if (state is PdfPreviewInitial) {
+              cubit.loadPdf(url ?? '');
+            }
+          });
 
           return SizedBox(
             width:

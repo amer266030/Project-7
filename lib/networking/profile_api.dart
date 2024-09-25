@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -73,7 +72,6 @@ class ProfileApi extends NetworkMgr {
         ),
       );
     } on DioException catch (e) {
-      print(e.response);
       errorMsg = '${e.response}';
       rethrow;
     } catch (e) {

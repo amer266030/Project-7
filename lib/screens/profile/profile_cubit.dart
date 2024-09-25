@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tuwaiq_project_pulse/model/user/user.dart';
 import 'package:tuwaiq_project_pulse/screens/auth/auth_screen.dart';
 import 'package:tuwaiq_project_pulse/screens/user_projects/user_projects_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../managers/alert_mgr.dart';
 import '../../managers/auth_mgr.dart';
@@ -143,6 +144,18 @@ class ProfileCubit extends Cubit<ProfileState> {
   void navigateToSupervisorScreen(BuildContext context) =>
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const CreateProjectScreen()));
+
+  // URL Navigation
+  void launchLink(String? link) async {
+    if (link != null) {
+      final Uri url = Uri.parse(link);
+      if (!await launchUrl(url)) {
+        emit(NoUrlState());
+      }
+    } else {
+      emit(NoUrlState());
+    }
+  }
 
   // API & User Mgmt
 

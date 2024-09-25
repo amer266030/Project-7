@@ -9,7 +9,7 @@ final class UpdateUIState extends CreateProjectState {}
 
 final class SuccessState extends CreateProjectState {
   final String msg;
-  SuccessState({this.msg = 'Project Created Successfully'});
+  SuccessState({this.msg = 'Project Created'});
 }
 
 final class ErrorState extends CreateProjectState {

@@ -20,11 +20,13 @@ class ScreenShotsView extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text('Screenshots').styled(weight: FW.bold),
-            IconButton(
-                onPressed: cubit.getScreenshots,
-                icon: Icon(CupertinoIcons.plus_circle_fill,
-                    color: C.primary(brightness)))
+            const Text('Screenshots')
+                .styled(weight: FW.bold, color: C.text(brightness)),
+            if (!cubit.readOnly)
+              IconButton(
+                  onPressed: cubit.getScreenshots,
+                  icon: Icon(CupertinoIcons.plus_circle_fill,
+                      color: C.primary(brightness)))
           ],
         ),
         images.isEmpty
