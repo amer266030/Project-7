@@ -5,6 +5,7 @@ import 'package:tuwaiq_project_pulse/extensions/color_ext.dart';
 import 'package:tuwaiq_project_pulse/extensions/string_ex.dart';
 import 'package:tuwaiq_project_pulse/screens/projects/projects_cubit.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:tuwaiq_project_pulse/screens/rating/rating_screen.dart';
 import 'subviews/bootcamps_view.dart';
 import 'subviews/top_rated_view.dart';
 
@@ -50,7 +51,12 @@ class ProjectsScreen extends StatelessWidget {
                                     false,
                                     ScanMode.DEFAULT)!
                                 .listen((barcode) {
-                                  
+                              print('Barcode: ');
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const RatingScreen(),
+                                  ));
                             });
                           },
                           icon: const Icon(CupertinoIcons.qrcode))

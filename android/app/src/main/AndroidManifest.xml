@@ -4,7 +4,8 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         android:enableOnBackInvokedCallback="true">
-        <uses-permission android:name="android.permission.CAMERA"/>
+        <uses-permission android:name="android.permission.CAMERA" />
+        <uses-permission android:name="android.permission.FLASHLIGHT" />
 
         <activity
             android:name=".MainActivity"
