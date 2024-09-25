@@ -93,7 +93,8 @@ class ProjectDetailsScreen extends StatelessWidget {
                                   weight: FW.bold, color: C.text(brightness)),
                               if (!cubit.readOnly)
                                 IconButton(
-                                    onPressed: cubit.pickPdfFile,
+                                    onPressed: () =>
+                                        cubit.updateMembers(project),
                                     icon: Icon(Icons.save,
                                         color: C.primary(brightness)))
                               // Show

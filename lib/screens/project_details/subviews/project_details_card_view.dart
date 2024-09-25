@@ -9,6 +9,7 @@ import 'package:tuwaiq_project_pulse/model/project/project.dart';
 import 'package:tuwaiq_project_pulse/model/project/project_type.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/buttons/social_media_btn.dart';
 import 'package:tuwaiq_project_pulse/reusable_components/cards/bordered_card_view.dart';
+import 'package:tuwaiq_project_pulse/screens/project_details/Link_management.dart';
 import 'package:tuwaiq_project_pulse/screens/project_details/project_details_cubit.dart';
 import 'package:tuwaiq_project_pulse/utils/typedefs.dart';
 
@@ -72,14 +73,17 @@ class ProjectDetailsCardView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
-                  children: LinkType.values
-                      .map((link) => _LinkIconView(
-                            url: '',
-                            link: link,
-                            controller: cubit.githubController,
-                            canEdit: !cubit.readOnly,
-                          ))
-                      .toList()),
+                children: LinkType.values
+                    .map((link) => _LinkIconView(
+                          url: cubit.getControllerForLink(link).text,
+                          link: link,
+                          controller: cubit.getControllerForLink(
+                              link), // Pass the appropriate controller
+                          canEdit: !cubit.readOnly,
+                          cubit: cubit,
+                        ))
+                    .toList(),
+              ),
               if (!cubit.readOnly)
                 IconButton(
                     onPressed: cubit.updateLinks,
@@ -263,23 +267,35 @@ class _LinkIconView extends StatelessWidget {
       {required this.url,
       required this.link,
       required this.controller,
-      required this.canEdit});
+      required this.canEdit,
+      required this.cubit});
   final String? url;
   final LinkType? link;
   final TextEditingController controller;
   final bool canEdit;
+  final ProjectDetailsCubit cubit;
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 6),
-        child: SocialMediaBtn(
-          title: link?.name ?? '',
-          hint: 'https://',
-          controller: controller,
-          icon: link?.icon() ?? Icons.circle,
-          smallIcon: true,
-          canEdit: canEdit,
-        ));
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 6),
+      child: canEdit
+          ? SocialMediaBtn(
+              title: link?.name ?? '',
+              hint: 'https://',
+              controller: controller,
+              icon: link?.icon() ?? Icons.circle,
+              smallIcon: true,
+              canEdit: canEdit)
+          : InkWell(
+              child: Icon(
+                link?.icon() ?? Icons.circle,
+                size: 18,
+                color: C.text(brightness),
+              ),
+              onTap: () => cubit.launchLink(controller.text),
+            ),
+    );
   }
 }

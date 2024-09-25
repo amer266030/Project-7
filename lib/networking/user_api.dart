@@ -169,7 +169,7 @@ class UserApi extends NetworkMgr {
           "link": mappedLinks,
         },
       );
-
+      print(response);
       setProject(response);
     } on DioException catch (e) {
       errorMsg = e.response.toString();
@@ -180,30 +180,26 @@ class UserApi extends NetworkMgr {
     }
   }
 
-  // PUT
-  Future<void> createMembers(
-      {required String projectId,
-      required List<(String, String)> members}) async {
+// PUT
+  Future<void> createMembers({
+    required String projectId,
+    required List<(String, String)> members, // List of tuples (user_id, role)
+  }) async {
     try {
+      List<Map<String, String>> membersData = members
+          .map((member) => {
+                "user_id": member.$1,
+                "position": member.$2,
+              })
+          .toList();
+
       var response = await dio.put(
-          ApiPath.user.editProjectMembers(projectId: projectId),
-          options: Options(headers: {'Authorization': 'Bearer $token'}),
-          data: {
-            "members": [
-              {
-                "position": "ui",
-                "user_id": "6ca9bc46-217e-48ed-9fde-4b0ff57ad4b6"
-              },
-              {
-                "position": "Developer",
-                "user_id": "edc41350-526e-40af-97be-2e32a78d55bd"
-              },
-              {
-                "position": "Developer",
-                "user_id": "10545b55-4875-441d-88e8-f835acc72374"
-              }
-            ]
-          });
+        ApiPath.user.editProjectMembers(projectId: projectId),
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+        data: {
+          "members": membersData, // Pass the formatted list
+        },
+      );
       setProject(response);
     } on DioException catch (e) {
       errorMsg = e.response.toString();
